@@ -94,6 +94,12 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FormClasses.Designer.vb">
+      <DependentUpon>FormClasses.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormClasses.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FormConnexion.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -105,6 +111,12 @@
       <DependentUpon>FormEtudiants.vb</DependentUpon>
     </Compile>
     <Compile Include="FormEtudiants.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormNotes.Designer.vb">
+      <DependentUpon>FormNotes.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormNotes.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormPrincipal.Designer.vb">
@@ -129,11 +141,17 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="FormClasses.resx">
+      <DependentUpon>FormClasses.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormConnexion.resx">
       <DependentUpon>FormConnexion.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormEtudiants.resx">
       <DependentUpon>FormEtudiants.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormNotes.resx">
+      <DependentUpon>FormNotes.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormPrincipal.resx">
       <DependentUpon>FormPrincipal.vb</DependentUpon>
