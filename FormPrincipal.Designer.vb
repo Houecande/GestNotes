@@ -45,13 +45,14 @@ Partial Class FormPrincipal
         Me.pnlLogo = New System.Windows.Forms.Panel()
         Me.lblLogoText = New System.Windows.Forms.Label()
         Me.pnlTopBar = New System.Windows.Forms.Panel()
-        Me.lblPageTitle = New System.Windows.Forms.Label()
         Me.lblInfoConnexion = New System.Windows.Forms.Label()
+        Me.lblPageTitle = New System.Windows.Forms.Label()
         Me.pnlContenu = New System.Windows.Forms.Panel()
+        Me.dgvDerniersSaisies = New System.Windows.Forms.DataGridView()
         Me.flpStats = New System.Windows.Forms.FlowLayoutPanel()
         Me.pnlStatEtudiants = New System.Windows.Forms.Panel()
-        Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.pnlStatMatieres = New System.Windows.Forms.Panel()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
@@ -61,17 +62,16 @@ Partial Class FormPrincipal
         Me.pnlStatBulletins = New System.Windows.Forms.Panel()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Label8 = New System.Windows.Forms.Label()
-        Me.dgvDerniersSaisies = New System.Windows.Forms.DataGridView()
         Me.pnlSidebar.SuspendLayout()
         Me.pnlLogo.SuspendLayout()
         Me.pnlTopBar.SuspendLayout()
         Me.pnlContenu.SuspendLayout()
+        CType(Me.dgvDerniersSaisies, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.flpStats.SuspendLayout()
         Me.pnlStatEtudiants.SuspendLayout()
         Me.pnlStatMatieres.SuspendLayout()
         Me.pnlStatNotes.SuspendLayout()
         Me.pnlStatBulletins.SuspendLayout()
-        CType(Me.dgvDerniersSaisies, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'pnlSidebar
@@ -337,17 +337,6 @@ Partial Class FormPrincipal
         Me.pnlTopBar.Size = New System.Drawing.Size(976, 44)
         Me.pnlTopBar.TabIndex = 1
         '
-        'lblPageTitle
-        '
-        Me.lblPageTitle.AutoSize = True
-        Me.lblPageTitle.Font = New System.Drawing.Font("Segoe UI", 12.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblPageTitle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(12, Byte), Integer), CType(CType(68, Byte), Integer), CType(CType(124, Byte), Integer))
-        Me.lblPageTitle.Location = New System.Drawing.Point(16, 10)
-        Me.lblPageTitle.Name = "lblPageTitle"
-        Me.lblPageTitle.Size = New System.Drawing.Size(141, 23)
-        Me.lblPageTitle.TabIndex = 0
-        Me.lblPageTitle.Text = "Tableau de bord"
-        '
         'lblInfoConnexion
         '
         Me.lblInfoConnexion.AutoSize = True
@@ -362,6 +351,17 @@ Partial Class FormPrincipal
         Me.lblInfoConnexion.Text = "Connecté : Administrateur"
         Me.lblInfoConnexion.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
+        'lblPageTitle
+        '
+        Me.lblPageTitle.AutoSize = True
+        Me.lblPageTitle.Font = New System.Drawing.Font("Segoe UI", 12.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblPageTitle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(12, Byte), Integer), CType(CType(68, Byte), Integer), CType(CType(124, Byte), Integer))
+        Me.lblPageTitle.Location = New System.Drawing.Point(16, 10)
+        Me.lblPageTitle.Name = "lblPageTitle"
+        Me.lblPageTitle.Size = New System.Drawing.Size(141, 23)
+        Me.lblPageTitle.TabIndex = 0
+        Me.lblPageTitle.Text = "Tableau de bord"
+        '
         'pnlContenu
         '
         Me.pnlContenu.BackColor = System.Drawing.Color.Transparent
@@ -373,6 +373,26 @@ Partial Class FormPrincipal
         Me.pnlContenu.Padding = New System.Windows.Forms.Padding(14)
         Me.pnlContenu.Size = New System.Drawing.Size(976, 661)
         Me.pnlContenu.TabIndex = 2
+        '
+        'dgvDerniersSaisies
+        '
+        Me.dgvDerniersSaisies.AllowUserToAddRows = False
+        Me.dgvDerniersSaisies.BackgroundColor = System.Drawing.Color.White
+        Me.dgvDerniersSaisies.BorderStyle = System.Windows.Forms.BorderStyle.None
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(230, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(251, Byte), Integer))
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvDerniersSaisies.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        Me.dgvDerniersSaisies.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvDerniersSaisies.Location = New System.Drawing.Point(0, 100)
+        Me.dgvDerniersSaisies.Name = "dgvDerniersSaisies"
+        Me.dgvDerniersSaisies.RowHeadersVisible = False
+        Me.dgvDerniersSaisies.Size = New System.Drawing.Size(680, 200)
+        Me.dgvDerniersSaisies.TabIndex = 1
         '
         'flpStats
         '
@@ -398,17 +418,6 @@ Partial Class FormPrincipal
         Me.pnlStatEtudiants.Size = New System.Drawing.Size(160, 78)
         Me.pnlStatEtudiants.TabIndex = 0
         '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(12, Byte), Integer), CType(CType(68, Byte), Integer), CType(CType(124, Byte), Integer))
-        Me.Label1.Location = New System.Drawing.Point(28, 3)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(88, 32)
-        Me.Label1.TabIndex = 1
-        Me.Label1.Text = "Label1"
-        '
         'Label2
         '
         Me.Label2.AutoSize = True
@@ -419,6 +428,17 @@ Partial Class FormPrincipal
         Me.Label2.Size = New System.Drawing.Size(40, 13)
         Me.Label2.TabIndex = 2
         Me.Label2.Text = "Label2"
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(12, Byte), Integer), CType(CType(68, Byte), Integer), CType(CType(124, Byte), Integer))
+        Me.Label1.Location = New System.Drawing.Point(28, 3)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(88, 32)
+        Me.Label1.TabIndex = 1
+        Me.Label1.Text = "Label1"
         '
         'pnlStatMatieres
         '
@@ -522,26 +542,6 @@ Partial Class FormPrincipal
         Me.Label8.TabIndex = 1
         Me.Label8.Text = "Label8"
         '
-        'dgvDerniersSaisies
-        '
-        Me.dgvDerniersSaisies.AllowUserToAddRows = False
-        Me.dgvDerniersSaisies.BackgroundColor = System.Drawing.Color.White
-        Me.dgvDerniersSaisies.BorderStyle = System.Windows.Forms.BorderStyle.None
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(230, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(251, Byte), Integer))
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvDerniersSaisies.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
-        Me.dgvDerniersSaisies.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvDerniersSaisies.Location = New System.Drawing.Point(0, 100)
-        Me.dgvDerniersSaisies.Name = "dgvDerniersSaisies"
-        Me.dgvDerniersSaisies.RowHeadersVisible = False
-        Me.dgvDerniersSaisies.Size = New System.Drawing.Size(680, 200)
-        Me.dgvDerniersSaisies.TabIndex = 1
-        '
         'FormPrincipal
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
@@ -566,6 +566,7 @@ Partial Class FormPrincipal
         Me.pnlTopBar.ResumeLayout(False)
         Me.pnlTopBar.PerformLayout()
         Me.pnlContenu.ResumeLayout(False)
+        CType(Me.dgvDerniersSaisies, System.ComponentModel.ISupportInitialize).EndInit()
         Me.flpStats.ResumeLayout(False)
         Me.pnlStatEtudiants.ResumeLayout(False)
         Me.pnlStatEtudiants.PerformLayout()
@@ -575,7 +576,6 @@ Partial Class FormPrincipal
         Me.pnlStatNotes.PerformLayout()
         Me.pnlStatBulletins.ResumeLayout(False)
         Me.pnlStatBulletins.PerformLayout()
-        CType(Me.dgvDerniersSaisies, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
