@@ -1,0 +1,9 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+  </Configurations>
+  <Project Path="GestNotesV1.vbproj" Id="9e99f8be-635b-4be6-8985-31f8aadc3382">
+    <Platform Solution="*|x64" Project="x64" />
+  </Project>
+</Solution>
