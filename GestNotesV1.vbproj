@@ -125,6 +125,12 @@
     <Compile Include="FormNotes.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="FormParametres.Designer.vb">
+      <DependentUpon>FormParametres.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormParametres.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FormPrincipal.Designer.vb">
       <DependentUpon>FormPrincipal.vb</DependentUpon>
     </Compile>
@@ -161,6 +167,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormNotes.resx">
       <DependentUpon>FormNotes.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormParametres.resx">
+      <DependentUpon>FormParametres.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormPrincipal.resx">
       <DependentUpon>FormPrincipal.vb</DependentUpon>

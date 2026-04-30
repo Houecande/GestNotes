@@ -32,7 +32,7 @@ Namespace My
         
         <Global.System.Diagnostics.DebuggerStepThroughAttribute()>  _
         Protected Overrides Sub OnCreateMainForm()
-            Me.MainForm = Global.GestNotesV1.FormImpressions
+            Me.MainForm = Global.GestNotesV1.FormParametres
         End Sub
         
         <Global.System.Diagnostics.DebuggerStepThroughAttribute()>  _
