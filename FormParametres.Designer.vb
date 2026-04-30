@@ -31,6 +31,7 @@ Partial Class FormParametres
         Me.colLogin = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colRole = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colActionsUser = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.pnlDroit = New System.Windows.Forms.Panel()
         Me.pnlToolbar.SuspendLayout()
         Me.pnlGauche.SuspendLayout()
         CType(Me.dgvUtilisateurs, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -132,12 +133,23 @@ Partial Class FormParametres
         Me.colActionsUser.Name = "colActionsUser"
         Me.colActionsUser.ReadOnly = True
         '
+        'pnlDroit
+        '
+        Me.pnlDroit.BackColor = System.Drawing.Color.FromArgb(CType(CType(240, Byte), Integer), CType(CType(244, Byte), Integer), CType(CType(248, Byte), Integer))
+        Me.pnlDroit.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.pnlDroit.Location = New System.Drawing.Point(200, 44)
+        Me.pnlDroit.Name = "pnlDroit"
+        Me.pnlDroit.Padding = New System.Windows.Forms.Padding(10)
+        Me.pnlDroit.Size = New System.Drawing.Size(733, 475)
+        Me.pnlDroit.TabIndex = 2
+        '
         'FormParametres
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(240, Byte), Integer), CType(CType(244, Byte), Integer), CType(CType(248, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(933, 519)
+        Me.Controls.Add(Me.pnlDroit)
         Me.Controls.Add(Me.pnlGauche)
         Me.Controls.Add(Me.pnlToolbar)
         Me.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -163,4 +175,5 @@ Partial Class FormParametres
     Friend WithEvents colLogin As DataGridViewTextBoxColumn
     Friend WithEvents colRole As DataGridViewTextBoxColumn
     Friend WithEvents colActionsUser As DataGridViewTextBoxColumn
+    Friend WithEvents pnlDroit As Panel
 End Class
