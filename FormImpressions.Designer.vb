@@ -40,8 +40,11 @@ Partial Class FormImpressions
         Me.btnImprimer = New System.Windows.Forms.Button()
         Me.btnExporterPDF = New System.Windows.Forms.Button()
         Me.pnlInfoNote = New System.Windows.Forms.Panel()
+        Me.pnlApercu = New System.Windows.Forms.Panel()
+        Me.rbtApercu = New System.Windows.Forms.RichTextBox()
         Me.pnlToolbar.SuspendLayout()
         Me.pnlFiltres.SuspendLayout()
+        Me.pnlApercu.SuspendLayout()
         Me.SuspendLayout()
         '
         'pnlToolbar
@@ -238,12 +241,36 @@ Partial Class FormImpressions
         Me.pnlInfoNote.Size = New System.Drawing.Size(200, 100)
         Me.pnlInfoNote.TabIndex = 13
         '
+        'pnlApercu
+        '
+        Me.pnlApercu.Controls.Add(Me.rbtApercu)
+        Me.pnlApercu.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.pnlApercu.Location = New System.Drawing.Point(220, 44)
+        Me.pnlApercu.Name = "pnlApercu"
+        Me.pnlApercu.Padding = New System.Windows.Forms.Padding(16)
+        Me.pnlApercu.Size = New System.Drawing.Size(713, 475)
+        Me.pnlApercu.TabIndex = 2
+        '
+        'rbtApercu
+        '
+        Me.rbtApercu.BackColor = System.Drawing.Color.White
+        Me.rbtApercu.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.rbtApercu.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.rbtApercu.Font = New System.Drawing.Font("Courier New", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.rbtApercu.Location = New System.Drawing.Point(16, 16)
+        Me.rbtApercu.Name = "rbtApercu"
+        Me.rbtApercu.ReadOnly = True
+        Me.rbtApercu.Size = New System.Drawing.Size(681, 443)
+        Me.rbtApercu.TabIndex = 0
+        Me.rbtApercu.Text = ""
+        '
         'FormImpressions
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(240, Byte), Integer), CType(CType(244, Byte), Integer), CType(CType(248, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(933, 519)
+        Me.Controls.Add(Me.pnlApercu)
         Me.Controls.Add(Me.pnlFiltres)
         Me.Controls.Add(Me.pnlToolbar)
         Me.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -255,6 +282,7 @@ Partial Class FormImpressions
         Me.pnlToolbar.PerformLayout()
         Me.pnlFiltres.ResumeLayout(False)
         Me.pnlFiltres.PerformLayout()
+        Me.pnlApercu.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -277,4 +305,6 @@ Partial Class FormImpressions
     Friend WithEvents pnlInfoNote As Panel
     Friend WithEvents btnExporterPDF As Button
     Friend WithEvents btnImprimer As Button
+    Friend WithEvents pnlApercu As Panel
+    Friend WithEvents rbtApercu As RichTextBox
 End Class
