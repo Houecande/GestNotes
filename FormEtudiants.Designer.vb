@@ -22,7 +22,7 @@ Partial Class FormEtudiants
     'Ne la modifiez pas à l'aide de l'éditeur de code.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.pnlToolbar = New System.Windows.Forms.Panel()
         Me.btnNouvelEtudiant = New System.Windows.Forms.Button()
         Me.lblTitre = New System.Windows.Forms.Label()
@@ -45,15 +45,15 @@ Partial Class FormEtudiants
         Me.sepFiche = New System.Windows.Forms.Panel()
         Me.lblFicheTitre = New System.Windows.Forms.Label()
         Me.pnlListe = New System.Windows.Forms.Panel()
-        Me.txtRecherche = New System.Windows.Forms.TextBox()
-        Me.cmbFiltreClasse = New System.Windows.Forms.ComboBox()
         Me.dgvEtudiants = New System.Windows.Forms.DataGridView()
-        Me.colSupprimer = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colModifier = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colClasse = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colSexe = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colNom = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colMatricule = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colNom = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colSexe = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colClasse = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colModifier = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colSupprimer = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.cmbFiltreClasse = New System.Windows.Forms.ComboBox()
+        Me.txtRecherche = New System.Windows.Forms.TextBox()
         Me.pnlToolbar.SuspendLayout()
         Me.pnlFiche.SuspendLayout()
         Me.pnlListe.SuspendLayout()
@@ -305,24 +305,6 @@ Partial Class FormEtudiants
         Me.pnlListe.Size = New System.Drawing.Size(683, 475)
         Me.pnlListe.TabIndex = 2
         '
-        'txtRecherche
-        '
-        Me.txtRecherche.BackColor = System.Drawing.Color.White
-        Me.txtRecherche.Location = New System.Drawing.Point(0, 0)
-        Me.txtRecherche.Name = "txtRecherche"
-        Me.txtRecherche.Size = New System.Drawing.Size(300, 23)
-        Me.txtRecherche.TabIndex = 0
-        '
-        'cmbFiltreClasse
-        '
-        Me.cmbFiltreClasse.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbFiltreClasse.FormattingEnabled = True
-        Me.cmbFiltreClasse.Items.AddRange(New Object() {"Toutes les classes"})
-        Me.cmbFiltreClasse.Location = New System.Drawing.Point(310, 0)
-        Me.cmbFiltreClasse.Name = "cmbFiltreClasse"
-        Me.cmbFiltreClasse.Size = New System.Drawing.Size(160, 23)
-        Me.cmbFiltreClasse.TabIndex = 1
-        '
         'dgvEtudiants
         '
         Me.dgvEtudiants.AllowUserToAddRows = False
@@ -332,67 +314,93 @@ Partial Class FormEtudiants
         Me.dgvEtudiants.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.dgvEtudiants.BackgroundColor = System.Drawing.Color.White
         Me.dgvEtudiants.BorderStyle = System.Windows.Forms.BorderStyle.None
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(230, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(251, Byte), Integer))
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(12, Byte), Integer), CType(CType(68, Byte), Integer), CType(CType(124, Byte), Integer))
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvEtudiants.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(CType(CType(230, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(251, Byte), Integer))
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(12, Byte), Integer), CType(CType(68, Byte), Integer), CType(CType(124, Byte), Integer))
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvEtudiants.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
         Me.dgvEtudiants.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvEtudiants.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colMatricule, Me.colNom, Me.colSexe, Me.colClasse, Me.colModifier, Me.colSupprimer})
-        Me.dgvEtudiants.Location = New System.Drawing.Point(0, 38)
+        Me.dgvEtudiants.Location = New System.Drawing.Point(12, 29)
         Me.dgvEtudiants.MultiSelect = False
         Me.dgvEtudiants.Name = "dgvEtudiants"
         Me.dgvEtudiants.ReadOnly = True
         Me.dgvEtudiants.RowHeadersVisible = False
         Me.dgvEtudiants.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvEtudiants.Size = New System.Drawing.Size(240, 150)
+        Me.dgvEtudiants.Size = New System.Drawing.Size(658, 446)
         Me.dgvEtudiants.TabIndex = 2
-        '
-        'colSupprimer
-        '
-        Me.colSupprimer.FillWeight = 19.97114!
-        Me.colSupprimer.HeaderText = "Supprimer"
-        Me.colSupprimer.Name = "colSupprimer"
-        Me.colSupprimer.ReadOnly = True
-        '
-        'colModifier
-        '
-        Me.colModifier.FillWeight = 182.7411!
-        Me.colModifier.HeaderText = "Modifier"
-        Me.colModifier.Name = "colModifier"
-        Me.colModifier.ReadOnly = True
-        '
-        'colClasse
-        '
-        Me.colClasse.FillWeight = 218.077!
-        Me.colClasse.HeaderText = "Classe"
-        Me.colClasse.Name = "colClasse"
-        Me.colClasse.ReadOnly = True
-        '
-        'colSexe
-        '
-        Me.colSexe.FillWeight = 57.32303!
-        Me.colSexe.HeaderText = "Sexe"
-        Me.colSexe.Name = "colSexe"
-        Me.colSexe.ReadOnly = True
-        '
-        'colNom
-        '
-        Me.colNom.FillWeight = 43.28387!
-        Me.colNom.HeaderText = "Nom & Prénom"
-        Me.colNom.MinimumWidth = 45
-        Me.colNom.Name = "colNom"
-        Me.colNom.ReadOnly = True
         '
         'colMatricule
         '
-        Me.colMatricule.FillWeight = 78.60383!
+        Me.colMatricule.FillWeight = 274.1117!
         Me.colMatricule.HeaderText = "Matricule"
+        Me.colMatricule.MinimumWidth = 90
         Me.colMatricule.Name = "colMatricule"
         Me.colMatricule.ReadOnly = True
+        '
+        'colNom
+        '
+        Me.colNom.FillWeight = 27.05372!
+        Me.colNom.HeaderText = "Nom & Prénom"
+        Me.colNom.MinimumWidth = 180
+        Me.colNom.Name = "colNom"
+        Me.colNom.ReadOnly = True
+        '
+        'colSexe
+        '
+        Me.colSexe.FillWeight = 35.82862!
+        Me.colSexe.HeaderText = "Sexe"
+        Me.colSexe.MinimumWidth = 50
+        Me.colSexe.Name = "colSexe"
+        Me.colSexe.ReadOnly = True
+        '
+        'colClasse
+        '
+        Me.colClasse.FillWeight = 136.3047!
+        Me.colClasse.HeaderText = "Classe"
+        Me.colClasse.MinimumWidth = 100
+        Me.colClasse.Name = "colClasse"
+        Me.colClasse.ReadOnly = True
+        '
+        'colModifier
+        '
+        Me.colModifier.FillWeight = 114.2187!
+        Me.colModifier.HeaderText = "Modifier"
+        Me.colModifier.MinimumWidth = 60
+        Me.colModifier.Name = "colModifier"
+        Me.colModifier.ReadOnly = True
+        '
+        'colSupprimer
+        '
+        Me.colSupprimer.FillWeight = 12.48256!
+        Me.colSupprimer.HeaderText = "Supprimer"
+        Me.colSupprimer.MinimumWidth = 65
+        Me.colSupprimer.Name = "colSupprimer"
+        Me.colSupprimer.ReadOnly = True
+        '
+        'cmbFiltreClasse
+        '
+        Me.cmbFiltreClasse.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.cmbFiltreClasse.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbFiltreClasse.FormattingEnabled = True
+        Me.cmbFiltreClasse.Items.AddRange(New Object() {"Toutes les classes"})
+        Me.cmbFiltreClasse.Location = New System.Drawing.Point(320, 0)
+        Me.cmbFiltreClasse.Name = "cmbFiltreClasse"
+        Me.cmbFiltreClasse.Size = New System.Drawing.Size(160, 23)
+        Me.cmbFiltreClasse.TabIndex = 1
+        '
+        'txtRecherche
+        '
+        Me.txtRecherche.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtRecherche.BackColor = System.Drawing.Color.White
+        Me.txtRecherche.Location = New System.Drawing.Point(13, 0)
+        Me.txtRecherche.Name = "txtRecherche"
+        Me.txtRecherche.Size = New System.Drawing.Size(300, 23)
+        Me.txtRecherche.TabIndex = 0
         '
         'FormEtudiants
         '

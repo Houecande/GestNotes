@@ -116,7 +116,7 @@ Partial Class FormNotes
         Me.btnCalculer.FlatAppearance.BorderSize = 0
         Me.btnCalculer.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnCalculer.ForeColor = System.Drawing.Color.White
-        Me.btnCalculer.Location = New System.Drawing.Point(695, 8)
+        Me.btnCalculer.Location = New System.Drawing.Point(716, 8)
         Me.btnCalculer.Name = "btnCalculer"
         Me.btnCalculer.Size = New System.Drawing.Size(90, 28)
         Me.btnCalculer.TabIndex = 3
@@ -130,7 +130,7 @@ Partial Class FormNotes
         Me.btnEnregistrer.FlatAppearance.BorderSize = 0
         Me.btnEnregistrer.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnEnregistrer.ForeColor = System.Drawing.Color.White
-        Me.btnEnregistrer.Location = New System.Drawing.Point(791, 8)
+        Me.btnEnregistrer.Location = New System.Drawing.Point(812, 8)
         Me.btnEnregistrer.Name = "btnEnregistrer"
         Me.btnEnregistrer.Size = New System.Drawing.Size(110, 28)
         Me.btnEnregistrer.TabIndex = 4
@@ -141,7 +141,6 @@ Partial Class FormNotes
         '
         Me.pnlCorps.Controls.Add(Me.pnlStats)
         Me.pnlCorps.Controls.Add(Me.dgvNotes)
-        Me.pnlCorps.Controls.Add(Me.lblInfoFormule)
         Me.pnlCorps.Controls.Add(Me.pnlInfo)
         Me.pnlCorps.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pnlCorps.Location = New System.Drawing.Point(0, 44)
@@ -152,16 +151,16 @@ Partial Class FormNotes
         '
         'pnlInfo
         '
-        Me.pnlInfo.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pnlInfo.BackColor = System.Drawing.Color.White
         Me.pnlInfo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.pnlInfo.Controls.Add(Me.lblInfoSaisies)
         Me.pnlInfo.Controls.Add(Me.lblInfoMatiere)
+        Me.pnlInfo.Controls.Add(Me.lblInfoFormule)
         Me.pnlInfo.Controls.Add(Me.lblInfoClasse)
-        Me.pnlInfo.Location = New System.Drawing.Point(0, 0)
+        Me.pnlInfo.Dock = System.Windows.Forms.DockStyle.Top
+        Me.pnlInfo.Location = New System.Drawing.Point(10, 10)
         Me.pnlInfo.Name = "pnlInfo"
-        Me.pnlInfo.Size = New System.Drawing.Size(933, 36)
+        Me.pnlInfo.Size = New System.Drawing.Size(913, 36)
         Me.pnlInfo.TabIndex = 0
         '
         'lblInfoClasse
@@ -188,7 +187,7 @@ Partial Class FormNotes
         '
         Me.lblInfoFormule.AutoSize = True
         Me.lblInfoFormule.ForeColor = System.Drawing.Color.FromArgb(CType(CType(136, Byte), Integer), CType(CType(135, Byte), Integer), CType(CType(128, Byte), Integer))
-        Me.lblInfoFormule.Location = New System.Drawing.Point(320, 10)
+        Me.lblInfoFormule.Location = New System.Drawing.Point(309, 10)
         Me.lblInfoFormule.Name = "lblInfoFormule"
         Me.lblInfoFormule.Size = New System.Drawing.Size(241, 15)
         Me.lblInfoFormule.TabIndex = 1
@@ -199,7 +198,7 @@ Partial Class FormNotes
         Me.lblInfoSaisies.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblInfoSaisies.AutoSize = True
         Me.lblInfoSaisies.ForeColor = System.Drawing.Color.FromArgb(CType(CType(29, Byte), Integer), CType(CType(158, Byte), Integer), CType(CType(117, Byte), Integer))
-        Me.lblInfoSaisies.Location = New System.Drawing.Point(680, 10)
+        Me.lblInfoSaisies.Location = New System.Drawing.Point(660, 10)
         Me.lblInfoSaisies.Name = "lblInfoSaisies"
         Me.lblInfoSaisies.Size = New System.Drawing.Size(60, 15)
         Me.lblInfoSaisies.TabIndex = 2
@@ -208,20 +207,18 @@ Partial Class FormNotes
         'dgvNotes
         '
         Me.dgvNotes.AllowUserToAddRows = False
-        Me.dgvNotes.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dgvNotes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.dgvNotes.BackgroundColor = System.Drawing.Color.White
         Me.dgvNotes.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.dgvNotes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvNotes.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colNumero, Me.colNomEtudiant, Me.colInterro, Me.colDevoir, Me.colMoyenne})
-        Me.dgvNotes.Location = New System.Drawing.Point(0, 46)
+        Me.dgvNotes.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvNotes.Location = New System.Drawing.Point(10, 46)
         Me.dgvNotes.MultiSelect = False
         Me.dgvNotes.Name = "dgvNotes"
         Me.dgvNotes.RowHeadersVisible = False
         Me.dgvNotes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect
-        Me.dgvNotes.Size = New System.Drawing.Size(240, 150)
+        Me.dgvNotes.Size = New System.Drawing.Size(913, 419)
         Me.dgvNotes.TabIndex = 2
         '
         'colNumero
@@ -264,9 +261,9 @@ Partial Class FormNotes
         Me.pnlStats.Controls.Add(Me.pnlStatMin)
         Me.pnlStats.Controls.Add(Me.pnlStatMoyClasse)
         Me.pnlStats.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.pnlStats.Location = New System.Drawing.Point(10, 395)
+        Me.pnlStats.Location = New System.Drawing.Point(10, 385)
         Me.pnlStats.Name = "pnlStats"
-        Me.pnlStats.Size = New System.Drawing.Size(913, 70)
+        Me.pnlStats.Size = New System.Drawing.Size(913, 80)
         Me.pnlStats.TabIndex = 3
         '
         'pnlStatMoyClasse
@@ -275,18 +272,19 @@ Partial Class FormNotes
         Me.pnlStatMoyClasse.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.pnlStatMoyClasse.Controls.Add(Me.Label2)
         Me.pnlStatMoyClasse.Controls.Add(Me.Label1)
-        Me.pnlStatMoyClasse.Location = New System.Drawing.Point(22, 6)
+        Me.pnlStatMoyClasse.Location = New System.Drawing.Point(70, 12)
         Me.pnlStatMoyClasse.Name = "pnlStatMoyClasse"
         Me.pnlStatMoyClasse.Size = New System.Drawing.Size(140, 58)
         Me.pnlStatMoyClasse.TabIndex = 0
         '
         'pnlStatMin
         '
+        Me.pnlStatMin.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pnlStatMin.BackColor = System.Drawing.Color.White
         Me.pnlStatMin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.pnlStatMin.Controls.Add(Me.Label6)
         Me.pnlStatMin.Controls.Add(Me.Label5)
-        Me.pnlStatMin.Location = New System.Drawing.Point(483, 6)
+        Me.pnlStatMin.Location = New System.Drawing.Point(490, 12)
         Me.pnlStatMin.Name = "pnlStatMin"
         Me.pnlStatMin.Size = New System.Drawing.Size(140, 58)
         Me.pnlStatMin.TabIndex = 1
@@ -297,18 +295,19 @@ Partial Class FormNotes
         Me.pnlStatMax.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.pnlStatMax.Controls.Add(Me.Label4)
         Me.pnlStatMax.Controls.Add(Me.Label3)
-        Me.pnlStatMax.Location = New System.Drawing.Point(255, 6)
+        Me.pnlStatMax.Location = New System.Drawing.Point(280, 12)
         Me.pnlStatMax.Name = "pnlStatMax"
         Me.pnlStatMax.Size = New System.Drawing.Size(140, 58)
         Me.pnlStatMax.TabIndex = 1
         '
         'pnlStatSaisies
         '
+        Me.pnlStatSaisies.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pnlStatSaisies.BackColor = System.Drawing.Color.White
         Me.pnlStatSaisies.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.pnlStatSaisies.Controls.Add(Me.Label8)
         Me.pnlStatSaisies.Controls.Add(Me.Label7)
-        Me.pnlStatSaisies.Location = New System.Drawing.Point(751, 6)
+        Me.pnlStatSaisies.Location = New System.Drawing.Point(700, 12)
         Me.pnlStatSaisies.Name = "pnlStatSaisies"
         Me.pnlStatSaisies.Size = New System.Drawing.Size(140, 58)
         Me.pnlStatSaisies.TabIndex = 1
@@ -409,7 +408,6 @@ Partial Class FormNotes
         Me.pnlToolbar.ResumeLayout(False)
         Me.pnlToolbar.PerformLayout()
         Me.pnlCorps.ResumeLayout(False)
-        Me.pnlCorps.PerformLayout()
         Me.pnlInfo.ResumeLayout(False)
         Me.pnlInfo.PerformLayout()
         CType(Me.dgvNotes, System.ComponentModel.ISupportInitialize).EndInit()

@@ -2,4 +2,8 @@
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles btnApercu.Click
 
     End Sub
+
+    Private Sub pnlFiltres_Paint(sender As Object, e As PaintEventArgs) Handles pnlFiltres.Paint
+
+    End Sub
 End Class

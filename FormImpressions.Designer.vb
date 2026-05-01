@@ -23,23 +23,23 @@ Partial Class FormImpressions
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.pnlToolbar = New System.Windows.Forms.Panel()
-        Me.lblTitre = New System.Windows.Forms.Label()
         Me.cmbTypeDoc = New System.Windows.Forms.ComboBox()
+        Me.lblTitre = New System.Windows.Forms.Label()
         Me.pnlFiltres = New System.Windows.Forms.Panel()
-        Me.lblSectFiltres = New System.Windows.Forms.Label()
-        Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.cmbClasseImp = New System.Windows.Forms.ComboBox()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.txtAnneeScolaire = New System.Windows.Forms.TextBox()
-        Me.Panel2 = New System.Windows.Forms.Panel()
-        Me.lblSectActions = New System.Windows.Forms.Label()
-        Me.btnApercu = New System.Windows.Forms.Button()
-        Me.btnImprimer = New System.Windows.Forms.Button()
-        Me.btnExporterPDF = New System.Windows.Forms.Button()
         Me.pnlInfoNote = New System.Windows.Forms.Panel()
+        Me.btnExporterPDF = New System.Windows.Forms.Button()
+        Me.btnImprimer = New System.Windows.Forms.Button()
+        Me.btnApercu = New System.Windows.Forms.Button()
+        Me.lblSectActions = New System.Windows.Forms.Label()
+        Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.txtAnneeScolaire = New System.Windows.Forms.TextBox()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.cmbClasseImp = New System.Windows.Forms.ComboBox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.lblSectFiltres = New System.Windows.Forms.Label()
         Me.pnlApercu = New System.Windows.Forms.Panel()
         Me.rbtApercu = New System.Windows.Forms.RichTextBox()
         Me.pnlToolbar.SuspendLayout()
@@ -58,6 +58,16 @@ Partial Class FormImpressions
         Me.pnlToolbar.Size = New System.Drawing.Size(933, 44)
         Me.pnlToolbar.TabIndex = 0
         '
+        'cmbTypeDoc
+        '
+        Me.cmbTypeDoc.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbTypeDoc.FormattingEnabled = True
+        Me.cmbTypeDoc.Items.AddRange(New Object() {"Bulletins individuels ", "Relevé collectif (ordre de mérite)"})
+        Me.cmbTypeDoc.Location = New System.Drawing.Point(119, 8)
+        Me.cmbTypeDoc.Name = "cmbTypeDoc"
+        Me.cmbTypeDoc.Size = New System.Drawing.Size(200, 23)
+        Me.cmbTypeDoc.TabIndex = 1
+        '
         'lblTitre
         '
         Me.lblTitre.AutoSize = True
@@ -68,16 +78,6 @@ Partial Class FormImpressions
         Me.lblTitre.Size = New System.Drawing.Size(101, 21)
         Me.lblTitre.TabIndex = 0
         Me.lblTitre.Text = "Impressions"
-        '
-        'cmbTypeDoc
-        '
-        Me.cmbTypeDoc.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbTypeDoc.FormattingEnabled = True
-        Me.cmbTypeDoc.Items.AddRange(New Object() {"Bulletins individuels ", "Relevé collectif (ordre de mérite)"})
-        Me.cmbTypeDoc.Location = New System.Drawing.Point(119, 8)
-        Me.cmbTypeDoc.Name = "cmbTypeDoc"
-        Me.cmbTypeDoc.Size = New System.Drawing.Size(200, 23)
-        Me.cmbTypeDoc.TabIndex = 1
         '
         'pnlFiltres
         '
@@ -100,125 +100,16 @@ Partial Class FormImpressions
         Me.pnlFiltres.Location = New System.Drawing.Point(0, 44)
         Me.pnlFiltres.Name = "pnlFiltres"
         Me.pnlFiltres.Padding = New System.Windows.Forms.Padding(12)
-        Me.pnlFiltres.Size = New System.Drawing.Size(220, 475)
+        Me.pnlFiltres.Size = New System.Drawing.Size(235, 475)
         Me.pnlFiltres.TabIndex = 1
         '
-        'lblSectFiltres
+        'pnlInfoNote
         '
-        Me.lblSectFiltres.AutoSize = True
-        Me.lblSectFiltres.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblSectFiltres.ForeColor = System.Drawing.Color.FromArgb(CType(CType(12, Byte), Integer), CType(CType(68, Byte), Integer), CType(CType(124, Byte), Integer))
-        Me.lblSectFiltres.Location = New System.Drawing.Point(12, 12)
-        Me.lblSectFiltres.Name = "lblSectFiltres"
-        Me.lblSectFiltres.Size = New System.Drawing.Size(41, 15)
-        Me.lblSectFiltres.TabIndex = 0
-        Me.lblSectFiltres.Text = "Filtres"
-        '
-        'Panel1
-        '
-        Me.Panel1.BackColor = System.Drawing.Color.FromArgb(CType(CType(230, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(251, Byte), Integer))
-        Me.Panel1.Location = New System.Drawing.Point(12, 30)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(196, 1)
-        Me.Panel1.TabIndex = 1
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(12, 30)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(40, 15)
-        Me.Label1.TabIndex = 2
-        Me.Label1.Text = "Classe"
-        '
-        'cmbClasseImp
-        '
-        Me.cmbClasseImp.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbClasseImp.FormattingEnabled = True
-        Me.cmbClasseImp.Location = New System.Drawing.Point(12, 56)
-        Me.cmbClasseImp.Name = "cmbClasseImp"
-        Me.cmbClasseImp.Size = New System.Drawing.Size(196, 23)
-        Me.cmbClasseImp.TabIndex = 3
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(12, 90)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(51, 15)
-        Me.Label2.TabIndex = 4
-        Me.Label2.Text = "Étudiant"
-        '
-        'ComboBox1
-        '
-        Me.ComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.ComboBox1.FormattingEnabled = True
-        Me.ComboBox1.Location = New System.Drawing.Point(12, 106)
-        Me.ComboBox1.Name = "ComboBox1"
-        Me.ComboBox1.Size = New System.Drawing.Size(196, 23)
-        Me.ComboBox1.TabIndex = 5
-        '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(12, 140)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(84, 15)
-        Me.Label3.TabIndex = 6
-        Me.Label3.Text = "Année scolaire"
-        '
-        'txtAnneeScolaire
-        '
-        Me.txtAnneeScolaire.Location = New System.Drawing.Point(13, 159)
-        Me.txtAnneeScolaire.Name = "txtAnneeScolaire"
-        Me.txtAnneeScolaire.Size = New System.Drawing.Size(196, 23)
-        Me.txtAnneeScolaire.TabIndex = 7
-        Me.txtAnneeScolaire.Text = "2025-2026"
-        '
-        'Panel2
-        '
-        Me.Panel2.BackColor = System.Drawing.Color.FromArgb(CType(CType(230, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(251, Byte), Integer))
-        Me.Panel2.Location = New System.Drawing.Point(12, 218)
-        Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(196, 1)
-        Me.Panel2.TabIndex = 8
-        '
-        'lblSectActions
-        '
-        Me.lblSectActions.AutoSize = True
-        Me.lblSectActions.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblSectActions.ForeColor = System.Drawing.Color.FromArgb(CType(CType(12, Byte), Integer), CType(CType(68, Byte), Integer), CType(CType(124, Byte), Integer))
-        Me.lblSectActions.Location = New System.Drawing.Point(12, 200)
-        Me.lblSectActions.Name = "lblSectActions"
-        Me.lblSectActions.Size = New System.Drawing.Size(48, 15)
-        Me.lblSectActions.TabIndex = 9
-        Me.lblSectActions.Text = "Actions"
-        '
-        'btnApercu
-        '
-        Me.btnApercu.BackColor = System.Drawing.Color.FromArgb(CType(CType(24, Byte), Integer), CType(CType(95, Byte), Integer), CType(CType(165, Byte), Integer))
-        Me.btnApercu.FlatAppearance.BorderSize = 0
-        Me.btnApercu.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnApercu.ForeColor = System.Drawing.Color.White
-        Me.btnApercu.Location = New System.Drawing.Point(12, 228)
-        Me.btnApercu.Name = "btnApercu"
-        Me.btnApercu.Size = New System.Drawing.Size(196, 34)
-        Me.btnApercu.TabIndex = 10
-        Me.btnApercu.Text = "👁️ Aperçu"
-        Me.btnApercu.UseVisualStyleBackColor = False
-        '
-        'btnImprimer
-        '
-        Me.btnImprimer.BackColor = System.Drawing.Color.FromArgb(CType(CType(29, Byte), Integer), CType(CType(158, Byte), Integer), CType(CType(117, Byte), Integer))
-        Me.btnImprimer.FlatAppearance.BorderSize = 0
-        Me.btnImprimer.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnImprimer.ForeColor = System.Drawing.Color.White
-        Me.btnImprimer.Location = New System.Drawing.Point(12, 268)
-        Me.btnImprimer.Name = "btnImprimer"
-        Me.btnImprimer.Size = New System.Drawing.Size(196, 34)
-        Me.btnImprimer.TabIndex = 11
-        Me.btnImprimer.Text = "🖨️ Imprimer"
-        Me.btnImprimer.UseVisualStyleBackColor = False
+        Me.pnlInfoNote.BackColor = System.Drawing.Color.FromArgb(CType(CType(230, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(251, Byte), Integer))
+        Me.pnlInfoNote.Location = New System.Drawing.Point(12, 370)
+        Me.pnlInfoNote.Name = "pnlInfoNote"
+        Me.pnlInfoNote.Size = New System.Drawing.Size(200, 100)
+        Me.pnlInfoNote.TabIndex = 13
         '
         'btnExporterPDF
         '
@@ -233,22 +124,131 @@ Partial Class FormImpressions
         Me.btnExporterPDF.Text = "📄 Exporter PDF"
         Me.btnExporterPDF.UseVisualStyleBackColor = False
         '
-        'pnlInfoNote
+        'btnImprimer
         '
-        Me.pnlInfoNote.BackColor = System.Drawing.Color.FromArgb(CType(CType(230, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(251, Byte), Integer))
-        Me.pnlInfoNote.Location = New System.Drawing.Point(12, 370)
-        Me.pnlInfoNote.Name = "pnlInfoNote"
-        Me.pnlInfoNote.Size = New System.Drawing.Size(200, 100)
-        Me.pnlInfoNote.TabIndex = 13
+        Me.btnImprimer.BackColor = System.Drawing.Color.FromArgb(CType(CType(29, Byte), Integer), CType(CType(158, Byte), Integer), CType(CType(117, Byte), Integer))
+        Me.btnImprimer.FlatAppearance.BorderSize = 0
+        Me.btnImprimer.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnImprimer.ForeColor = System.Drawing.Color.White
+        Me.btnImprimer.Location = New System.Drawing.Point(12, 268)
+        Me.btnImprimer.Name = "btnImprimer"
+        Me.btnImprimer.Size = New System.Drawing.Size(196, 34)
+        Me.btnImprimer.TabIndex = 11
+        Me.btnImprimer.Text = "🖨️ Imprimer"
+        Me.btnImprimer.UseVisualStyleBackColor = False
+        '
+        'btnApercu
+        '
+        Me.btnApercu.BackColor = System.Drawing.Color.FromArgb(CType(CType(24, Byte), Integer), CType(CType(95, Byte), Integer), CType(CType(165, Byte), Integer))
+        Me.btnApercu.FlatAppearance.BorderSize = 0
+        Me.btnApercu.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnApercu.ForeColor = System.Drawing.Color.White
+        Me.btnApercu.Location = New System.Drawing.Point(12, 228)
+        Me.btnApercu.Name = "btnApercu"
+        Me.btnApercu.Size = New System.Drawing.Size(196, 34)
+        Me.btnApercu.TabIndex = 10
+        Me.btnApercu.Text = "👁️ Aperçu"
+        Me.btnApercu.UseVisualStyleBackColor = False
+        '
+        'lblSectActions
+        '
+        Me.lblSectActions.AutoSize = True
+        Me.lblSectActions.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblSectActions.ForeColor = System.Drawing.Color.FromArgb(CType(CType(12, Byte), Integer), CType(CType(68, Byte), Integer), CType(CType(124, Byte), Integer))
+        Me.lblSectActions.Location = New System.Drawing.Point(12, 200)
+        Me.lblSectActions.Name = "lblSectActions"
+        Me.lblSectActions.Size = New System.Drawing.Size(48, 15)
+        Me.lblSectActions.TabIndex = 9
+        Me.lblSectActions.Text = "Actions"
+        '
+        'Panel2
+        '
+        Me.Panel2.BackColor = System.Drawing.Color.FromArgb(CType(CType(230, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(251, Byte), Integer))
+        Me.Panel2.Location = New System.Drawing.Point(12, 218)
+        Me.Panel2.Name = "Panel2"
+        Me.Panel2.Size = New System.Drawing.Size(196, 1)
+        Me.Panel2.TabIndex = 8
+        '
+        'txtAnneeScolaire
+        '
+        Me.txtAnneeScolaire.Location = New System.Drawing.Point(13, 159)
+        Me.txtAnneeScolaire.Name = "txtAnneeScolaire"
+        Me.txtAnneeScolaire.Size = New System.Drawing.Size(196, 23)
+        Me.txtAnneeScolaire.TabIndex = 7
+        Me.txtAnneeScolaire.Text = "2025-2026"
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(12, 140)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(84, 15)
+        Me.Label3.TabIndex = 6
+        Me.Label3.Text = "Année scolaire"
+        '
+        'ComboBox1
+        '
+        Me.ComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.ComboBox1.FormattingEnabled = True
+        Me.ComboBox1.Location = New System.Drawing.Point(12, 106)
+        Me.ComboBox1.Name = "ComboBox1"
+        Me.ComboBox1.Size = New System.Drawing.Size(196, 23)
+        Me.ComboBox1.TabIndex = 5
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(12, 90)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(51, 15)
+        Me.Label2.TabIndex = 4
+        Me.Label2.Text = "Étudiant"
+        '
+        'cmbClasseImp
+        '
+        Me.cmbClasseImp.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbClasseImp.FormattingEnabled = True
+        Me.cmbClasseImp.Location = New System.Drawing.Point(12, 56)
+        Me.cmbClasseImp.Name = "cmbClasseImp"
+        Me.cmbClasseImp.Size = New System.Drawing.Size(196, 23)
+        Me.cmbClasseImp.TabIndex = 3
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(12, 30)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(40, 15)
+        Me.Label1.TabIndex = 2
+        Me.Label1.Text = "Classe"
+        '
+        'Panel1
+        '
+        Me.Panel1.BackColor = System.Drawing.Color.FromArgb(CType(CType(230, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(251, Byte), Integer))
+        Me.Panel1.Location = New System.Drawing.Point(12, 30)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(196, 1)
+        Me.Panel1.TabIndex = 1
+        '
+        'lblSectFiltres
+        '
+        Me.lblSectFiltres.AutoSize = True
+        Me.lblSectFiltres.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblSectFiltres.ForeColor = System.Drawing.Color.FromArgb(CType(CType(12, Byte), Integer), CType(CType(68, Byte), Integer), CType(CType(124, Byte), Integer))
+        Me.lblSectFiltres.Location = New System.Drawing.Point(12, 12)
+        Me.lblSectFiltres.Name = "lblSectFiltres"
+        Me.lblSectFiltres.Size = New System.Drawing.Size(41, 15)
+        Me.lblSectFiltres.TabIndex = 0
+        Me.lblSectFiltres.Text = "Filtres"
         '
         'pnlApercu
         '
         Me.pnlApercu.Controls.Add(Me.rbtApercu)
         Me.pnlApercu.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.pnlApercu.Location = New System.Drawing.Point(220, 44)
+        Me.pnlApercu.Location = New System.Drawing.Point(235, 44)
         Me.pnlApercu.Name = "pnlApercu"
         Me.pnlApercu.Padding = New System.Windows.Forms.Padding(16)
-        Me.pnlApercu.Size = New System.Drawing.Size(713, 475)
+        Me.pnlApercu.Size = New System.Drawing.Size(698, 475)
         Me.pnlApercu.TabIndex = 2
         '
         'rbtApercu
@@ -260,7 +260,7 @@ Partial Class FormImpressions
         Me.rbtApercu.Location = New System.Drawing.Point(16, 16)
         Me.rbtApercu.Name = "rbtApercu"
         Me.rbtApercu.ReadOnly = True
-        Me.rbtApercu.Size = New System.Drawing.Size(681, 443)
+        Me.rbtApercu.Size = New System.Drawing.Size(666, 443)
         Me.rbtApercu.TabIndex = 0
         Me.rbtApercu.Text = ""
         '
