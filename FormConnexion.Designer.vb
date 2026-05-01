@@ -193,7 +193,7 @@ Partial Class FormConnexion
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(235, Byte), Integer), CType(CType(246, Byte), Integer), CType(CType(250, Byte), Integer))
-        Me.ClientSize = New System.Drawing.Size(404, 441)
+        Me.ClientSize = New System.Drawing.Size(408, 441)
         Me.Controls.Add(Me.pnlLogo)
         Me.Controls.Add(Me.pnlCarte)
         Me.Controls.Add(Me.lblSousTitre)
