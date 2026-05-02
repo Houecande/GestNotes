@@ -13,7 +13,7 @@ Public Class FormConnexion
 
     Private Sub btnConnecter_Click(sender As Object, e As EventArgs) Handles btnConnecter.Click
 
-        ' ── Vérifications des champs ──────────────────────────
+        ' Vérifications des champs
         If cmbProfil.SelectedIndex = 0 Then
             MsgBox("Veuillez sélectionner un profil.",
                    MsgBoxStyle.Exclamation, "Champ requis")
@@ -32,7 +32,7 @@ Public Class FormConnexion
             txtMdp.Focus() : Exit Sub
         End If
 
-        ' ── Vérification en base de données ──────────────────
+        ' Vérification en base de données
         Try
             Dim sql = "SELECT role FROM Utilisateurs " &
                       "WHERE login = ? AND mot_de_passe = ?"
@@ -57,7 +57,7 @@ Public Class FormConnexion
                     Exit Sub
                 End If
 
-                ' ── Connexion réussie ─────────────────────────
+                ' Connexion réussie
                 ModuleSession.Profil = roleEnBDD
                 ModuleSession.LoginUtilisateur = txtLogin.Text.Trim()
 
@@ -82,14 +82,14 @@ Public Class FormConnexion
 
     End Sub
 
-    ' ── Touche Entrée sur le mot de passe = Se connecter ─────
+    ' Touche Entrée sur le mot de passe = Se connecter
     Private Sub txtMdp_KeyDown(sender As Object, e As KeyEventArgs) Handles txtMdp.KeyDown
         If e.KeyCode = Keys.Enter Then
             btnConnecter_Click(sender, e)
         End If
     End Sub
 
-    ' ── Bouton Quitter ────────────────────────────────────────
+    ' Bouton Quitter
     Private Sub btnQuitter_Click(sender As Object, e As EventArgs) Handles btnQuitter.Click
         Dim rep = MsgBox("Voulez-vous vraiment quitter l'application ?",
                          MsgBoxStyle.YesNo + MsgBoxStyle.Question, "Quitter")
@@ -98,7 +98,7 @@ Public Class FormConnexion
         End If
     End Sub
 
-    ' ── Fermeture de la fenêtre = quitter proprement ─────────
+    ' Fermeture de la fenêtre = quitter proprement
     Private Sub FormConnexion_FormClosing(sender As Object, e As FormClosingEventArgs) _
         Handles MyBase.FormClosing
         If e.CloseReason = CloseReason.UserClosing Then

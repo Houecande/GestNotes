@@ -2,7 +2,7 @@
 
 Module ModuleBDD
 
-    ' ── Chaîne de connexion ───────────────────────────────────
+    ' Chaîne de connexion 
     Private ReadOnly CheminBDD As String =
         IO.Path.Combine(Application.StartupPath, "GestNotes.accdb")
 
@@ -13,14 +13,14 @@ Module ModuleBDD
         End Get
     End Property
 
-    ' ── Obtenir une connexion ouverte ─────────────────────────
+    ' Obtenir une connexion ouverte
     Public Function GetConnexion() As OleDbConnection
         Dim conn As New OleDbConnection(ConnexionString)
         conn.Open()
         Return conn
     End Function
 
-    ' ── Tester la connexion ───────────────────────────────────
+    ' Tester la connexion 
     Public Function TesterConnexion() As Boolean
         Try
             Using conn = GetConnexion()
@@ -33,7 +33,7 @@ Module ModuleBDD
         End Try
     End Function
 
-    ' ── Exécuter une requête sans retour (INSERT/UPDATE/DELETE)
+    ' Exécuter une requête sans retour (INSERT/UPDATE/DELETE)
     Public Function ExecuterRequete(sql As String,
                                     ParamArray params() As OleDbParameter) As Boolean
         Try
@@ -53,7 +53,7 @@ Module ModuleBDD
         End Try
     End Function
 
-    ' ── Obtenir un DataTable (SELECT) ─────────────────────────
+    ' Obtenir un DataTable (SELECT)
     Public Function GetDataTable(sql As String,
                                  ParamArray params() As OleDbParameter) As DataTable
         Dim dt As New DataTable()
@@ -75,7 +75,7 @@ Module ModuleBDD
         Return dt
     End Function
 
-    ' ── Obtenir une valeur unique (COUNT, MAX...) ─────────────
+    ' Obtenir une valeur unique (COUNT, MAX...)
     Public Function GetValeur(sql As String,
                                ParamArray params() As OleDbParameter) As Object
         Try
