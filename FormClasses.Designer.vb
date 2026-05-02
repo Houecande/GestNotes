@@ -22,6 +22,7 @@ Partial Class FormClasses
     'Ne la modifiez pas à l'aide de l'éditeur de code.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormClasses))
         Me.pnlToolbar = New System.Windows.Forms.Panel()
         Me.btnNouvelleMatiere = New System.Windows.Forms.Button()
         Me.btnNouvelleClasse = New System.Windows.Forms.Button()
@@ -532,6 +533,7 @@ Partial Class FormClasses
         Me.Controls.Add(Me.splitPrincipal)
         Me.Controls.Add(Me.pnlToolbar)
         Me.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.Name = "FormClasses"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen

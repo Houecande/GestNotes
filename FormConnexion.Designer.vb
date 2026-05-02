@@ -22,6 +22,7 @@ Partial Class FormConnexion
     'Ne la modifiez pas à l'aide de l'éditeur de code.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormConnexion))
         Me.lblAppNom = New System.Windows.Forms.Label()
         Me.lblSousTitre = New System.Windows.Forms.Label()
         Me.pnlCarte = New System.Windows.Forms.Panel()
@@ -200,6 +201,7 @@ Partial Class FormConnexion
         Me.Controls.Add(Me.lblAppNom)
         Me.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.MaximizeBox = False
         Me.MinimizeBox = False

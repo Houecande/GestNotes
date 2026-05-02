@@ -22,6 +22,7 @@ Partial Class FormParametres
     'Ne la modifiez pas à l'aide de l'éditeur de code.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormParametres))
         Me.pnlToolbar = New System.Windows.Forms.Panel()
         Me.btnNouvelUser = New System.Windows.Forms.Button()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -423,6 +424,7 @@ Partial Class FormParametres
         Me.Controls.Add(Me.pnlGauche)
         Me.Controls.Add(Me.pnlToolbar)
         Me.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.MaximizeBox = False
         Me.Name = "FormParametres"
