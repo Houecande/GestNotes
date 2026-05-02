@@ -378,8 +378,6 @@ Partial Class FormPrincipal
         'dgvDerniersSaisies
         '
         Me.dgvDerniersSaisies.AllowUserToAddRows = False
-        Me.dgvDerniersSaisies.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dgvDerniersSaisies.BackgroundColor = System.Drawing.Color.White
         Me.dgvDerniersSaisies.BorderStyle = System.Windows.Forms.BorderStyle.None
         DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
