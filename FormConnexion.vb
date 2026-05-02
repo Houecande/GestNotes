@@ -18,4 +18,8 @@
     Private Sub btnQuitter_Click(sender As Object, e As EventArgs) Handles btnQuitter.Click
         Me.Close()
     End Sub
+
+    Private Sub btnConnecter_Click(sender As Object, e As EventArgs) Handles btnConnecter.Click
+        FormPrincipal.Show()
+    End Sub
 End Class

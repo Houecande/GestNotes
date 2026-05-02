@@ -42,6 +42,7 @@ Partial Class FormImpressions
         Me.lblSectFiltres = New System.Windows.Forms.Label()
         Me.pnlApercu = New System.Windows.Forms.Panel()
         Me.rbtApercu = New System.Windows.Forms.RichTextBox()
+        Me.btnRetour = New System.Windows.Forms.Button()
         Me.pnlToolbar.SuspendLayout()
         Me.pnlFiltres.SuspendLayout()
         Me.pnlApercu.SuspendLayout()
@@ -50,6 +51,7 @@ Partial Class FormImpressions
         'pnlToolbar
         '
         Me.pnlToolbar.BackColor = System.Drawing.Color.White
+        Me.pnlToolbar.Controls.Add(Me.btnRetour)
         Me.pnlToolbar.Controls.Add(Me.cmbTypeDoc)
         Me.pnlToolbar.Controls.Add(Me.lblTitre)
         Me.pnlToolbar.Dock = System.Windows.Forms.DockStyle.Top
@@ -63,7 +65,7 @@ Partial Class FormImpressions
         Me.cmbTypeDoc.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbTypeDoc.FormattingEnabled = True
         Me.cmbTypeDoc.Items.AddRange(New Object() {"Bulletins individuels ", "Relevé collectif (ordre de mérite)"})
-        Me.cmbTypeDoc.Location = New System.Drawing.Point(119, 8)
+        Me.cmbTypeDoc.Location = New System.Drawing.Point(213, 8)
         Me.cmbTypeDoc.Name = "cmbTypeDoc"
         Me.cmbTypeDoc.Size = New System.Drawing.Size(200, 23)
         Me.cmbTypeDoc.TabIndex = 1
@@ -73,7 +75,7 @@ Partial Class FormImpressions
         Me.lblTitre.AutoSize = True
         Me.lblTitre.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblTitre.ForeColor = System.Drawing.Color.FromArgb(CType(CType(12, Byte), Integer), CType(CType(68, Byte), Integer), CType(CType(124, Byte), Integer))
-        Me.lblTitre.Location = New System.Drawing.Point(12, 10)
+        Me.lblTitre.Location = New System.Drawing.Point(106, 10)
         Me.lblTitre.Name = "lblTitre"
         Me.lblTitre.Size = New System.Drawing.Size(101, 21)
         Me.lblTitre.TabIndex = 0
@@ -264,6 +266,20 @@ Partial Class FormImpressions
         Me.rbtApercu.TabIndex = 0
         Me.rbtApercu.Text = ""
         '
+        'btnRetour
+        '
+        Me.btnRetour.BackColor = System.Drawing.Color.FromArgb(CType(CType(240, Byte), Integer), CType(CType(244, Byte), Integer), CType(CType(248, Byte), Integer))
+        Me.btnRetour.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnRetour.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(181, Byte), Integer), CType(CType(212, Byte), Integer), CType(CType(244, Byte), Integer))
+        Me.btnRetour.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnRetour.ForeColor = System.Drawing.Color.FromArgb(CType(CType(24, Byte), Integer), CType(CType(95, Byte), Integer), CType(CType(165, Byte), Integer))
+        Me.btnRetour.Location = New System.Drawing.Point(8, 8)
+        Me.btnRetour.Name = "btnRetour"
+        Me.btnRetour.Size = New System.Drawing.Size(90, 28)
+        Me.btnRetour.TabIndex = 2
+        Me.btnRetour.Text = "← Retour"
+        Me.btnRetour.UseVisualStyleBackColor = False
+        '
         'FormImpressions
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
@@ -307,4 +323,5 @@ Partial Class FormImpressions
     Friend WithEvents btnImprimer As Button
     Friend WithEvents pnlApercu As Panel
     Friend WithEvents rbtApercu As RichTextBox
+    Friend WithEvents btnRetour As Button
 End Class

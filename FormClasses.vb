@@ -18,4 +18,8 @@
     Private Sub Panel1_Paint(sender As Object, e As PaintEventArgs) Handles pnlBoutonsMatiere.Paint
 
     End Sub
+
+    Private Sub btnRetour_Click(sender As Object, e As EventArgs) Handles btnRetour.Click
+        FormPrincipal.Show()
+    End Sub
 End Class

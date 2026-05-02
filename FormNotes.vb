@@ -6,4 +6,8 @@
     Private Sub btnCalculer_Click(sender As Object, e As EventArgs) Handles btnCalculer.Click
 
     End Sub
+
+    Private Sub btnRetour_Click(sender As Object, e As EventArgs) Handles btnRetour.Click
+        FormPrincipal.Show()
+    End Sub
 End Class

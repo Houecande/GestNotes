@@ -61,6 +61,7 @@ Partial Class FormClasses
         Me.btnSupprimerMatiere = New System.Windows.Forms.Button()
         Me.pnlBoutonsClasse = New System.Windows.Forms.Panel()
         Me.pnlBoutonsMatiere = New System.Windows.Forms.Panel()
+        Me.btnRetour = New System.Windows.Forms.Button()
         Me.pnlToolbar.SuspendLayout()
         CType(Me.splitPrincipal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.splitPrincipal.Panel1.SuspendLayout()
@@ -78,6 +79,7 @@ Partial Class FormClasses
         'pnlToolbar
         '
         Me.pnlToolbar.BackColor = System.Drawing.Color.White
+        Me.pnlToolbar.Controls.Add(Me.btnRetour)
         Me.pnlToolbar.Controls.Add(Me.btnNouvelleMatiere)
         Me.pnlToolbar.Controls.Add(Me.btnNouvelleClasse)
         Me.pnlToolbar.Controls.Add(Me.lblTitre)
@@ -120,7 +122,7 @@ Partial Class FormClasses
         Me.lblTitre.AutoSize = True
         Me.lblTitre.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblTitre.ForeColor = System.Drawing.Color.FromArgb(CType(CType(12, Byte), Integer), CType(CType(68, Byte), Integer), CType(CType(124, Byte), Integer))
-        Me.lblTitre.Location = New System.Drawing.Point(12, 10)
+        Me.lblTitre.Location = New System.Drawing.Point(106, 10)
         Me.lblTitre.Name = "lblTitre"
         Me.lblTitre.Size = New System.Drawing.Size(138, 21)
         Me.lblTitre.TabIndex = 0
@@ -497,6 +499,20 @@ Partial Class FormClasses
         Me.pnlBoutonsMatiere.Size = New System.Drawing.Size(482, 44)
         Me.pnlBoutonsMatiere.TabIndex = 8
         '
+        'btnRetour
+        '
+        Me.btnRetour.BackColor = System.Drawing.Color.FromArgb(CType(CType(240, Byte), Integer), CType(CType(244, Byte), Integer), CType(CType(248, Byte), Integer))
+        Me.btnRetour.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnRetour.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(181, Byte), Integer), CType(CType(212, Byte), Integer), CType(CType(244, Byte), Integer))
+        Me.btnRetour.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnRetour.ForeColor = System.Drawing.Color.FromArgb(CType(CType(24, Byte), Integer), CType(CType(95, Byte), Integer), CType(CType(165, Byte), Integer))
+        Me.btnRetour.Location = New System.Drawing.Point(8, 8)
+        Me.btnRetour.Name = "btnRetour"
+        Me.btnRetour.Size = New System.Drawing.Size(90, 28)
+        Me.btnRetour.TabIndex = 4
+        Me.btnRetour.Text = "← Retour"
+        Me.btnRetour.UseVisualStyleBackColor = False
+        '
         'FormClasses
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
@@ -570,4 +586,5 @@ Partial Class FormClasses
     Friend WithEvents btnEnregistrerMatiere As Button
     Friend WithEvents pnlBoutonsClasse As Panel
     Friend WithEvents pnlBoutonsMatiere As Panel
+    Friend WithEvents btnRetour As Button
 End Class

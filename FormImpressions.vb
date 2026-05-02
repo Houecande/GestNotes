@@ -10,4 +10,8 @@
     Private Sub pnlInfoNote_Paint(sender As Object, e As PaintEventArgs) Handles pnlInfoNote.Paint
 
     End Sub
+
+    Private Sub btnRetour_Click(sender As Object, e As EventArgs) Handles btnRetour.Click
+        FormPrincipal.Show()
+    End Sub
 End Class
