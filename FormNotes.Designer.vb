@@ -54,6 +54,7 @@ Partial Class FormNotes
         Me.lblInfoFormule = New System.Windows.Forms.Label()
         Me.lblInfoClasse = New System.Windows.Forms.Label()
         Me.btnRetour = New System.Windows.Forms.Button()
+        Me.sepRetour = New System.Windows.Forms.Panel()
         Me.pnlToolbar.SuspendLayout()
         Me.pnlCorps.SuspendLayout()
         Me.pnlStats.SuspendLayout()
@@ -68,6 +69,7 @@ Partial Class FormNotes
         'pnlToolbar
         '
         Me.pnlToolbar.BackColor = System.Drawing.Color.White
+        Me.pnlToolbar.Controls.Add(Me.sepRetour)
         Me.pnlToolbar.Controls.Add(Me.btnRetour)
         Me.pnlToolbar.Controls.Add(Me.btnEnregistrer)
         Me.pnlToolbar.Controls.Add(Me.btnCalculer)
@@ -416,6 +418,14 @@ Partial Class FormNotes
         Me.btnRetour.Text = "← Retour"
         Me.btnRetour.UseVisualStyleBackColor = False
         '
+        'sepRetour
+        '
+        Me.sepRetour.BackColor = System.Drawing.Color.FromArgb(CType(CType(181, Byte), Integer), CType(CType(212, Byte), Integer), CType(CType(244, Byte), Integer))
+        Me.sepRetour.Location = New System.Drawing.Point(104, 8)
+        Me.sepRetour.Name = "sepRetour"
+        Me.sepRetour.Size = New System.Drawing.Size(1, 28)
+        Me.sepRetour.TabIndex = 6
+        '
         'FormNotes
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
@@ -480,4 +490,5 @@ Partial Class FormNotes
     Friend WithEvents lblLibMoyClasse As Label
     Friend WithEvents lblValMoyClasse As Label
     Friend WithEvents btnRetour As Button
+    Friend WithEvents sepRetour As Panel
 End Class

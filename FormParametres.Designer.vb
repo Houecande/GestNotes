@@ -54,6 +54,7 @@ Partial Class FormParametres
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.btnRetour = New System.Windows.Forms.Button()
+        Me.sepRetour = New System.Windows.Forms.Panel()
         Me.pnlToolbar.SuspendLayout()
         Me.pnlGauche.SuspendLayout()
         CType(Me.dgvUtilisateurs, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -65,6 +66,7 @@ Partial Class FormParametres
         'pnlToolbar
         '
         Me.pnlToolbar.BackColor = System.Drawing.Color.White
+        Me.pnlToolbar.Controls.Add(Me.sepRetour)
         Me.pnlToolbar.Controls.Add(Me.btnRetour)
         Me.pnlToolbar.Controls.Add(Me.btnNouvelUser)
         Me.pnlToolbar.Controls.Add(Me.Label1)
@@ -403,6 +405,14 @@ Partial Class FormParametres
         Me.btnRetour.Text = "← Retour"
         Me.btnRetour.UseVisualStyleBackColor = False
         '
+        'sepRetour
+        '
+        Me.sepRetour.BackColor = System.Drawing.Color.FromArgb(CType(CType(181, Byte), Integer), CType(CType(212, Byte), Integer), CType(CType(244, Byte), Integer))
+        Me.sepRetour.Location = New System.Drawing.Point(104, 8)
+        Me.sepRetour.Name = "sepRetour"
+        Me.sepRetour.Size = New System.Drawing.Size(1, 28)
+        Me.sepRetour.TabIndex = 5
+        '
         'FormParametres
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
@@ -464,4 +474,5 @@ Partial Class FormParametres
     Friend WithEvents btnSauverInstitut As Button
     Friend WithEvents txtAnneeScolaire As TextBox
     Friend WithEvents btnRetour As Button
+    Friend WithEvents sepRetour As Panel
 End Class

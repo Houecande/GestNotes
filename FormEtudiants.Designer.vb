@@ -22,7 +22,7 @@ Partial Class FormEtudiants
     'Ne la modifiez pas à l'aide de l'éditeur de code.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.pnlToolbar = New System.Windows.Forms.Panel()
         Me.btnNouvelEtudiant = New System.Windows.Forms.Button()
         Me.lblTitre = New System.Windows.Forms.Label()
@@ -55,6 +55,7 @@ Partial Class FormEtudiants
         Me.cmbFiltreClasse = New System.Windows.Forms.ComboBox()
         Me.txtRecherche = New System.Windows.Forms.TextBox()
         Me.btnRetour = New System.Windows.Forms.Button()
+        Me.sepRetour = New System.Windows.Forms.Panel()
         Me.pnlToolbar.SuspendLayout()
         Me.pnlFiche.SuspendLayout()
         Me.pnlListe.SuspendLayout()
@@ -64,6 +65,7 @@ Partial Class FormEtudiants
         'pnlToolbar
         '
         Me.pnlToolbar.BackColor = System.Drawing.Color.White
+        Me.pnlToolbar.Controls.Add(Me.sepRetour)
         Me.pnlToolbar.Controls.Add(Me.btnRetour)
         Me.pnlToolbar.Controls.Add(Me.btnNouvelEtudiant)
         Me.pnlToolbar.Controls.Add(Me.lblTitre)
@@ -316,14 +318,14 @@ Partial Class FormEtudiants
         Me.dgvEtudiants.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.dgvEtudiants.BackgroundColor = System.Drawing.Color.White
         Me.dgvEtudiants.BorderStyle = System.Windows.Forms.BorderStyle.None
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(CType(CType(230, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(251, Byte), Integer))
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(12, Byte), Integer), CType(CType(68, Byte), Integer), CType(CType(124, Byte), Integer))
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvEtudiants.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(CType(CType(230, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(251, Byte), Integer))
+        DataGridViewCellStyle4.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle4.ForeColor = System.Drawing.Color.FromArgb(CType(CType(12, Byte), Integer), CType(CType(68, Byte), Integer), CType(CType(124, Byte), Integer))
+        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvEtudiants.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle4
         Me.dgvEtudiants.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvEtudiants.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colMatricule, Me.colNom, Me.colSexe, Me.colClasse, Me.colModifier, Me.colSupprimer})
         Me.dgvEtudiants.Location = New System.Drawing.Point(12, 29)
@@ -418,6 +420,14 @@ Partial Class FormEtudiants
         Me.btnRetour.Text = "← Retour"
         Me.btnRetour.UseVisualStyleBackColor = False
         '
+        'sepRetour
+        '
+        Me.sepRetour.BackColor = System.Drawing.Color.FromArgb(CType(CType(181, Byte), Integer), CType(CType(212, Byte), Integer), CType(CType(244, Byte), Integer))
+        Me.sepRetour.Location = New System.Drawing.Point(104, 8)
+        Me.sepRetour.Name = "sepRetour"
+        Me.sepRetour.Size = New System.Drawing.Size(1, 28)
+        Me.sepRetour.TabIndex = 7
+        '
         'FormEtudiants
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
@@ -475,4 +485,5 @@ Partial Class FormEtudiants
     Friend WithEvents colModifier As DataGridViewTextBoxColumn
     Friend WithEvents colSupprimer As DataGridViewTextBoxColumn
     Friend WithEvents btnRetour As Button
+    Friend WithEvents sepRetour As Panel
 End Class

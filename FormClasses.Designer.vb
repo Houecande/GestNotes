@@ -62,6 +62,7 @@ Partial Class FormClasses
         Me.pnlBoutonsClasse = New System.Windows.Forms.Panel()
         Me.pnlBoutonsMatiere = New System.Windows.Forms.Panel()
         Me.btnRetour = New System.Windows.Forms.Button()
+        Me.sepRetour = New System.Windows.Forms.Panel()
         Me.pnlToolbar.SuspendLayout()
         CType(Me.splitPrincipal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.splitPrincipal.Panel1.SuspendLayout()
@@ -79,6 +80,7 @@ Partial Class FormClasses
         'pnlToolbar
         '
         Me.pnlToolbar.BackColor = System.Drawing.Color.White
+        Me.pnlToolbar.Controls.Add(Me.sepRetour)
         Me.pnlToolbar.Controls.Add(Me.btnRetour)
         Me.pnlToolbar.Controls.Add(Me.btnNouvelleMatiere)
         Me.pnlToolbar.Controls.Add(Me.btnNouvelleClasse)
@@ -513,6 +515,14 @@ Partial Class FormClasses
         Me.btnRetour.Text = "← Retour"
         Me.btnRetour.UseVisualStyleBackColor = False
         '
+        'sepRetour
+        '
+        Me.sepRetour.BackColor = System.Drawing.Color.FromArgb(CType(CType(181, Byte), Integer), CType(CType(212, Byte), Integer), CType(CType(244, Byte), Integer))
+        Me.sepRetour.Location = New System.Drawing.Point(104, 8)
+        Me.sepRetour.Name = "sepRetour"
+        Me.sepRetour.Size = New System.Drawing.Size(1, 28)
+        Me.sepRetour.TabIndex = 8
+        '
         'FormClasses
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
@@ -587,4 +597,5 @@ Partial Class FormClasses
     Friend WithEvents pnlBoutonsClasse As Panel
     Friend WithEvents pnlBoutonsMatiere As Panel
     Friend WithEvents btnRetour As Button
+    Friend WithEvents sepRetour As Panel
 End Class

@@ -11,7 +11,7 @@
 
     End Sub
 
-    Private Sub btnRetour_Click(sender As Object, e As EventArgs) Handles btnRetour.Click
+    Private Sub btnRetour_Click(sender As Object, e As EventArgs)
         FormPrincipal.Show()
     End Sub
 End Class

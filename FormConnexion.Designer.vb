@@ -27,7 +27,7 @@ Partial Class FormConnexion
         Me.pnlCarte = New System.Windows.Forms.Panel()
         Me.btnQuitter = New System.Windows.Forms.Button()
         Me.btnConnecter = New System.Windows.Forms.Button()
-        Me.TextBox2 = New System.Windows.Forms.TextBox()
+        Me.txtMdp = New System.Windows.Forms.TextBox()
         Me.lblMdp = New System.Windows.Forms.Label()
         Me.txtLogin = New System.Windows.Forms.TextBox()
         Me.lblLogin = New System.Windows.Forms.Label()
@@ -69,7 +69,7 @@ Partial Class FormConnexion
         Me.pnlCarte.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.pnlCarte.Controls.Add(Me.btnQuitter)
         Me.pnlCarte.Controls.Add(Me.btnConnecter)
-        Me.pnlCarte.Controls.Add(Me.TextBox2)
+        Me.pnlCarte.Controls.Add(Me.txtMdp)
         Me.pnlCarte.Controls.Add(Me.lblMdp)
         Me.pnlCarte.Controls.Add(Me.txtLogin)
         Me.pnlCarte.Controls.Add(Me.lblLogin)
@@ -110,13 +110,13 @@ Partial Class FormConnexion
         Me.btnConnecter.Text = "Se Connecter"
         Me.btnConnecter.UseVisualStyleBackColor = False
         '
-        'TextBox2
+        'txtMdp
         '
-        Me.TextBox2.Location = New System.Drawing.Point(16, 146)
-        Me.TextBox2.Name = "TextBox2"
-        Me.TextBox2.Size = New System.Drawing.Size(306, 23)
-        Me.TextBox2.TabIndex = 5
-        Me.TextBox2.UseSystemPasswordChar = True
+        Me.txtMdp.Location = New System.Drawing.Point(16, 146)
+        Me.txtMdp.Name = "txtMdp"
+        Me.txtMdp.Size = New System.Drawing.Size(306, 23)
+        Me.txtMdp.TabIndex = 5
+        Me.txtMdp.UseSystemPasswordChar = True
         '
         'lblMdp
         '
@@ -221,7 +221,7 @@ Partial Class FormConnexion
     Friend WithEvents lblProfil As Label
     Friend WithEvents cmbProfil As ComboBox
     Friend WithEvents lblLogin As Label
-    Friend WithEvents TextBox2 As TextBox
+    Friend WithEvents txtMdp As TextBox
     Friend WithEvents lblMdp As Label
     Friend WithEvents txtLogin As TextBox
     Friend WithEvents btnConnecter As Button

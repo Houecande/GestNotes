@@ -43,6 +43,7 @@ Partial Class FormImpressions
         Me.pnlApercu = New System.Windows.Forms.Panel()
         Me.rbtApercu = New System.Windows.Forms.RichTextBox()
         Me.btnRetour = New System.Windows.Forms.Button()
+        Me.sepRetour = New System.Windows.Forms.Panel()
         Me.pnlToolbar.SuspendLayout()
         Me.pnlFiltres.SuspendLayout()
         Me.pnlApercu.SuspendLayout()
@@ -51,6 +52,7 @@ Partial Class FormImpressions
         'pnlToolbar
         '
         Me.pnlToolbar.BackColor = System.Drawing.Color.White
+        Me.pnlToolbar.Controls.Add(Me.sepRetour)
         Me.pnlToolbar.Controls.Add(Me.btnRetour)
         Me.pnlToolbar.Controls.Add(Me.cmbTypeDoc)
         Me.pnlToolbar.Controls.Add(Me.lblTitre)
@@ -280,6 +282,14 @@ Partial Class FormImpressions
         Me.btnRetour.Text = "← Retour"
         Me.btnRetour.UseVisualStyleBackColor = False
         '
+        'sepRetour
+        '
+        Me.sepRetour.BackColor = System.Drawing.Color.FromArgb(CType(CType(181, Byte), Integer), CType(CType(212, Byte), Integer), CType(CType(244, Byte), Integer))
+        Me.sepRetour.Location = New System.Drawing.Point(104, 8)
+        Me.sepRetour.Name = "sepRetour"
+        Me.sepRetour.Size = New System.Drawing.Size(1, 28)
+        Me.sepRetour.TabIndex = 6
+        '
         'FormImpressions
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
@@ -324,4 +334,5 @@ Partial Class FormImpressions
     Friend WithEvents pnlApercu As Panel
     Friend WithEvents rbtApercu As RichTextBox
     Friend WithEvents btnRetour As Button
+    Friend WithEvents sepRetour As Panel
 End Class
