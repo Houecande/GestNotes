@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class FormClasses
     Inherits System.Windows.Forms.Form
 
     'Form remplace la méthode Dispose pour nettoyer la liste des composants.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class FormClasses
     'REMARQUE : la procédure suivante est requise par le Concepteur Windows Form
     'Elle peut être modifiée à l'aide du Concepteur Windows Form.  
     'Ne la modifiez pas à l'aide de l'éditeur de code.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormClasses))
         Me.pnlToolbar = New System.Windows.Forms.Panel()
@@ -28,6 +28,9 @@ Partial Class FormClasses
         Me.btnNouvelleClasse = New System.Windows.Forms.Button()
         Me.lblTitre = New System.Windows.Forms.Label()
         Me.splitPrincipal = New System.Windows.Forms.SplitContainer()
+        Me.pnlBoutonsClasse = New System.Windows.Forms.Panel()
+        Me.btnEnregistrerClasse = New System.Windows.Forms.Button()
+        Me.btnSupprimerClasse = New System.Windows.Forms.Button()
         Me.pnlFormClasse = New System.Windows.Forms.Panel()
         Me.txtFiliereClasse = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
@@ -42,6 +45,9 @@ Partial Class FormClasses
         Me.colFiliereClasse = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colActionsClasse = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.lblTitreClasses = New System.Windows.Forms.Label()
+        Me.pnlBoutonsMatiere = New System.Windows.Forms.Panel()
+        Me.btnEnregistrerMatiere = New System.Windows.Forms.Button()
+        Me.btnSupprimerMatiere = New System.Windows.Forms.Button()
         Me.pnlFormMatiere = New System.Windows.Forms.Panel()
         Me.nudCoefficient = New System.Windows.Forms.NumericUpDown()
         Me.Label6 = New System.Windows.Forms.Label()
@@ -56,33 +62,23 @@ Partial Class FormClasses
         Me.colCoef = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colActionsMatiere = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.lblTitreMatieres = New System.Windows.Forms.Label()
-        Me.btnEnregistrerClasse = New System.Windows.Forms.Button()
-        Me.btnSupprimerClasse = New System.Windows.Forms.Button()
-        Me.btnEnregistrerMatiere = New System.Windows.Forms.Button()
-        Me.btnSupprimerMatiere = New System.Windows.Forms.Button()
-        Me.pnlBoutonsClasse = New System.Windows.Forms.Panel()
-        Me.pnlBoutonsMatiere = New System.Windows.Forms.Panel()
-        Me.btnRetour = New System.Windows.Forms.Button()
-        Me.sepRetour = New System.Windows.Forms.Panel()
         Me.pnlToolbar.SuspendLayout()
         CType(Me.splitPrincipal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.splitPrincipal.Panel1.SuspendLayout()
         Me.splitPrincipal.Panel2.SuspendLayout()
         Me.splitPrincipal.SuspendLayout()
+        Me.pnlBoutonsClasse.SuspendLayout()
         Me.pnlFormClasse.SuspendLayout()
         CType(Me.dgvClasses, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.pnlBoutonsMatiere.SuspendLayout()
         Me.pnlFormMatiere.SuspendLayout()
         CType(Me.nudCoefficient, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvMatieres, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.pnlBoutonsClasse.SuspendLayout()
-        Me.pnlBoutonsMatiere.SuspendLayout()
         Me.SuspendLayout()
         '
         'pnlToolbar
         '
         Me.pnlToolbar.BackColor = System.Drawing.Color.White
-        Me.pnlToolbar.Controls.Add(Me.sepRetour)
-        Me.pnlToolbar.Controls.Add(Me.btnRetour)
         Me.pnlToolbar.Controls.Add(Me.btnNouvelleMatiere)
         Me.pnlToolbar.Controls.Add(Me.btnNouvelleClasse)
         Me.pnlToolbar.Controls.Add(Me.lblTitre)
@@ -125,7 +121,7 @@ Partial Class FormClasses
         Me.lblTitre.AutoSize = True
         Me.lblTitre.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblTitre.ForeColor = System.Drawing.Color.FromArgb(CType(CType(12, Byte), Integer), CType(CType(68, Byte), Integer), CType(CType(124, Byte), Integer))
-        Me.lblTitre.Location = New System.Drawing.Point(106, 10)
+        Me.lblTitre.Location = New System.Drawing.Point(9, 10)
         Me.lblTitre.Name = "lblTitre"
         Me.lblTitre.Size = New System.Drawing.Size(138, 21)
         Me.lblTitre.TabIndex = 0
@@ -153,6 +149,43 @@ Partial Class FormClasses
         Me.splitPrincipal.Size = New System.Drawing.Size(933, 475)
         Me.splitPrincipal.SplitterDistance = 447
         Me.splitPrincipal.TabIndex = 1
+        '
+        'pnlBoutonsClasse
+        '
+        Me.pnlBoutonsClasse.BackColor = System.Drawing.Color.FromArgb(CType(CType(248, Byte), Integer), CType(CType(248, Byte), Integer), CType(CType(248, Byte), Integer))
+        Me.pnlBoutonsClasse.Controls.Add(Me.btnEnregistrerClasse)
+        Me.pnlBoutonsClasse.Controls.Add(Me.btnSupprimerClasse)
+        Me.pnlBoutonsClasse.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.pnlBoutonsClasse.Location = New System.Drawing.Point(0, 221)
+        Me.pnlBoutonsClasse.Name = "pnlBoutonsClasse"
+        Me.pnlBoutonsClasse.Size = New System.Drawing.Size(447, 44)
+        Me.pnlBoutonsClasse.TabIndex = 7
+        '
+        'btnEnregistrerClasse
+        '
+        Me.btnEnregistrerClasse.BackColor = System.Drawing.Color.FromArgb(CType(CType(24, Byte), Integer), CType(CType(95, Byte), Integer), CType(CType(165, Byte), Integer))
+        Me.btnEnregistrerClasse.FlatAppearance.BorderSize = 0
+        Me.btnEnregistrerClasse.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnEnregistrerClasse.ForeColor = System.Drawing.Color.White
+        Me.btnEnregistrerClasse.Location = New System.Drawing.Point(10, 6)
+        Me.btnEnregistrerClasse.Name = "btnEnregistrerClasse"
+        Me.btnEnregistrerClasse.Size = New System.Drawing.Size(130, 30)
+        Me.btnEnregistrerClasse.TabIndex = 5
+        Me.btnEnregistrerClasse.Text = "Enregistrer"
+        Me.btnEnregistrerClasse.UseVisualStyleBackColor = False
+        '
+        'btnSupprimerClasse
+        '
+        Me.btnSupprimerClasse.BackColor = System.Drawing.Color.FromArgb(CType(CType(252, Byte), Integer), CType(CType(235, Byte), Integer), CType(CType(235, Byte), Integer))
+        Me.btnSupprimerClasse.FlatAppearance.BorderSize = 0
+        Me.btnSupprimerClasse.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnSupprimerClasse.ForeColor = System.Drawing.Color.FromArgb(CType(CType(163, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer))
+        Me.btnSupprimerClasse.Location = New System.Drawing.Point(154, 6)
+        Me.btnSupprimerClasse.Name = "btnSupprimerClasse"
+        Me.btnSupprimerClasse.Size = New System.Drawing.Size(130, 30)
+        Me.btnSupprimerClasse.TabIndex = 6
+        Me.btnSupprimerClasse.Text = "Supprimer"
+        Me.btnSupprimerClasse.UseVisualStyleBackColor = False
         '
         'pnlFormClasse
         '
@@ -289,6 +322,43 @@ Partial Class FormClasses
         Me.lblTitreClasses.Size = New System.Drawing.Size(75, 17)
         Me.lblTitreClasses.TabIndex = 0
         Me.lblTitreClasses.Text = "📚 Classes"
+        '
+        'pnlBoutonsMatiere
+        '
+        Me.pnlBoutonsMatiere.BackColor = System.Drawing.Color.FromArgb(CType(CType(248, Byte), Integer), CType(CType(248, Byte), Integer), CType(CType(248, Byte), Integer))
+        Me.pnlBoutonsMatiere.Controls.Add(Me.btnEnregistrerMatiere)
+        Me.pnlBoutonsMatiere.Controls.Add(Me.btnSupprimerMatiere)
+        Me.pnlBoutonsMatiere.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.pnlBoutonsMatiere.Location = New System.Drawing.Point(0, 221)
+        Me.pnlBoutonsMatiere.Name = "pnlBoutonsMatiere"
+        Me.pnlBoutonsMatiere.Size = New System.Drawing.Size(482, 44)
+        Me.pnlBoutonsMatiere.TabIndex = 8
+        '
+        'btnEnregistrerMatiere
+        '
+        Me.btnEnregistrerMatiere.BackColor = System.Drawing.Color.FromArgb(CType(CType(24, Byte), Integer), CType(CType(95, Byte), Integer), CType(CType(165, Byte), Integer))
+        Me.btnEnregistrerMatiere.FlatAppearance.BorderSize = 0
+        Me.btnEnregistrerMatiere.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnEnregistrerMatiere.ForeColor = System.Drawing.Color.White
+        Me.btnEnregistrerMatiere.Location = New System.Drawing.Point(10, 6)
+        Me.btnEnregistrerMatiere.Name = "btnEnregistrerMatiere"
+        Me.btnEnregistrerMatiere.Size = New System.Drawing.Size(130, 30)
+        Me.btnEnregistrerMatiere.TabIndex = 6
+        Me.btnEnregistrerMatiere.Text = "Enregistrer"
+        Me.btnEnregistrerMatiere.UseVisualStyleBackColor = False
+        '
+        'btnSupprimerMatiere
+        '
+        Me.btnSupprimerMatiere.BackColor = System.Drawing.Color.FromArgb(CType(CType(252, Byte), Integer), CType(CType(235, Byte), Integer), CType(CType(235, Byte), Integer))
+        Me.btnSupprimerMatiere.FlatAppearance.BorderSize = 0
+        Me.btnSupprimerMatiere.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnSupprimerMatiere.ForeColor = System.Drawing.Color.FromArgb(CType(CType(163, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer))
+        Me.btnSupprimerMatiere.Location = New System.Drawing.Point(154, 6)
+        Me.btnSupprimerMatiere.Name = "btnSupprimerMatiere"
+        Me.btnSupprimerMatiere.Size = New System.Drawing.Size(130, 30)
+        Me.btnSupprimerMatiere.TabIndex = 7
+        Me.btnSupprimerMatiere.Text = "Supprimer"
+        Me.btnSupprimerMatiere.UseVisualStyleBackColor = False
         '
         'pnlFormMatiere
         '
@@ -428,102 +498,6 @@ Partial Class FormClasses
         Me.lblTitreMatieres.TabIndex = 0
         Me.lblTitreMatieres.Text = "📖 Matières de : (sélectionnez une classe)"
         '
-        'btnEnregistrerClasse
-        '
-        Me.btnEnregistrerClasse.BackColor = System.Drawing.Color.FromArgb(CType(CType(24, Byte), Integer), CType(CType(95, Byte), Integer), CType(CType(165, Byte), Integer))
-        Me.btnEnregistrerClasse.FlatAppearance.BorderSize = 0
-        Me.btnEnregistrerClasse.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnEnregistrerClasse.ForeColor = System.Drawing.Color.White
-        Me.btnEnregistrerClasse.Location = New System.Drawing.Point(10, 6)
-        Me.btnEnregistrerClasse.Name = "btnEnregistrerClasse"
-        Me.btnEnregistrerClasse.Size = New System.Drawing.Size(130, 30)
-        Me.btnEnregistrerClasse.TabIndex = 5
-        Me.btnEnregistrerClasse.Text = "Enregistrer"
-        Me.btnEnregistrerClasse.UseVisualStyleBackColor = False
-        '
-        'btnSupprimerClasse
-        '
-        Me.btnSupprimerClasse.BackColor = System.Drawing.Color.FromArgb(CType(CType(252, Byte), Integer), CType(CType(235, Byte), Integer), CType(CType(235, Byte), Integer))
-        Me.btnSupprimerClasse.FlatAppearance.BorderSize = 0
-        Me.btnSupprimerClasse.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnSupprimerClasse.ForeColor = System.Drawing.Color.FromArgb(CType(CType(163, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer))
-        Me.btnSupprimerClasse.Location = New System.Drawing.Point(154, 6)
-        Me.btnSupprimerClasse.Name = "btnSupprimerClasse"
-        Me.btnSupprimerClasse.Size = New System.Drawing.Size(130, 30)
-        Me.btnSupprimerClasse.TabIndex = 6
-        Me.btnSupprimerClasse.Text = "Supprimer"
-        Me.btnSupprimerClasse.UseVisualStyleBackColor = False
-        '
-        'btnEnregistrerMatiere
-        '
-        Me.btnEnregistrerMatiere.BackColor = System.Drawing.Color.FromArgb(CType(CType(24, Byte), Integer), CType(CType(95, Byte), Integer), CType(CType(165, Byte), Integer))
-        Me.btnEnregistrerMatiere.FlatAppearance.BorderSize = 0
-        Me.btnEnregistrerMatiere.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnEnregistrerMatiere.ForeColor = System.Drawing.Color.White
-        Me.btnEnregistrerMatiere.Location = New System.Drawing.Point(10, 6)
-        Me.btnEnregistrerMatiere.Name = "btnEnregistrerMatiere"
-        Me.btnEnregistrerMatiere.Size = New System.Drawing.Size(130, 30)
-        Me.btnEnregistrerMatiere.TabIndex = 6
-        Me.btnEnregistrerMatiere.Text = "Enregistrer"
-        Me.btnEnregistrerMatiere.UseVisualStyleBackColor = False
-        '
-        'btnSupprimerMatiere
-        '
-        Me.btnSupprimerMatiere.BackColor = System.Drawing.Color.FromArgb(CType(CType(252, Byte), Integer), CType(CType(235, Byte), Integer), CType(CType(235, Byte), Integer))
-        Me.btnSupprimerMatiere.FlatAppearance.BorderSize = 0
-        Me.btnSupprimerMatiere.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnSupprimerMatiere.ForeColor = System.Drawing.Color.FromArgb(CType(CType(163, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer))
-        Me.btnSupprimerMatiere.Location = New System.Drawing.Point(154, 6)
-        Me.btnSupprimerMatiere.Name = "btnSupprimerMatiere"
-        Me.btnSupprimerMatiere.Size = New System.Drawing.Size(130, 30)
-        Me.btnSupprimerMatiere.TabIndex = 7
-        Me.btnSupprimerMatiere.Text = "Supprimer"
-        Me.btnSupprimerMatiere.UseVisualStyleBackColor = False
-        '
-        'pnlBoutonsClasse
-        '
-        Me.pnlBoutonsClasse.BackColor = System.Drawing.Color.FromArgb(CType(CType(248, Byte), Integer), CType(CType(248, Byte), Integer), CType(CType(248, Byte), Integer))
-        Me.pnlBoutonsClasse.Controls.Add(Me.btnEnregistrerClasse)
-        Me.pnlBoutonsClasse.Controls.Add(Me.btnSupprimerClasse)
-        Me.pnlBoutonsClasse.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.pnlBoutonsClasse.Location = New System.Drawing.Point(0, 221)
-        Me.pnlBoutonsClasse.Name = "pnlBoutonsClasse"
-        Me.pnlBoutonsClasse.Size = New System.Drawing.Size(447, 44)
-        Me.pnlBoutonsClasse.TabIndex = 7
-        '
-        'pnlBoutonsMatiere
-        '
-        Me.pnlBoutonsMatiere.BackColor = System.Drawing.Color.FromArgb(CType(CType(248, Byte), Integer), CType(CType(248, Byte), Integer), CType(CType(248, Byte), Integer))
-        Me.pnlBoutonsMatiere.Controls.Add(Me.btnEnregistrerMatiere)
-        Me.pnlBoutonsMatiere.Controls.Add(Me.btnSupprimerMatiere)
-        Me.pnlBoutonsMatiere.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.pnlBoutonsMatiere.Location = New System.Drawing.Point(0, 221)
-        Me.pnlBoutonsMatiere.Name = "pnlBoutonsMatiere"
-        Me.pnlBoutonsMatiere.Size = New System.Drawing.Size(482, 44)
-        Me.pnlBoutonsMatiere.TabIndex = 8
-        '
-        'btnRetour
-        '
-        Me.btnRetour.BackColor = System.Drawing.Color.FromArgb(CType(CType(240, Byte), Integer), CType(CType(244, Byte), Integer), CType(CType(248, Byte), Integer))
-        Me.btnRetour.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnRetour.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(181, Byte), Integer), CType(CType(212, Byte), Integer), CType(CType(244, Byte), Integer))
-        Me.btnRetour.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnRetour.ForeColor = System.Drawing.Color.FromArgb(CType(CType(24, Byte), Integer), CType(CType(95, Byte), Integer), CType(CType(165, Byte), Integer))
-        Me.btnRetour.Location = New System.Drawing.Point(8, 8)
-        Me.btnRetour.Name = "btnRetour"
-        Me.btnRetour.Size = New System.Drawing.Size(90, 28)
-        Me.btnRetour.TabIndex = 4
-        Me.btnRetour.Text = "← Retour"
-        Me.btnRetour.UseVisualStyleBackColor = False
-        '
-        'sepRetour
-        '
-        Me.sepRetour.BackColor = System.Drawing.Color.FromArgb(CType(CType(181, Byte), Integer), CType(CType(212, Byte), Integer), CType(CType(244, Byte), Integer))
-        Me.sepRetour.Location = New System.Drawing.Point(104, 8)
-        Me.sepRetour.Name = "sepRetour"
-        Me.sepRetour.Size = New System.Drawing.Size(1, 28)
-        Me.sepRetour.TabIndex = 8
-        '
         'FormClasses
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
@@ -546,15 +520,15 @@ Partial Class FormClasses
         Me.splitPrincipal.Panel2.PerformLayout()
         CType(Me.splitPrincipal, System.ComponentModel.ISupportInitialize).EndInit()
         Me.splitPrincipal.ResumeLayout(False)
+        Me.pnlBoutonsClasse.ResumeLayout(False)
         Me.pnlFormClasse.ResumeLayout(False)
         Me.pnlFormClasse.PerformLayout()
         CType(Me.dgvClasses, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.pnlBoutonsMatiere.ResumeLayout(False)
         Me.pnlFormMatiere.ResumeLayout(False)
         Me.pnlFormMatiere.PerformLayout()
         CType(Me.nudCoefficient, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dgvMatieres, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.pnlBoutonsClasse.ResumeLayout(False)
-        Me.pnlBoutonsMatiere.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -598,6 +572,4 @@ Partial Class FormClasses
     Friend WithEvents btnEnregistrerMatiere As Button
     Friend WithEvents pnlBoutonsClasse As Panel
     Friend WithEvents pnlBoutonsMatiere As Panel
-    Friend WithEvents btnRetour As Button
-    Friend WithEvents sepRetour As Panel
 End Class

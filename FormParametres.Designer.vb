@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class FormParametres
     Inherits System.Windows.Forms.Form
 
     'Form remplace la méthode Dispose pour nettoyer la liste des composants.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class FormParametres
     'REMARQUE : la procédure suivante est requise par le Concepteur Windows Form
     'Elle peut être modifiée à l'aide du Concepteur Windows Form.  
     'Ne la modifiez pas à l'aide de l'éditeur de code.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormParametres))
         Me.pnlToolbar = New System.Windows.Forms.Panel()
@@ -54,8 +54,6 @@ Partial Class FormParametres
         Me.txtLoginUser = New System.Windows.Forms.TextBox()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.btnRetour = New System.Windows.Forms.Button()
-        Me.sepRetour = New System.Windows.Forms.Panel()
         Me.pnlToolbar.SuspendLayout()
         Me.pnlGauche.SuspendLayout()
         CType(Me.dgvUtilisateurs, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -67,8 +65,6 @@ Partial Class FormParametres
         'pnlToolbar
         '
         Me.pnlToolbar.BackColor = System.Drawing.Color.White
-        Me.pnlToolbar.Controls.Add(Me.sepRetour)
-        Me.pnlToolbar.Controls.Add(Me.btnRetour)
         Me.pnlToolbar.Controls.Add(Me.btnNouvelUser)
         Me.pnlToolbar.Controls.Add(Me.Label1)
         Me.pnlToolbar.Dock = System.Windows.Forms.DockStyle.Top
@@ -96,7 +92,7 @@ Partial Class FormParametres
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(12, Byte), Integer), CType(CType(68, Byte), Integer), CType(CType(124, Byte), Integer))
-        Me.Label1.Location = New System.Drawing.Point(105, 10)
+        Me.Label1.Location = New System.Drawing.Point(9, 10)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(225, 21)
         Me.Label1.TabIndex = 0
@@ -111,7 +107,7 @@ Partial Class FormParametres
         Me.pnlGauche.Location = New System.Drawing.Point(0, 44)
         Me.pnlGauche.Name = "pnlGauche"
         Me.pnlGauche.Padding = New System.Windows.Forms.Padding(12)
-        Me.pnlGauche.Size = New System.Drawing.Size(260, 508)
+        Me.pnlGauche.Size = New System.Drawing.Size(260, 502)
         Me.pnlGauche.TabIndex = 1
         '
         'dgvUtilisateurs
@@ -130,7 +126,7 @@ Partial Class FormParametres
         Me.dgvUtilisateurs.RowHeadersVisible = False
         Me.dgvUtilisateurs.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvUtilisateurs.ShowRowErrors = False
-        Me.dgvUtilisateurs.Size = New System.Drawing.Size(236, 235)
+        Me.dgvUtilisateurs.Size = New System.Drawing.Size(236, 229)
         Me.dgvUtilisateurs.TabIndex = 1
         '
         'colLogin
@@ -171,7 +167,7 @@ Partial Class FormParametres
         Me.pnlDroit.Location = New System.Drawing.Point(260, 44)
         Me.pnlDroit.Name = "pnlDroit"
         Me.pnlDroit.Padding = New System.Windows.Forms.Padding(10)
-        Me.pnlDroit.Size = New System.Drawing.Size(410, 508)
+        Me.pnlDroit.Size = New System.Drawing.Size(410, 502)
         Me.pnlDroit.TabIndex = 2
         '
         'pnlInstitut
@@ -189,7 +185,7 @@ Partial Class FormParametres
         Me.pnlInstitut.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pnlInstitut.Location = New System.Drawing.Point(10, 273)
         Me.pnlInstitut.Name = "pnlInstitut"
-        Me.pnlInstitut.Size = New System.Drawing.Size(390, 225)
+        Me.pnlInstitut.Size = New System.Drawing.Size(390, 219)
         Me.pnlInstitut.TabIndex = 3
         '
         'btnSauverInstitut
@@ -392,34 +388,12 @@ Partial Class FormParametres
         Me.Label3.TabIndex = 0
         Me.Label3.Text = "Fiche utilisateur"
         '
-        'btnRetour
-        '
-        Me.btnRetour.BackColor = System.Drawing.Color.FromArgb(CType(CType(240, Byte), Integer), CType(CType(244, Byte), Integer), CType(CType(248, Byte), Integer))
-        Me.btnRetour.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnRetour.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(181, Byte), Integer), CType(CType(212, Byte), Integer), CType(CType(244, Byte), Integer))
-        Me.btnRetour.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnRetour.ForeColor = System.Drawing.Color.FromArgb(CType(CType(24, Byte), Integer), CType(CType(95, Byte), Integer), CType(CType(165, Byte), Integer))
-        Me.btnRetour.Location = New System.Drawing.Point(8, 8)
-        Me.btnRetour.Name = "btnRetour"
-        Me.btnRetour.Size = New System.Drawing.Size(90, 28)
-        Me.btnRetour.TabIndex = 4
-        Me.btnRetour.Text = "← Retour"
-        Me.btnRetour.UseVisualStyleBackColor = False
-        '
-        'sepRetour
-        '
-        Me.sepRetour.BackColor = System.Drawing.Color.FromArgb(CType(CType(181, Byte), Integer), CType(CType(212, Byte), Integer), CType(CType(244, Byte), Integer))
-        Me.sepRetour.Location = New System.Drawing.Point(104, 8)
-        Me.sepRetour.Name = "sepRetour"
-        Me.sepRetour.Size = New System.Drawing.Size(1, 28)
-        Me.sepRetour.TabIndex = 5
-        '
         'FormParametres
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(240, Byte), Integer), CType(CType(244, Byte), Integer), CType(CType(248, Byte), Integer))
-        Me.ClientSize = New System.Drawing.Size(670, 552)
+        Me.ClientSize = New System.Drawing.Size(670, 546)
         Me.Controls.Add(Me.pnlDroit)
         Me.Controls.Add(Me.pnlGauche)
         Me.Controls.Add(Me.pnlToolbar)
@@ -475,6 +449,4 @@ Partial Class FormParametres
     Friend WithEvents Label11 As Label
     Friend WithEvents btnSauverInstitut As Button
     Friend WithEvents txtAnneeScolaire As TextBox
-    Friend WithEvents btnRetour As Button
-    Friend WithEvents sepRetour As Panel
 End Class
