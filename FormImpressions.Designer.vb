@@ -35,14 +35,14 @@ Partial Class FormImpressions
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.txtAnneeScolaire = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
+        Me.cmbEtudiantImp = New System.Windows.Forms.ComboBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.cmbClasseImp = New System.Windows.Forms.ComboBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.lblSectFiltres = New System.Windows.Forms.Label()
         Me.pnlApercu = New System.Windows.Forms.Panel()
-        Me.rbtApercu = New System.Windows.Forms.RichTextBox()
+        Me.wbApercu = New System.Windows.Forms.WebBrowser()
         Me.pnlToolbar.SuspendLayout()
         Me.pnlFiltres.SuspendLayout()
         Me.pnlApercu.SuspendLayout()
@@ -91,7 +91,7 @@ Partial Class FormImpressions
         Me.pnlFiltres.Controls.Add(Me.Panel2)
         Me.pnlFiltres.Controls.Add(Me.txtAnneeScolaire)
         Me.pnlFiltres.Controls.Add(Me.Label3)
-        Me.pnlFiltres.Controls.Add(Me.ComboBox1)
+        Me.pnlFiltres.Controls.Add(Me.cmbEtudiantImp)
         Me.pnlFiltres.Controls.Add(Me.Label2)
         Me.pnlFiltres.Controls.Add(Me.cmbClasseImp)
         Me.pnlFiltres.Controls.Add(Me.Label1)
@@ -187,14 +187,14 @@ Partial Class FormImpressions
         Me.Label3.TabIndex = 6
         Me.Label3.Text = "Année scolaire"
         '
-        'ComboBox1
+        'cmbEtudiantImp
         '
-        Me.ComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.ComboBox1.FormattingEnabled = True
-        Me.ComboBox1.Location = New System.Drawing.Point(12, 106)
-        Me.ComboBox1.Name = "ComboBox1"
-        Me.ComboBox1.Size = New System.Drawing.Size(196, 23)
-        Me.ComboBox1.TabIndex = 5
+        Me.cmbEtudiantImp.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbEtudiantImp.FormattingEnabled = True
+        Me.cmbEtudiantImp.Location = New System.Drawing.Point(12, 106)
+        Me.cmbEtudiantImp.Name = "cmbEtudiantImp"
+        Me.cmbEtudiantImp.Size = New System.Drawing.Size(196, 23)
+        Me.cmbEtudiantImp.TabIndex = 5
         '
         'Label2
         '
@@ -244,7 +244,7 @@ Partial Class FormImpressions
         '
         'pnlApercu
         '
-        Me.pnlApercu.Controls.Add(Me.rbtApercu)
+        Me.pnlApercu.Controls.Add(Me.wbApercu)
         Me.pnlApercu.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pnlApercu.Location = New System.Drawing.Point(235, 44)
         Me.pnlApercu.Name = "pnlApercu"
@@ -252,18 +252,14 @@ Partial Class FormImpressions
         Me.pnlApercu.Size = New System.Drawing.Size(698, 475)
         Me.pnlApercu.TabIndex = 2
         '
-        'rbtApercu
+        'wbApercu
         '
-        Me.rbtApercu.BackColor = System.Drawing.Color.White
-        Me.rbtApercu.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.rbtApercu.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.rbtApercu.Font = New System.Drawing.Font("Courier New", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.rbtApercu.Location = New System.Drawing.Point(16, 16)
-        Me.rbtApercu.Name = "rbtApercu"
-        Me.rbtApercu.ReadOnly = True
-        Me.rbtApercu.Size = New System.Drawing.Size(666, 443)
-        Me.rbtApercu.TabIndex = 0
-        Me.rbtApercu.Text = ""
+        Me.wbApercu.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.wbApercu.Location = New System.Drawing.Point(16, 16)
+        Me.wbApercu.MinimumSize = New System.Drawing.Size(20, 20)
+        Me.wbApercu.Name = "wbApercu"
+        Me.wbApercu.Size = New System.Drawing.Size(666, 443)
+        Me.wbApercu.TabIndex = 0
         '
         'FormImpressions
         '
@@ -295,7 +291,7 @@ Partial Class FormImpressions
     Friend WithEvents pnlFiltres As Panel
     Friend WithEvents Panel1 As Panel
     Friend WithEvents lblSectFiltres As Label
-    Friend WithEvents ComboBox1 As ComboBox
+    Friend WithEvents cmbEtudiantImp As ComboBox
     Friend WithEvents Label2 As Label
     Friend WithEvents cmbClasseImp As ComboBox
     Friend WithEvents Label1 As Label
@@ -308,5 +304,5 @@ Partial Class FormImpressions
     Friend WithEvents btnExporterPDF As Button
     Friend WithEvents btnImprimer As Button
     Friend WithEvents pnlApercu As Panel
-    Friend WithEvents rbtApercu As RichTextBox
+    Friend WithEvents wbApercu As WebBrowser
 End Class

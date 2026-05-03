@@ -45,23 +45,36 @@
         lblPageTitle.Text = "Tableau de bord"
         pnlContenu.Controls.Clear()
 
-        ' Statistiques depuis la BDD
         Try
+            ' Nombre d'étudiants
             Dim nbEtudiants = ModuleBDD.GetValeur(
-                "SELECT COUNT(*) FROM Etudiant")
-            Dim nbMatieres = ModuleBDD.GetValeur(
-                "SELECT COUNT(*) FROM Matiere")
-            Dim nbNotes = ModuleBDD.GetValeur(
-                "SELECT COUNT(*) FROM Note")
+            "SELECT COUNT(*) FROM Etudiant")
+            lblValEtudiants.Text = If(
+            nbEtudiants IsNot Nothing,
+            nbEtudiants.ToString(), "0")
 
-            lblValEtudiants.Text = If(nbEtudiants IsNot Nothing,
-                                      nbEtudiants.ToString(), "0")
-            lblValMatieres.Text = If(nbMatieres IsNot Nothing,
-                                     nbMatieres.ToString(), "0")
-            lblValNotes.Text = If(nbNotes IsNot Nothing,
-                                  nbNotes.ToString(), "0")
-            lblValBulletins.Text = "0"
-        Catch
+            ' Nombre de matières
+            Dim nbMatieres = ModuleBDD.GetValeur(
+            "SELECT COUNT(*) FROM Matiere")
+            lblValMatieres.Text = If(
+            nbMatieres IsNot Nothing,
+            nbMatieres.ToString(), "0")
+
+            ' Nombre de notes saisies
+            Dim nbNotes = ModuleBDD.GetValeur(
+            "SELECT COUNT(*) FROM [Note]")
+            lblValNotes.Text = If(
+            nbNotes IsNot Nothing,
+            nbNotes.ToString(), "0")
+
+            ' Nombre de classes
+            Dim nbClasses = ModuleBDD.GetValeur(
+            "SELECT COUNT(*) FROM Classe")
+            lblValBulletins.Text = If(
+            nbClasses IsNot Nothing,
+            nbClasses.ToString(), "0")
+
+        Catch ex As Exception
             lblValEtudiants.Text = "0"
             lblValMatieres.Text = "0"
             lblValNotes.Text = "0"

@@ -366,7 +366,7 @@ Partial Class FormNotes
         Me.lblInfoSaisies.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblInfoSaisies.AutoSize = True
         Me.lblInfoSaisies.ForeColor = System.Drawing.Color.FromArgb(CType(CType(29, Byte), Integer), CType(CType(158, Byte), Integer), CType(CType(117, Byte), Integer))
-        Me.lblInfoSaisies.Location = New System.Drawing.Point(660, 10)
+        Me.lblInfoSaisies.Location = New System.Drawing.Point(829, 10)
         Me.lblInfoSaisies.Name = "lblInfoSaisies"
         Me.lblInfoSaisies.Size = New System.Drawing.Size(60, 15)
         Me.lblInfoSaisies.TabIndex = 2
@@ -386,7 +386,7 @@ Partial Class FormNotes
         '
         Me.lblInfoFormule.AutoSize = True
         Me.lblInfoFormule.ForeColor = System.Drawing.Color.FromArgb(CType(CType(136, Byte), Integer), CType(CType(135, Byte), Integer), CType(CType(128, Byte), Integer))
-        Me.lblInfoFormule.Location = New System.Drawing.Point(309, 10)
+        Me.lblInfoFormule.Location = New System.Drawing.Point(520, 10)
         Me.lblInfoFormule.Name = "lblInfoFormule"
         Me.lblInfoFormule.Size = New System.Drawing.Size(241, 15)
         Me.lblInfoFormule.TabIndex = 1

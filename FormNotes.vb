@@ -141,46 +141,55 @@ Public Class FormNotes
         MettreAJourStats()
     End Sub
 
+    ' Fonction utilitaire parse double 
+    Private Function ParseDouble(valeur As String,
+    ByRef resultat As Double) As Boolean
+        valeur = valeur?.Replace(",", ".").Trim()
+        Return Double.TryParse(valeur,
+        System.Globalization.NumberStyles.Any,
+        System.Globalization.CultureInfo.InvariantCulture,
+        resultat)
+    End Function
+
     Private Sub dgvNotes_CellEndEdit(sender As Object,
-        e As DataGridViewCellEventArgs) _
-        Handles dgvNotes.CellEndEdit
+    e As DataGridViewCellEventArgs) _
+    Handles dgvNotes.CellEndEdit
 
         Dim row = e.RowIndex
         Dim col = e.ColumnIndex
         If row < 0 OrElse (col <> 2 AndAlso col <> 3) Then Exit Sub
 
         Dim valeur = dgvNotes.Rows(row).Cells(col).
-            Value?.ToString().Trim()
+        Value?.ToString().Trim()
 
+        ' Validation
         Dim note As Double = -1
         If Not String.IsNullOrEmpty(valeur) Then
-            If Not Double.TryParse(
-                valeur.Replace(",", "."), note) OrElse
-               note < 0 OrElse note > 20 Then
+            If Not ParseDouble(valeur, note) OrElse
+           note < 0 OrElse note > 20 Then
                 MsgBox("La note doit être entre 0 et 20.",
-                       MsgBoxStyle.Exclamation, "Valeur invalide")
+                   MsgBoxStyle.Exclamation, "Valeur invalide")
                 dgvNotes.Rows(row).Cells(col).Value = ""
                 Exit Sub
             End If
         End If
 
+        ' Calcul automatique si les deux notes sont présentes
         Dim valInterro = dgvNotes.Rows(row).Cells(2).
-            Value?.ToString().Trim()
+        Value?.ToString().Trim()
         Dim valDevoir = dgvNotes.Rows(row).Cells(3).
-            Value?.ToString().Trim()
+        Value?.ToString().Trim()
 
         If Not String.IsNullOrEmpty(valInterro) AndAlso
-           Not String.IsNullOrEmpty(valDevoir) Then
+       Not String.IsNullOrEmpty(valDevoir) Then
             Dim interro As Double
             Dim devoir As Double
-            If Double.TryParse(
-                valInterro.Replace(",", "."), interro) AndAlso
-               Double.TryParse(
-                valDevoir.Replace(",", "."), devoir) Then
+            If ParseDouble(valInterro, interro) AndAlso
+           ParseDouble(valDevoir, devoir) Then
                 Dim moy = Math.Round(
-                    0.3 * interro + 0.7 * devoir, 2)
+                0.3 * interro + 0.7 * devoir, 2)
                 dgvNotes.Rows(row).Cells(4).Value =
-                    moy.ToString("F2")
+                moy.ToString("F2")
                 ColorierMoyenne(row, moy)
             End If
         End If
@@ -357,18 +366,24 @@ Public Class FormNotes
         Dim total = dgvNotes.Rows.Count
 
         For Each row As DataGridViewRow In dgvNotes.Rows
-            Dim valMoy = row.Cells(4).Value?.ToString()
+            Dim valMoy = row.Cells(4).Value?.ToString().Trim()
+
             If Not String.IsNullOrEmpty(valMoy) AndAlso
-               valMoy <> "—" Then
+           valMoy <> "—" Then
                 Dim moy As Double
-                If Double.TryParse(
-                    valMoy.Replace(",", "."), moy) Then
+                ' Accepter virgule ET point comme séparateur
+                Dim valNormalisee = valMoy.Replace(",", ".")
+                If Double.TryParse(valNormalisee,
+                System.Globalization.NumberStyles.Any,
+                System.Globalization.CultureInfo.InvariantCulture,
+                moy) Then
                     moyennes.Add(moy)
                     nbSaisies += 1
                 End If
             End If
         Next
 
+        ' Mettre à jour les labels infos
         lblInfoSaisies.Text = nbSaisies & "/" & total & " saisies"
         lblValSaisies.Text = nbSaisies & "/" & total
 
@@ -377,8 +392,9 @@ Public Class FormNotes
             Exit Sub
         End If
 
+        ' Mettre à jour les cartes stats
         lblValMoyClasse.Text = Math.Round(
-            moyennes.Average(), 2).ToString("F2")
+        moyennes.Average(), 2).ToString("F2")
         lblValMax.Text = moyennes.Max().ToString("F2")
         lblValMin.Text = moyennes.Min().ToString("F2")
     End Sub
