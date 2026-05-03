@@ -2,40 +2,50 @@
 
 Module ModuleBDD
 
-    ' Chaîne de connexion 
+    ' Chemin fixe vers le dossier bin\Debug
     Private ReadOnly CheminBDD As String =
         IO.Path.Combine(Application.StartupPath, "GestNotes.accdb")
 
     Public ReadOnly Property ConnexionString As String
         Get
             Return "Provider=Microsoft.ACE.OLEDB.12.0;" &
-                   "Data Source=" & CheminBDD & ";"
+                   "Data Source=" & CheminBDD & ";" &
+                   "Persist Security Info=False;"
         End Get
     End Property
 
-    ' Obtenir une connexion ouverte
+    ' Vérifier que le fichier existe
+    Public Function FichierBDDExiste() As Boolean
+        If Not IO.File.Exists(CheminBDD) Then
+            MsgBox("Fichier BDD introuvable !" & vbCrLf &
+                   "Chemin : " & CheminBDD,
+                   MsgBoxStyle.Critical, "BDD introuvable")
+            Return False
+        End If
+        Return True
+    End Function
+
     Public Function GetConnexion() As OleDbConnection
         Dim conn As New OleDbConnection(ConnexionString)
         conn.Open()
         Return conn
     End Function
 
-    ' Tester la connexion 
     Public Function TesterConnexion() As Boolean
         Try
+            If Not FichierBDDExiste() Then Return False
             Using conn = GetConnexion()
                 Return conn.State = ConnectionState.Open
             End Using
         Catch ex As Exception
-            MsgBox("Erreur de connexion BDD :" & vbCrLf & ex.Message,
+            MsgBox("Erreur connexion BDD :" & vbCrLf & ex.Message,
                    MsgBoxStyle.Critical, "Erreur BDD")
             Return False
         End Try
     End Function
 
-    ' Exécuter une requête sans retour (INSERT/UPDATE/DELETE)
     Public Function ExecuterRequete(sql As String,
-                                    ParamArray params() As OleDbParameter) As Boolean
+        ParamArray params() As OleDbParameter) As Boolean
         Try
             Using conn = GetConnexion()
                 Using cmd As New OleDbCommand(sql, conn)
@@ -47,15 +57,14 @@ Module ModuleBDD
                 End Using
             End Using
         Catch ex As Exception
-            MsgBox("Erreur lors de l'opération :" & vbCrLf & ex.Message,
+            MsgBox("Erreur opération :" & vbCrLf & ex.Message,
                    MsgBoxStyle.Critical, "Erreur BDD")
             Return False
         End Try
     End Function
 
-    ' Obtenir un DataTable (SELECT)
     Public Function GetDataTable(sql As String,
-                                 ParamArray params() As OleDbParameter) As DataTable
+        ParamArray params() As OleDbParameter) As DataTable
         Dim dt As New DataTable()
         Try
             Using conn = GetConnexion()
@@ -69,15 +78,14 @@ Module ModuleBDD
                 End Using
             End Using
         Catch ex As Exception
-            MsgBox("Erreur de lecture BDD :" & vbCrLf & ex.Message,
+            MsgBox("Erreur lecture BDD :" & vbCrLf & ex.Message,
                    MsgBoxStyle.Critical, "Erreur BDD")
         End Try
         Return dt
     End Function
 
-    ' Obtenir une valeur unique (COUNT, MAX...)
     Public Function GetValeur(sql As String,
-                               ParamArray params() As OleDbParameter) As Object
+        ParamArray params() As OleDbParameter) As Object
         Try
             Using conn = GetConnexion()
                 Using cmd As New OleDbCommand(sql, conn)

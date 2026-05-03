@@ -401,7 +401,7 @@ Public Class FormClasses
 
         ' Vérifier si des notes existent pour cette matière
         Dim nbNotes = CInt(ModuleBDD.GetValeur(
-            "SELECT COUNT(*) FROM Note WHERE code_matiere = ?",
+            "SELECT COUNT(*) FROM [Note] WHERE code_matiere = ?",
             New OleDbParameter("@code", CodeMatiereSelectionne)))
 
         If nbNotes > 0 Then
@@ -414,7 +414,7 @@ Public Class FormClasses
                 Exit Sub
             End If
             ModuleBDD.ExecuterRequete(
-                "DELETE FROM Note WHERE code_matiere = ?",
+                "DELETE FROM [Note] WHERE code_matiere = ?",
                 New OleDbParameter("@code", CodeMatiereSelectionne))
         Else
             If MsgBox("Supprimer la matière """ &

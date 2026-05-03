@@ -325,13 +325,13 @@ Partial Class FormEtudiants
         Me.dgvEtudiants.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvEtudiants.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvEtudiants.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colMatricule, Me.colNom, Me.colSexe, Me.colClasse, Me.colModifier, Me.colSupprimer})
-        Me.dgvEtudiants.Location = New System.Drawing.Point(12, 29)
+        Me.dgvEtudiants.Location = New System.Drawing.Point(0, 29)
         Me.dgvEtudiants.MultiSelect = False
         Me.dgvEtudiants.Name = "dgvEtudiants"
         Me.dgvEtudiants.ReadOnly = True
         Me.dgvEtudiants.RowHeadersVisible = False
         Me.dgvEtudiants.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvEtudiants.Size = New System.Drawing.Size(658, 446)
+        Me.dgvEtudiants.Size = New System.Drawing.Size(683, 446)
         Me.dgvEtudiants.TabIndex = 2
         '
         'colMatricule
