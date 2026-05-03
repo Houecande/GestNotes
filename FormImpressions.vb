@@ -1,30 +1,52 @@
 ﻿Imports System.Data.OleDb
+Imports System.Linq
 
 Public Class FormImpressions
 
     Private Sub FormImpressions_Load(sender As Object, e As EventArgs) _
         Handles MyBase.Load
 
-        ' Type de document
         cmbTypeDoc.Items.Clear()
         cmbTypeDoc.Items.Add("Bulletins individuels")
         cmbTypeDoc.Items.Add("Relevé collectif (ordre de mérite)")
         cmbTypeDoc.SelectedIndex = 0
 
-        ' Charger les classes
         ChargerComboClasses()
 
         btnImprimer.Enabled = False
         btnExporterPDF.Enabled = False
         btnApercu.Enabled = False
+
+        ' Page d'accueil du WebBrowser
+        wbApercu.DocumentText = PageAccueil()
     End Sub
 
-    ' ── Charger les classes ───────────────────────────────────
+    ' Page d'accueil 
+    Private Function PageAccueil() As String
+        Return "<!DOCTYPE html><html><head>" &
+               "<style>" &
+               "body{font-family:Segoe UI,sans-serif;" &
+               "display:flex;align-items:center;" &
+               "justify-content:center;height:90vh;" &
+               "background:#F0F4F8;margin:0;}" &
+               ".msg{text-align:center;color:#B5D4F4;}" &
+               ".msg h2{color:#185FA5;font-size:22px;}" &
+               ".msg p{font-size:13px;color:#888780;}" &
+               ".icon{font-size:48px;margin-bottom:10px;}" &
+               "</style></head><body>" &
+               "<div class='msg'>" &
+               "<div class='icon'>🖨️</div>" &
+               "<h2>Impressions</h2>" &
+               "<p>Sélectionnez une classe puis " &
+               "cliquez sur Aperçu</p>" &
+               "</div></body></html>"
+    End Function
+
+    ' Charger les classes
     Private Sub ChargerComboClasses()
         Dim dt = ModuleBDD.GetDataTable(
             "SELECT code_classe, libelle_classe " &
             "FROM Classe ORDER BY libelle_classe")
-
         cmbClasseImp.Items.Clear()
         For Each row As DataRow In dt.Rows
             cmbClasseImp.Items.Add(row("code_classe").ToString())
@@ -32,20 +54,19 @@ Public Class FormImpressions
         cmbClasseImp.SelectedIndex = -1
     End Sub
 
-    ' ── Changement type document ──────────────────────────────
+    ' Changement type document 
     Private Sub cmbTypeDoc_SelectedIndexChanged(
         sender As Object, e As EventArgs) _
         Handles cmbTypeDoc.SelectedIndexChanged
-
         Dim estBulletin = (cmbTypeDoc.SelectedIndex = 0)
         cmbEtudiantImp.Visible = estBulletin
-        rtbApercu.Clear()
+        wbApercu.DocumentText = PageAccueil()
         btnApercu.Enabled = (cmbClasseImp.SelectedIndex >= 0)
         btnImprimer.Enabled = False
         btnExporterPDF.Enabled = False
     End Sub
 
-    ' ── Changement de classe ──────────────────────────────────
+    ' Changement de classe 
     Private Sub cmbClasseImp_SelectedIndexChanged(
         sender As Object, e As EventArgs) _
         Handles cmbClasseImp.SelectedIndexChanged
@@ -54,11 +75,9 @@ Public Class FormImpressions
         cmbEtudiantImp.Items.Add("Tous les étudiants")
 
         If cmbClasseImp.SelectedIndex < 0 Then
-            btnApercu.Enabled = False
-            Exit Sub
+            btnApercu.Enabled = False : Exit Sub
         End If
 
-        ' Charger les étudiants de la classe
         Dim dt = ModuleBDD.GetDataTable(
             "SELECT num_matricule, nom_prenom " &
             "FROM Etudiant WHERE code_classe = ? " &
@@ -74,12 +93,12 @@ Public Class FormImpressions
 
         cmbEtudiantImp.SelectedIndex = 0
         btnApercu.Enabled = True
-        rtbApercu.Clear()
+        wbApercu.DocumentText = PageAccueil()
         btnImprimer.Enabled = False
         btnExporterPDF.Enabled = False
     End Sub
 
-    ' ── Bouton Aperçu ─────────────────────────────────────────
+    ' Bouton Aperçu 
     Private Sub btnApercu_Click(sender As Object, e As EventArgs) _
         Handles btnApercu.Click
 
@@ -89,358 +108,501 @@ Public Class FormImpressions
             Exit Sub
         End If
 
-        rtbApercu.Clear()
-
         If cmbTypeDoc.SelectedIndex = 0 Then
-            GenererBulletin()
+            wbApercu.DocumentText = GenererHTMLBulletin()
         Else
-            GenererReleveCollectif()
+            wbApercu.DocumentText = GenererHTMLReleve()
         End If
 
         btnImprimer.Enabled = True
         btnExporterPDF.Enabled = True
     End Sub
 
-    ' ══════════════════════════════════════════════════════════
-    '  GÉNÉRATION BULLETIN INDIVIDUEL
-    ' ══════════════════════════════════════════════════════════
-    Private Sub GenererBulletin()
+    ' CSS COMMUN
+    Private Function GetCSS() As String
+        Return "<style>" &
+            "* { box-sizing: border-box; margin: 0; padding: 0; }" &
+            "body { font-family: 'Segoe UI', Arial, sans-serif;" &
+            "background: #F0F4F8; padding: 20px; }" &
+            ".bulletin { background: white; max-width: 750px;" &
+            "margin: 0 auto 30px; border-radius: 8px;" &
+            "overflow: hidden;" &
+            "box-shadow: 0 2px 12px rgba(0,0,0,0.1); }" &
+            ".header { background: #0C447C; color: white;" &
+            "padding: 20px; text-align: center; }" &
+            ".header h1 { font-size: 16px; font-weight: 600;" &
+            "letter-spacing: 1px; margin-bottom: 4px; }" &
+            ".header p { font-size: 11px; opacity: 0.8; }" &
+            ".doc-title { background: #185FA5; color: white;" &
+            "text-align: center; padding: 10px;" &
+            "font-size: 14px; font-weight: 600;" &
+            "letter-spacing: 2px; }" &
+            ".doc-annee { background: #E6F1FB; color: #0C447C;" &
+            "text-align: center; padding: 6px;" &
+            "font-size: 12px; }" &
+            ".info-grid { display: grid;" &
+            "grid-template-columns: 1fr 1fr;" &
+            "gap: 0; border-bottom: 1px solid #E6F1FB; }" &
+            ".info-item { padding: 8px 16px;" &
+            "font-size: 12px; color: #333;" &
+            "border-bottom: 1px solid #F0F4F8; }" &
+            ".info-item span { color: #185FA5;" &
+            "font-weight: 600; margin-right: 6px; }" &
+            ".section { padding: 16px; }" &
+            "table { width: 100%; border-collapse: collapse;" &
+            "font-size: 12px; }" &
+            "thead tr { background: #185FA5; color: white; }" &
+            "thead th { padding: 10px 12px; text-align: left;" &
+            "font-weight: 600; }" &
+            "tbody tr:nth-child(even) { background: #F8FBFF; }" &
+            "tbody tr:hover { background: #E6F1FB; }" &
+            "tbody td { padding: 9px 12px;" &
+            "border-bottom: 1px solid #EEF2F7; }" &
+            ".moy-cell { font-weight: 700; border-radius: 4px;" &
+            "padding: 3px 8px !important;" &
+            "text-align: center; }" &
+            ".moy-tb { background: #E1F5EE; color: #085041; }" &
+            ".moy-b { background: #D1FAE5; color: #065F46; }" &
+            ".moy-ab { background: #E6F1FB; color: #0C447C; }" &
+            ".moy-p { background: #FEF3C7; color: #92400E; }" &
+            ".moy-i { background: #FEE2E2; color: #991B1B; }" &
+            ".resume { background: #E6F1FB;" &
+            "border-left: 4px solid #185FA5;" &
+            "padding: 14px 16px; margin: 0 16px 16px;" &
+            "border-radius: 0 6px 6px 0;" &
+            "display: flex; justify-content: space-between;" &
+            "align-items: center; }" &
+            ".resume-item { text-align: center; }" &
+            ".resume-label { font-size: 10px; color: #888;" &
+            "text-transform: uppercase; letter-spacing: 1px; }" &
+            ".resume-value { font-size: 18px; font-weight: 700;" &
+            "color: #0C447C; }" &
+            ".decision-admis { background: #059669;" &
+            "color: white; padding: 8px 20px;" &
+            "border-radius: 20px; font-weight: 600;" &
+            "font-size: 13px; }" &
+            ".decision-ajourn { background: #DC2626;" &
+            "color: white; padding: 8px 20px;" &
+            "border-radius: 20px; font-weight: 600;" &
+            "font-size: 13px; }" &
+            ".footer { border-top: 1px solid #E6F1FB;" &
+            "padding: 14px 16px;" &
+            "display: flex; justify-content: space-between;" &
+            "font-size: 11px; color: #888; }" &
+            ".signature { text-align: center; }" &
+            ".sig-line { border-top: 1px solid #333;" &
+            "width: 160px; margin: 30px auto 4px; }" &
+            ".page-break { page-break-after: always; }" &
+            "@media print { body { background: white; padding: 0; }" &
+            ".bulletin { box-shadow: none; } }" &
+            "</style>"
+    End Function
+
+    '  GÉNÉRATION HTML BULLETIN
+    Private Function GenererHTMLBulletin() As String
         Dim classe = cmbClasseImp.SelectedItem.ToString()
         Dim annee = txtAnneeScolaire.Text
 
-        ' Récupérer infos institut
+        ' Infos institut
         Dim dtParam = ModuleBDD.GetDataTable(
-            "SELECT nom_institut, adresse " &
-            "FROM Parametres")
+            "SELECT nom_institut, adresse FROM Parametres")
         Dim nomInstitut = If(dtParam.Rows.Count > 0,
             dtParam.Rows(0)("nom_institut").ToString(),
             "INSTITUT")
         Dim adresse = If(dtParam.Rows.Count > 0,
             dtParam.Rows(0)("adresse").ToString(), "")
 
-        ' Déterminer quels étudiants afficher
+        ' Étudiants à afficher
         Dim dtEtudiants As DataTable
         If cmbEtudiantImp.SelectedIndex = 0 Then
-            ' Tous les étudiants
             dtEtudiants = ModuleBDD.GetDataTable(
                 "SELECT * FROM Etudiant " &
                 "WHERE code_classe = ? ORDER BY nom_prenom",
                 New OleDbParameter("@classe", classe))
         Else
-            ' Un seul étudiant
-            Dim item = cmbEtudiantImp.SelectedItem.ToString()
-            Dim matricule = item.Split("—"c)(0).Trim()
+            Dim matricule = cmbEtudiantImp.SelectedItem.
+                ToString().Split("—"c)(0).Trim()
             dtEtudiants = ModuleBDD.GetDataTable(
-                "SELECT * FROM Etudiant " &
-                "WHERE num_matricule = ?",
+                "SELECT * FROM Etudiant WHERE num_matricule = ?",
                 New OleDbParameter("@mat", matricule))
         End If
 
         Dim sb As New System.Text.StringBuilder()
+        sb.AppendLine("<!DOCTYPE html><html><head>")
+        sb.AppendLine("<meta charset='utf-8'>")
+        sb.AppendLine(GetCSS())
+        sb.AppendLine("</head><body>")
 
-        For Each etudRow As DataRow In dtEtudiants.Rows
+        Dim nbBulletins = dtEtudiants.Rows.Count
+
+        For idx As Integer = 0 To dtEtudiants.Rows.Count - 1
+            Dim etudRow = dtEtudiants.Rows(idx)
             Dim matricule = etudRow("num_matricule").ToString()
             Dim nom = etudRow("nom_prenom").ToString()
             Dim sexe = etudRow("sexe").ToString()
-            Dim dateNaiss = ""
+            Dim dateNaiss = "—"
             Try
-                dateNaiss = CDate(
-                    etudRow("date_naissance")).ToString("dd/MM/yyyy")
-            Catch
-                dateNaiss = "—"
-            End Try
+                dateNaiss = CDate(etudRow(
+                    "date_naissance")).ToString("dd/MM/yyyy")
+            Catch : End Try
             Dim lieuNaiss = etudRow("lieu_naissance").ToString()
 
-            ' Récupérer les notes de cet étudiant
+            ' Notes de l'étudiant
             Dim dtNotes = ModuleBDD.GetDataTable(
-                "SELECT n.code_matiere, m.libelle_matiere, " &
-                "m.coefficient, n.note_interro, " &
-                "n.note_devoir, n.moyenne_matiere " &
-                "FROM [Note] n " &
-                "INNER JOIN Matiere m " &
-                "ON n.code_matiere = m.code_matiere " &
+                "SELECT m.libelle_matiere, m.coefficient, " &
+                "n.note_interro, n.note_devoir, " &
+                "n.moyenne_matiere " &
+                "FROM ([Note] n INNER JOIN Matiere m " &
+                "ON n.code_matiere = m.code_matiere) " &
                 "WHERE n.num_matricule = ? " &
                 "ORDER BY m.libelle_matiere",
                 New OleDbParameter("@mat", matricule))
 
-            ' Calculer moyenne générale pondérée
-            Dim totalPoints As Double = 0
+            ' Calcul moyenne générale
+            Dim totalPts As Double = 0
             Dim totalCoefs As Integer = 0
-            For Each noteRow As DataRow In dtNotes.Rows
-                Dim coef = CInt(noteRow("coefficient"))
+            For Each nr As DataRow In dtNotes.Rows
+                Dim coef = CInt(nr("coefficient"))
                 Dim moy As Double = 0
                 Double.TryParse(
-                    noteRow("moyenne_matiere").ToString().
+                    nr("moyenne_matiere").ToString().
                     Replace(",", "."),
                     System.Globalization.NumberStyles.Any,
                     System.Globalization.CultureInfo.InvariantCulture,
                     moy)
-                totalPoints += moy * coef
+                totalPts += moy * coef
                 totalCoefs += coef
             Next
-
             Dim moyGen As Double = 0
             If totalCoefs > 0 Then
-                moyGen = Math.Round(totalPoints / totalCoefs, 2)
+                moyGen = Math.Round(totalPts / totalCoefs, 2)
             End If
 
-            ' Calculer le rang dans la classe
             Dim rang = CalculerRang(matricule, classe)
+            Dim estAdmis = moyGen >= 10
 
-            ' Décision
-            Dim decision = If(moyGen >= 10, "ADMIS(E) ✓",
-                              "AJOURNÉ(E) ✗")
+            ' Construction HTML du bulletin 
+            sb.AppendLine("<div class='bulletin" &
+                If(idx < nbBulletins - 1,
+                   " page-break", "") & "'>")
 
-            ' ── Construction du bulletin ──────────────────
-            sb.AppendLine(New String("═"c, 60))
-            sb.AppendLine(CentrerTexte(nomInstitut, 60))
-            sb.AppendLine(CentrerTexte(adresse, 60))
-            sb.AppendLine(New String("═"c, 60))
-            sb.AppendLine()
-            sb.AppendLine(CentrerTexte("BULLETIN DE NOTES", 60))
-            sb.AppendLine(CentrerTexte(
-                "Année scolaire : " & annee, 60))
-            sb.AppendLine()
-            sb.AppendLine(New String("─"c, 60))
-            sb.AppendLine("  Matricule  : " & matricule &
-                          "       Classe : " & classe)
-            sb.AppendLine("  Nom        : " & nom)
-            sb.AppendLine("  Naissance  : " & dateNaiss &
-                          "  à  " & lieuNaiss)
-            sb.AppendLine("  Sexe       : " & sexe)
-            sb.AppendLine(New String("─"c, 60))
-            sb.AppendLine()
+            ' En-tête institut
+            sb.AppendLine("<div class='header'>")
+            sb.AppendLine("<h1>" & HtmlEncode(nomInstitut) &
+                          "</h1>")
+            sb.AppendLine("<p>" & HtmlEncode(adresse) & "</p>")
+            sb.AppendLine("</div>")
 
-            ' En-tête tableau notes
-            sb.AppendLine(
-                PadCol("MATIÈRE", 22) &
-                PadCol("COEF", 6) &
-                PadCol("INTERRO", 9) &
-                PadCol("DEVOIR", 8) &
-                PadCol("MOY.", 7) &
-                "APPRÉCIATION")
-            sb.AppendLine(New String("─"c, 60))
+            ' Titre document
+            sb.AppendLine("<div class='doc-title'>" &
+                          "BULLETIN DE NOTES</div>")
+            sb.AppendLine("<div class='doc-annee'>" &
+                          "Année scolaire : " & annee & "</div>")
 
-            For Each noteRow As DataRow In dtNotes.Rows
-                Dim matiere = noteRow("libelle_matiere").ToString()
-                Dim coef = noteRow("coefficient").ToString()
+            ' Infos étudiant
+            sb.AppendLine("<div class='info-grid'>")
+            sb.AppendLine("<div class='info-item'>" &
+                "<span>Matricule :</span>" &
+                HtmlEncode(matricule) & "</div>")
+            sb.AppendLine("<div class='info-item'>" &
+                "<span>Classe :</span>" &
+                HtmlEncode(classe) & "</div>")
+            sb.AppendLine("<div class='info-item'>" &
+                "<span>Nom & Prénom :</span>" &
+                HtmlEncode(nom) & "</div>")
+            sb.AppendLine("<div class='info-item'>" &
+                "<span>Sexe :</span>" &
+                HtmlEncode(sexe) & "</div>")
+            sb.AppendLine("<div class='info-item'>" &
+                "<span>Date de naissance :</span>" &
+                dateNaiss & "</div>")
+            sb.AppendLine("<div class='info-item'>" &
+                "<span>Lieu de naissance :</span>" &
+                HtmlEncode(lieuNaiss) & "</div>")
+            sb.AppendLine("</div>")
+
+            ' Tableau des notes
+            sb.AppendLine("<div class='section'>")
+            sb.AppendLine("<table>")
+            sb.AppendLine("<thead><tr>" &
+                "<th>Matière</th>" &
+                "<th>Coef.</th>" &
+                "<th>Interrogation</th>" &
+                "<th>Devoir</th>" &
+                "<th>Moyenne</th>" &
+                "<th>Appréciation</th>" &
+                "</tr></thead>")
+            sb.AppendLine("<tbody>")
+
+            For Each nr As DataRow In dtNotes.Rows
+                Dim matiere = nr("libelle_matiere").ToString()
+                Dim coef = nr("coefficient").ToString()
                 Dim interro As Double = 0
                 Dim devoir As Double = 0
                 Dim moy As Double = 0
                 Double.TryParse(
-                    noteRow("note_interro").ToString().
+                    nr("note_interro").ToString().
                     Replace(",", "."),
                     System.Globalization.NumberStyles.Any,
                     System.Globalization.CultureInfo.InvariantCulture,
                     interro)
                 Double.TryParse(
-                    noteRow("note_devoir").ToString().
+                    nr("note_devoir").ToString().
                     Replace(",", "."),
                     System.Globalization.NumberStyles.Any,
                     System.Globalization.CultureInfo.InvariantCulture,
                     devoir)
                 Double.TryParse(
-                    noteRow("moyenne_matiere").ToString().
+                    nr("moyenne_matiere").ToString().
                     Replace(",", "."),
                     System.Globalization.NumberStyles.Any,
                     System.Globalization.CultureInfo.InvariantCulture,
                     moy)
 
-                Dim appreciation = GetAppreciation(moy)
+                Dim cssClass = GetMoyCSS(moy)
+                Dim appr = GetAppreciation(moy)
 
-                sb.AppendLine(
-                    PadCol(matiere, 22) &
-                    PadCol(coef, 6) &
-                    PadCol(interro.ToString("F2"), 9) &
-                    PadCol(devoir.ToString("F2"), 8) &
-                    PadCol(moy.ToString("F2"), 7) &
-                    appreciation)
+                sb.AppendLine("<tr>")
+                sb.AppendLine("<td>" & HtmlEncode(matiere) &
+                              "</td>")
+                sb.AppendLine("<td style='text-align:center'>" &
+                              coef & "</td>")
+                sb.AppendLine("<td style='text-align:center'>" &
+                              interro.ToString("F2") & "</td>")
+                sb.AppendLine("<td style='text-align:center'>" &
+                              devoir.ToString("F2") & "</td>")
+                sb.AppendLine("<td><span class='moy-cell " &
+                              cssClass & "'>" &
+                              moy.ToString("F2") &
+                              "</span></td>")
+                sb.AppendLine("<td>" & appr & "</td>")
+                sb.AppendLine("</tr>")
             Next
 
-            sb.AppendLine(New String("─"c, 60))
-            sb.AppendLine()
+            sb.AppendLine("</tbody></table>")
+            sb.AppendLine("</div>")
 
             ' Résumé
-            sb.AppendLine(
-                "  ► Moyenne générale : " &
-                moyGen.ToString("F2") & " / 20")
-            sb.AppendLine(
-                "  ► Rang              : " & rang)
-            sb.AppendLine(
-                "  ► Décision          : " & decision)
-            sb.AppendLine()
-            sb.AppendLine(New String("─"c, 60))
-            sb.AppendLine(
-                "  Édité le : " &
-                DateTime.Now.ToString("dd/MM/yyyy"))
-            sb.AppendLine()
-            sb.AppendLine("  Signature du Directeur :")
-            sb.AppendLine()
-            sb.AppendLine("  " & New String("_"c, 25))
-            sb.AppendLine(New String("═"c, 60))
-            sb.AppendLine()
-            sb.AppendLine()
+            sb.AppendLine("<div class='resume'>")
+            sb.AppendLine("<div class='resume-item'>" &
+                "<div class='resume-label'>Moyenne générale</div>" &
+                "<div class='resume-value'>" &
+                moyGen.ToString("F2") & "/20</div></div>")
+            sb.AppendLine("<div class='resume-item'>" &
+                "<div class='resume-label'>Rang</div>" &
+                "<div class='resume-value'>" &
+                rang & "</div></div>")
+            sb.AppendLine("<div class='resume-item'>")
+            If estAdmis Then
+                sb.AppendLine("<span class='decision-admis'>" &
+                              "✓ ADMIS(E)</span>")
+            Else
+                sb.AppendLine("<span class='decision-ajourn'>" &
+                              "✗ AJOURNÉ(E)</span>")
+            End If
+            sb.AppendLine("</div></div>")
+
+            ' Pied de page
+            sb.AppendLine("<div class='footer'>")
+            sb.AppendLine("<span>Édité le : " &
+                DateTime.Now.ToString("dd/MM/yyyy") & "</span>")
+            sb.AppendLine("<div class='signature'>" &
+                "<div class='sig-line'></div>" &
+                "<div>Le Directeur</div></div>")
+            sb.AppendLine("</div>")
+            sb.AppendLine("</div>") ' fin bulletin
         Next
 
-        rtbApercu.Text = sb.ToString()
-    End Sub
+        sb.AppendLine("</body></html>")
+        Return sb.ToString()
+    End Function
 
-    ' ══════════════════════════════════════════════════════════
-    '  GÉNÉRATION RELEVÉ COLLECTIF PAR MÉRITE
-    ' ══════════════════════════════════════════════════════════
-    Private Sub GenererReleveCollectif()
+    '  GÉNÉRATION HTML RELEVÉ COLLECTIF
+    Private Function GenererHTMLReleve() As String
         Dim classe = cmbClasseImp.SelectedItem.ToString()
         Dim annee = txtAnneeScolaire.Text
 
-        ' Infos institut
         Dim dtParam = ModuleBDD.GetDataTable(
             "SELECT nom_institut FROM Parametres")
         Dim nomInstitut = If(dtParam.Rows.Count > 0,
             dtParam.Rows(0)("nom_institut").ToString(),
             "INSTITUT")
 
-        ' Récupérer tous les étudiants de la classe
+        ' Récupérer étudiants
         Dim dtEtudiants = ModuleBDD.GetDataTable(
             "SELECT num_matricule, nom_prenom " &
             "FROM Etudiant WHERE code_classe = ?",
             New OleDbParameter("@classe", classe))
 
-        ' Calculer la moyenne générale de chaque étudiant
-        Dim listeEtudiants As New List(Of (
-            String, String, Double))
-
+        ' Calculer moyennes générales
+        Dim liste As New List(Of (String, String, Double))
         For Each row As DataRow In dtEtudiants.Rows
-            Dim matricule = row("num_matricule").ToString()
+            Dim mat = row("num_matricule").ToString()
             Dim nom = row("nom_prenom").ToString()
-
-            Dim dtNotes = ModuleBDD.GetDataTable(
+            Dim dtN = ModuleBDD.GetDataTable(
                 "SELECT n.moyenne_matiere, m.coefficient " &
-                "FROM [Note] n " &
-                "INNER JOIN Matiere m " &
-                "ON n.code_matiere = m.code_matiere " &
-                "WHERE n.num_matricule = ? " &
-                "AND m.code_classe = ?",
-                New OleDbParameter("@mat", matricule),
+                "FROM ([Note] n INNER JOIN Matiere m " &
+                "ON n.code_matiere = m.code_matiere) " &
+                "WHERE n.num_matricule = ? AND m.code_classe = ?",
+                New OleDbParameter("@mat", mat),
                 New OleDbParameter("@classe", classe))
 
-            Dim totalPoints As Double = 0
-            Dim totalCoefs As Integer = 0
-            For Each noteRow As DataRow In dtNotes.Rows
-                Dim coef = CInt(noteRow("coefficient"))
-                Dim moy As Double = 0
+            Dim pts As Double = 0
+            Dim coefs As Integer = 0
+            For Each nr As DataRow In dtN.Rows
+                Dim c = CInt(nr("coefficient"))
+                Dim m As Double = 0
                 Double.TryParse(
-                    noteRow("moyenne_matiere").ToString().
+                    nr("moyenne_matiere").ToString().
                     Replace(",", "."),
                     System.Globalization.NumberStyles.Any,
                     System.Globalization.CultureInfo.InvariantCulture,
-                    moy)
-                totalPoints += moy * coef
-                totalCoefs += coef
+                    m)
+                pts += m * c : coefs += c
             Next
-
-            Dim moyGen As Double = 0
-            If totalCoefs > 0 Then
-                moyGen = Math.Round(totalPoints / totalCoefs, 2)
-            End If
-
-            listeEtudiants.Add((matricule, nom, moyGen))
+            Dim mg As Double = If(coefs > 0,
+                Math.Round(pts / coefs, 2), 0)
+            liste.Add((mat, nom, mg))
         Next
 
-        ' Trier par mérite (moyenne décroissante)
-        Dim listeTrie = listeEtudiants.
-            OrderByDescending(Function(x) x.Item3).ToList()
+        ' Trier par mérite
+        Dim trie = liste.OrderByDescending(Function(x) x.Item3).ToList()
 
-        ' Construction du relevé
+        ' Correction des erreurs .Count soulignées en rouge
+        Dim nbAdmis = trie.Where(Function(x) x.Item3 >= 10).Count()
+        Dim nbAj = trie.Where(Function(x) x.Item3 < 10).Count()
+
+        Dim moyC As Double = 0
+        If trie.Count > 0 Then
+            moyC = Math.Round(trie.Average(Function(x) x.Item3), 2)
+        End If
+
         Dim sb As New System.Text.StringBuilder()
-        sb.AppendLine(New String("═"c, 65))
-        sb.AppendLine(CentrerTexte(nomInstitut, 65))
-        sb.AppendLine(New String("═"c, 65))
-        sb.AppendLine()
-        sb.AppendLine(CentrerTexte(
-            "RELEVÉ DE NOTES COLLECTIF — PAR ORDRE DE MÉRITE", 65))
-        sb.AppendLine(CentrerTexte(
-            "Classe : " & classe &
-            "     Année : " & annee, 65))
-        sb.AppendLine()
-        sb.AppendLine(
-            PadCol("RANG", 7) &
-            PadCol("MATRICULE", 12) &
-            PadCol("NOM & PRÉNOM", 26) &
-            PadCol("MOY. GÉN.", 12) &
-            "DÉCISION")
-        sb.AppendLine(New String("─"c, 65))
+        sb.AppendLine("<!DOCTYPE html><html><head>")
+        sb.AppendLine("<meta charset='utf-8'>")
+        sb.AppendLine(GetCSS())
+        sb.AppendLine("</head><body>")
+        sb.AppendLine("<div class='bulletin'>")
+
+        ' En-tête
+        sb.AppendLine("<div class='header'>")
+        sb.AppendLine("<h1>" & HtmlEncode(nomInstitut) & "</h1>")
+        sb.AppendLine("</div>")
+        sb.AppendLine("<div class='doc-title'>" &
+                      "RELEVÉ DE NOTES — PAR ORDRE DE MÉRITE</div>")
+        sb.AppendLine("<div class='doc-annee'>Classe : " &
+                      classe & " &nbsp;|&nbsp; Année : " &
+                      annee & "</div>")
+
+        ' Tableau
+        sb.AppendLine("<div class='section'>")
+        sb.AppendLine("<table><thead><tr>" &
+            "<th>Rang</th><th>Matricule</th>" &
+            "<th>Nom & Prénom</th>" &
+            "<th>Moy. Générale</th>" &
+            "<th>Décision</th>" &
+            "</tr></thead><tbody>")
 
         Dim rang As Integer = 1
-        Dim nbAdmis As Integer = 0
-        Dim nbAjournes As Integer = 0
-
-        For Each etud In listeTrie
-            Dim decision = If(etud.Item3 >= 10,
-                              "ADMIS(E)", "AJOURNÉ(E)")
-            Dim rangStr = rang & GetSuffixeRang(rang)
-
-            sb.AppendLine(
-                PadCol(rangStr, 7) &
-                PadCol(etud.Item1, 12) &
-                PadCol(etud.Item2, 26) &
-                PadCol(etud.Item3.ToString("F2"), 12) &
-                decision)
-
-            If etud.Item3 >= 10 Then
-                nbAdmis += 1
-            Else
-                nbAjournes += 1
-            End If
+        For Each etud In trie
+            Dim cssM = GetMoyCSS(etud.Item3)
+            Dim dec = If(etud.Item3 >= 10,
+                "<span class='decision-admis' " &
+                "style='padding:3px 10px;font-size:11px'>" &
+                "ADMIS</span>",
+                "<span class='decision-ajourn' " &
+                "style='padding:3px 10px;font-size:11px'>" &
+                "AJOURNÉ</span>")
+            sb.AppendLine("<tr>")
+            sb.AppendLine("<td style='text-align:center;" &
+                "font-weight:700;color:#185FA5'>" &
+                rang & GetSuffixeRang(rang) & "</td>")
+            sb.AppendLine("<td>" & etud.Item1 & "</td>")
+            sb.AppendLine("<td><b>" &
+                HtmlEncode(etud.Item2) & "</b></td>")
+            sb.AppendLine("<td style='text-align:center'>" &
+                "<span class='moy-cell " & cssM & "'>" &
+                etud.Item3.ToString("F2") & "</span></td>")
+            sb.AppendLine("<td>" & dec & "</td>")
+            sb.AppendLine("</tr>")
             rang += 1
         Next
 
-        sb.AppendLine(New String("─"c, 65))
-        sb.AppendLine()
+        sb.AppendLine("</tbody></table></div>")
 
-        ' Statistiques globales
-        Dim moyClasse As Double = 0
-        If listeTrie.Count > 0 Then
-            moyClasse = Math.Round(
-                listeTrie.Average(Function(x) x.Item3), 2)
-        End If
+        ' Stats globales
+        sb.AppendLine("<div class='resume'>")
+        sb.AppendLine("<div class='resume-item'>" &
+            "<div class='resume-label'>Effectif</div>" &
+            "<div class='resume-value'>" &
+            trie.Count & "</div></div>")
+        sb.AppendLine("<div class='resume-item'>" &
+            "<div class='resume-label'>Admis</div>" &
+            "<div class='resume-value' " &
+            "style='color:#059669'>" &
+            nbAdmis & "</div></div>")
+        sb.AppendLine("<div class='resume-item'>" &
+            "<div class='resume-label'>Ajournés</div>" &
+            "<div class='resume-value' " &
+            "style='color:#DC2626'>" &
+            nbAj & "</div></div>")
+        sb.AppendLine("<div class='resume-item'>" &
+            "<div class='resume-label'>Moy. classe</div>" &
+            "<div class='resume-value'>" &
+            moyC.ToString("F2") & "</div></div>")
+        sb.AppendLine("<div class='resume-item'>" &
+            "<div class='resume-label'>Taux réussite</div>" &
+            "<div class='resume-value'>" &
+            If(trie.Count > 0,
+               Math.Round(nbAdmis * 100.0 /
+               trie.Count, 0) & "%", "—") &
+            "</div></div>")
+        sb.AppendLine("</div>")
 
-        sb.AppendLine("  Effectif total  : " &
-                      listeTrie.Count & " étudiant(s)")
-        sb.AppendLine("  Admis           : " & nbAdmis)
-        sb.AppendLine("  Ajournés        : " & nbAjournes)
-        sb.AppendLine("  Taux de réussite: " &
-                      If(listeTrie.Count > 0,
-                         Math.Round(nbAdmis * 100.0 /
-                         listeTrie.Count, 1).ToString() & "%",
-                         "—"))
-        sb.AppendLine("  Moyenne classe  : " &
-                      moyClasse.ToString("F2") & " / 20")
-        sb.AppendLine()
-        sb.AppendLine("  Édité le : " &
-                      DateTime.Now.ToString("dd/MM/yyyy HH:mm"))
-        sb.AppendLine()
-        sb.AppendLine("  Signature du Directeur :")
-        sb.AppendLine()
-        sb.AppendLine("  " & New String("_"c, 25))
-        sb.AppendLine(New String("═"c, 65))
+        ' Pied de page
+        sb.AppendLine("<div class='footer'>")
+        sb.AppendLine("<span>Édité le : " &
+            DateTime.Now.ToString("dd/MM/yyyy HH:mm") &
+            "</span>")
+        sb.AppendLine("<div class='signature'>" &
+            "<div class='sig-line'></div>" &
+            "<div>Le Directeur</div></div>")
+        sb.AppendLine("</div>")
+        sb.AppendLine("</div></body></html>")
 
-        rtbApercu.Text = sb.ToString()
-    End Sub
+        Return sb.ToString()
+    End Function
 
-    ' ══════════════════════════════════════════════════════════
     '  FONCTIONS UTILITAIRES
-    ' ══════════════════════════════════════════════════════════
+    Private Function GetMoyCSS(moy As Double) As String
+        If moy >= 16 Then Return "moy-tb"
+        If moy >= 14 Then Return "moy-b"
+        If moy >= 12 Then Return "moy-ab"
+        If moy >= 10 Then Return "moy-p"
+        Return "moy-i"
+    End Function
 
-    ' Calculer le rang d'un étudiant dans sa classe
+    Private Function GetAppreciation(moy As Double) As String
+        If moy >= 16 Then Return "Très Bien"
+        If moy >= 14 Then Return "Bien"
+        If moy >= 12 Then Return "Assez Bien"
+        If moy >= 10 Then Return "Passable"
+        If moy >= 7 Then Return "Insuffisant"
+        Return "Très Insuffisant"
+    End Function
+
+    Private Function GetSuffixeRang(rang As Integer) As String
+        Return If(rang = 1, "er", "ème")
+    End Function
+
     Private Function CalculerRang(matricule As String,
         classe As String) As String
         Dim dtTous = ModuleBDD.GetDataTable(
             "SELECT e.num_matricule, " &
             "SUM(n.moyenne_matiere * m.coefficient) / " &
             "SUM(m.coefficient) AS moy_gen " &
-            "FROM Etudiant e " &
-            "INNER JOIN [Note] n " &
-            "ON e.num_matricule = n.num_matricule " &
+            "FROM (Etudiant e INNER JOIN [Note] n " &
+            "ON e.num_matricule = n.num_matricule) " &
             "INNER JOIN Matiere m " &
             "ON n.code_matiere = m.code_matiere " &
             "WHERE e.code_classe = ? " &
@@ -459,103 +621,43 @@ Public Class FormImpressions
         Return "— / " & dtTous.Rows.Count
     End Function
 
-    Private Function GetSuffixeRang(rang As Integer) As String
-        If rang = 1 Then Return "er"
-        Return "ème"
+    Private Function HtmlEncode(texte As String) As String
+        If String.IsNullOrEmpty(texte) Then Return ""
+        Return texte.Replace("&", "&amp;").
+                     Replace("<", "&lt;").
+                     Replace(">", "&gt;").
+                     Replace("'", "&#39;")
     End Function
 
-    Private Function GetAppreciation(moy As Double) As String
-        If moy >= 16 Then Return "Très Bien"
-        If moy >= 14 Then Return "Bien"
-        If moy >= 12 Then Return "Assez Bien"
-        If moy >= 10 Then Return "Passable"
-        If moy >= 7 Then Return "Insuffisant"
-        Return "Très Insuffisant"
-    End Function
-
-    Private Function PadCol(texte As String,
-        largeur As Integer) As String
-        If texte Is Nothing Then texte = ""
-        If texte.Length >= largeur Then
-            Return texte.Substring(0, largeur - 1) & " "
-        End If
-        Return texte.PadRight(largeur)
-    End Function
-
-    Private Function CentrerTexte(texte As String,
-        largeur As Integer) As String
-        If texte Is Nothing Then texte = ""
-        If texte.Length >= largeur Then Return texte
-        Dim espaces = (largeur - texte.Length) \ 2
-        Return New String(" "c, espaces) & texte
-    End Function
-
-    ' ── Impression ────────────────────────────────────────────
+    ' Impression 
     Private Sub btnImprimer_Click(sender As Object,
         e As EventArgs) Handles btnImprimer.Click
-
-        If String.IsNullOrEmpty(rtbApercu.Text) Then
+        If wbApercu.Document IsNot Nothing Then
+            wbApercu.ShowPrintDialog()
+        Else
             MsgBox("Générez d'abord un aperçu.",
                    MsgBoxStyle.Exclamation, "Aperçu requis")
-            Exit Sub
-        End If
-
-        Dim pd As New Printing.PrintDocument()
-        Dim contenu = rtbApercu.Text
-        Dim lignes = contenu.Split(
-            New String() {vbCrLf, vbLf},
-            StringSplitOptions.None)
-        Dim ligneCourante As Integer = 0
-
-        AddHandler pd.PrintPage, Sub(s, ev)
-                                     Dim font As New Font("Courier New", 8)
-                                     Dim x As Single = ev.MarginBounds.Left
-                                     Dim y As Single = ev.MarginBounds.Top
-                                     Dim hauteurLigne = font.GetHeight(ev.Graphics)
-
-                                     While ligneCourante < lignes.Length
-                                         If y + hauteurLigne > ev.MarginBounds.Bottom Then
-                                             ev.HasMorePages = True
-                                             Exit Sub
-                                         End If
-                                         ev.Graphics.DrawString(
-                                             lignes(ligneCourante), font,
-                                             Brushes.Black, x, y)
-                                         y += hauteurLigne
-                                         ligneCourante += 1
-                                     End While
-                                     ev.HasMorePages = False
-                                 End Sub
-
-        Dim dlg As New PrintDialog()
-        dlg.Document = pd
-        If dlg.ShowDialog() = DialogResult.OK Then
-            pd.Print()
         End If
     End Sub
 
-    ' ── Export texte ──────────────────────────────────────────
+    ' Export HTML 
     Private Sub btnExporterPDF_Click(sender As Object,
         e As EventArgs) Handles btnExporterPDF.Click
 
-        If String.IsNullOrEmpty(rtbApercu.Text) Then
-            MsgBox("Générez d'abord un aperçu.",
-                   MsgBoxStyle.Exclamation, "Aperçu requis")
-            Exit Sub
-        End If
-
         Dim sfd As New SaveFileDialog()
-        sfd.Filter = "Fichier texte (*.txt)|*.txt"
+        sfd.Filter = "Fichier HTML (*.html)|*.html"
         sfd.FileName = If(cmbTypeDoc.SelectedIndex = 0,
             "Bulletin_" & DateTime.Now.ToString("yyyyMMdd"),
             "Releve_" & DateTime.Now.ToString("yyyyMMdd"))
 
         If sfd.ShowDialog() = DialogResult.OK Then
-            IO.File.WriteAllText(sfd.FileName,
-                rtbApercu.Text,
+            Dim html = If(cmbTypeDoc.SelectedIndex = 0,
+                GenererHTMLBulletin(), GenererHTMLReleve())
+            IO.File.WriteAllText(sfd.FileName, html,
                 System.Text.Encoding.UTF8)
             MsgBox("Document exporté avec succès !" &
-                   vbCrLf & sfd.FileName,
+                   vbCrLf & sfd.FileName & vbCrLf & vbCrLf &
+                   "Ouvrez-le dans un navigateur pour imprimer.",
                    MsgBoxStyle.Information, "Export réussi")
         End If
     End Sub
