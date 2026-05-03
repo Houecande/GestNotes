@@ -642,24 +642,133 @@ Public Class FormImpressions
 
     ' Export HTML 
     Private Sub btnExporterPDF_Click(sender As Object,
-        e As EventArgs) Handles btnExporterPDF.Click
+    e As EventArgs) Handles btnExporterPDF.Click
 
         Dim sfd As New SaveFileDialog()
-        sfd.Filter = "Fichier HTML (*.html)|*.html"
+        sfd.Filter = "Fichier PDF (*.pdf)|*.pdf"
         sfd.FileName = If(cmbTypeDoc.SelectedIndex = 0,
-            "Bulletin_" & DateTime.Now.ToString("yyyyMMdd"),
-            "Releve_" & DateTime.Now.ToString("yyyyMMdd"))
+        "Bulletin_" & DateTime.Now.ToString("yyyyMMdd"),
+        "Releve_" & DateTime.Now.ToString("yyyyMMdd"))
 
-        If sfd.ShowDialog() = DialogResult.OK Then
+        If sfd.ShowDialog() <> DialogResult.OK Then Exit Sub
+
+        Try
+            ' 1. Générer et sauvegarder le HTML temp
             Dim html = If(cmbTypeDoc.SelectedIndex = 0,
-                GenererHTMLBulletin(), GenererHTMLReleve())
-            IO.File.WriteAllText(sfd.FileName, html,
-                System.Text.Encoding.UTF8)
-            MsgBox("Document exporté avec succès !" &
-                   vbCrLf & sfd.FileName & vbCrLf & vbCrLf &
-                   "Ouvrez-le dans un navigateur pour imprimer.",
+            GenererHTMLBulletin(), GenererHTMLReleve())
+
+            Dim tempHtml = IO.Path.Combine(
+            IO.Path.GetTempPath(), "bulletin_temp.html")
+
+            IO.File.WriteAllText(tempHtml, html,
+            System.Text.Encoding.UTF8)
+
+            ' 2. Chercher Edge dans plusieurs emplacements possibles
+            Dim edgePaths() As String = {
+            "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe",
+            "C:\Program Files\Microsoft\Edge\Application\msedge.exe",
+            IO.Path.Combine(Environment.GetFolderPath(
+                Environment.SpecialFolder.ProgramFilesX86),
+                "Microsoft\Edge\Application\msedge.exe"),
+            IO.Path.Combine(Environment.GetFolderPath(
+                Environment.SpecialFolder.ProgramFiles),
+                "Microsoft\Edge\Application\msedge.exe")
+        }
+
+            Dim edgePath As String = ""
+            For Each p In edgePaths
+                If IO.File.Exists(p) Then
+                    edgePath = p
+                    Exit For
+                End If
+            Next
+
+            ' 3. Si Edge introuvable, chercher Chrome
+            If edgePath = "" Then
+                Dim chromePaths() As String = {
+                "C:\Program Files\Google\Chrome\Application\chrome.exe",
+                "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
+            }
+                For Each p In chromePaths
+                    If IO.File.Exists(p) Then
+                        edgePath = p
+                        Exit For
+                    End If
+                Next
+            End If
+
+            If edgePath = "" Then
+                MsgBox("Edge et Chrome introuvables." & vbCrLf &
+                   "Le fichier HTML a été sauvegardé ici :" &
+                   vbCrLf & tempHtml & vbCrLf & vbCrLf &
+                   "Ouvrez-le manuellement dans un navigateur" &
+                   vbCrLf & "et faites Ctrl+P → Enregistrer en PDF.",
+                   MsgBoxStyle.Information, "Navigateur requis")
+                Exit Sub
+            End If
+
+            ' 4. Utiliser un profil temporaire pour éviter les conflits
+            Dim tempProfile = IO.Path.Combine(
+            IO.Path.GetTempPath(), "edge_pdf_profile")
+
+            Dim pdfOutput = sfd.FileName
+
+            Dim args = "--headless=new " &
+           "--disable-gpu " &
+           "--no-sandbox " &
+           "--disable-extensions " &
+           $"--user-data-dir=""{tempProfile}"" " &
+           $"--print-to-pdf=""{pdfOutput}"" " &
+           "--print-to-pdf-no-header " &
+           "--no-pdf-header-footer " &
+           "--run-all-compositor-stages-before-draw " &
+           $"""file:///{tempHtml.Replace("\", "/")}"""
+
+            Dim psi As New ProcessStartInfo() With {
+            .FileName = edgePath,
+            .Arguments = args,
+            .UseShellExecute = False,
+            .CreateNoWindow = True
+        }
+
+            Dim proc = Process.Start(psi)
+            proc.WaitForExit(5000)
+
+            ' 5. Vérifier si le PDF a bien été créé
+            If IO.File.Exists(pdfOutput) AndAlso
+           New IO.FileInfo(pdfOutput).Length > 0 Then
+
+                ' Nettoyage
+                Try
+                    IO.File.Delete(tempHtml)
+                    IO.Directory.Delete(tempProfile, True)
+                Catch : End Try
+
+                MsgBox("✅ PDF exporté avec succès !" &
+                   vbCrLf & pdfOutput,
                    MsgBoxStyle.Information, "Export réussi")
-        End If
+
+                Process.Start(New ProcessStartInfo(pdfOutput) With {
+                .UseShellExecute = True
+            })
+            Else
+                ' Plan B : ouvrir dans le navigateur pour impression manuelle
+                MsgBox("La génération automatique a échoué." &
+                   vbCrLf & vbCrLf &
+                   "Le document va s'ouvrir dans votre navigateur." &
+                   vbCrLf & "Faites Ctrl+P → choisir" &
+                   " ""Enregistrer en PDF"".",
+                   MsgBoxStyle.Information, "Export manuel")
+
+                Process.Start(New ProcessStartInfo(tempHtml) With {
+                .UseShellExecute = True
+            })
+            End If
+
+        Catch ex As Exception
+            MsgBox("Erreur : " & ex.Message,
+               MsgBoxStyle.Critical, "Erreur")
+        End Try
     End Sub
 
 End Class
