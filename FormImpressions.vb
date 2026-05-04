@@ -1,5 +1,5 @@
 ﻿Imports System.Data.OleDb
-Imports System.Linq
+Imports System.Diagnostics
 
 Public Class FormImpressions
 
@@ -17,11 +17,9 @@ Public Class FormImpressions
         btnExporterPDF.Enabled = False
         btnApercu.Enabled = False
 
-        ' Page d'accueil du WebBrowser
         wbApercu.DocumentText = PageAccueil()
     End Sub
 
-    ' Page d'accueil 
     Private Function PageAccueil() As String
         Return "<!DOCTYPE html><html><head>" &
                "<style>" &
@@ -29,20 +27,19 @@ Public Class FormImpressions
                "display:flex;align-items:center;" &
                "justify-content:center;height:90vh;" &
                "background:#F0F4F8;margin:0;}" &
-               ".msg{text-align:center;color:#B5D4F4;}" &
+               ".msg{text-align:center;}" &
                ".msg h2{color:#185FA5;font-size:22px;}" &
                ".msg p{font-size:13px;color:#888780;}" &
                ".icon{font-size:48px;margin-bottom:10px;}" &
                "</style></head><body>" &
                "<div class='msg'>" &
-               "<div class='icon'>🖨️</div>" &
+               "<div class='icon'>&#128424;</div>" &
                "<h2>Impressions</h2>" &
                "<p>Sélectionnez une classe puis " &
                "cliquez sur Aperçu</p>" &
                "</div></body></html>"
     End Function
 
-    ' Charger les classes
     Private Sub ChargerComboClasses()
         Dim dt = ModuleBDD.GetDataTable(
             "SELECT code_classe, libelle_classe " &
@@ -54,7 +51,6 @@ Public Class FormImpressions
         cmbClasseImp.SelectedIndex = -1
     End Sub
 
-    ' Changement type document 
     Private Sub cmbTypeDoc_SelectedIndexChanged(
         sender As Object, e As EventArgs) _
         Handles cmbTypeDoc.SelectedIndexChanged
@@ -66,7 +62,6 @@ Public Class FormImpressions
         btnExporterPDF.Enabled = False
     End Sub
 
-    ' Changement de classe 
     Private Sub cmbClasseImp_SelectedIndexChanged(
         sender As Object, e As EventArgs) _
         Handles cmbClasseImp.SelectedIndexChanged
@@ -98,7 +93,6 @@ Public Class FormImpressions
         btnExporterPDF.Enabled = False
     End Sub
 
-    ' Bouton Aperçu 
     Private Sub btnApercu_Click(sender As Object, e As EventArgs) _
         Handles btnApercu.Click
 
@@ -118,7 +112,6 @@ Public Class FormImpressions
         btnExporterPDF.Enabled = True
     End Sub
 
-    ' CSS COMMUN
     Private Function GetCSS() As String
         Return "<style>" &
             "* { box-sizing: border-box; margin: 0; padding: 0; }" &
@@ -155,12 +148,11 @@ Public Class FormImpressions
             "thead th { padding: 10px 12px; text-align: left;" &
             "font-weight: 600; }" &
             "tbody tr:nth-child(even) { background: #F8FBFF; }" &
-            "tbody tr:hover { background: #E6F1FB; }" &
             "tbody td { padding: 9px 12px;" &
             "border-bottom: 1px solid #EEF2F7; }" &
             ".moy-cell { font-weight: 700; border-radius: 4px;" &
-            "padding: 3px 8px !important;" &
-            "text-align: center; }" &
+            "padding: 3px 8px;" &
+            "display: inline-block; }" &
             ".moy-tb { background: #E1F5EE; color: #085041; }" &
             ".moy-b { background: #D1FAE5; color: #065F46; }" &
             ".moy-ab { background: #E6F1FB; color: #0C447C; }" &
@@ -189,30 +181,27 @@ Public Class FormImpressions
             "padding: 14px 16px;" &
             "display: flex; justify-content: space-between;" &
             "font-size: 11px; color: #888; }" &
-            ".signature { text-align: center; }" &
             ".sig-line { border-top: 1px solid #333;" &
             "width: 160px; margin: 30px auto 4px; }" &
             ".page-break { page-break-after: always; }" &
-            "@media print { body { background: white; padding: 0; }" &
-            ".bulletin { box-shadow: none; } }" &
+            "@media print {" &
+            "body { background: white; padding: 0; }" &
+            ".bulletin { box-shadow: none; }" &
+            "}" &
             "</style>"
     End Function
 
-    '  GÉNÉRATION HTML BULLETIN
     Private Function GenererHTMLBulletin() As String
         Dim classe = cmbClasseImp.SelectedItem.ToString()
         Dim annee = txtAnneeScolaire.Text
 
-        ' Infos institut
         Dim dtParam = ModuleBDD.GetDataTable(
             "SELECT nom_institut, adresse FROM Parametres")
         Dim nomInstitut = If(dtParam.Rows.Count > 0,
-            dtParam.Rows(0)("nom_institut").ToString(),
-            "INSTITUT")
+            dtParam.Rows(0)("nom_institut").ToString(), "INSTITUT")
         Dim adresse = If(dtParam.Rows.Count > 0,
             dtParam.Rows(0)("adresse").ToString(), "")
 
-        ' Étudiants à afficher
         Dim dtEtudiants As DataTable
         If cmbEtudiantImp.SelectedIndex = 0 Then
             dtEtudiants = ModuleBDD.GetDataTable(
@@ -220,11 +209,11 @@ Public Class FormImpressions
                 "WHERE code_classe = ? ORDER BY nom_prenom",
                 New OleDbParameter("@classe", classe))
         Else
-            Dim matricule = cmbEtudiantImp.SelectedItem.
+            Dim mat = cmbEtudiantImp.SelectedItem.
                 ToString().Split("—"c)(0).Trim()
             dtEtudiants = ModuleBDD.GetDataTable(
                 "SELECT * FROM Etudiant WHERE num_matricule = ?",
-                New OleDbParameter("@mat", matricule))
+                New OleDbParameter("@mat", mat))
         End If
 
         Dim sb As New System.Text.StringBuilder()
@@ -232,8 +221,6 @@ Public Class FormImpressions
         sb.AppendLine("<meta charset='utf-8'>")
         sb.AppendLine(GetCSS())
         sb.AppendLine("</head><body>")
-
-        Dim nbBulletins = dtEtudiants.Rows.Count
 
         For idx As Integer = 0 To dtEtudiants.Rows.Count - 1
             Dim etudRow = dtEtudiants.Rows(idx)
@@ -247,32 +234,29 @@ Public Class FormImpressions
             Catch : End Try
             Dim lieuNaiss = etudRow("lieu_naissance").ToString()
 
-            ' Notes de l'étudiant
             Dim dtNotes = ModuleBDD.GetDataTable(
                 "SELECT m.libelle_matiere, m.coefficient, " &
-                "n.note_interro, n.note_devoir, " &
-                "n.moyenne_matiere " &
+                "n.note_interro, n.note_devoir, n.moyenne_matiere " &
                 "FROM ([Note] n INNER JOIN Matiere m " &
                 "ON n.code_matiere = m.code_matiere) " &
                 "WHERE n.num_matricule = ? " &
                 "ORDER BY m.libelle_matiere",
                 New OleDbParameter("@mat", matricule))
 
-            ' Calcul moyenne générale
             Dim totalPts As Double = 0
             Dim totalCoefs As Integer = 0
             For Each nr As DataRow In dtNotes.Rows
                 Dim coef = CInt(nr("coefficient"))
                 Dim moy As Double = 0
                 Double.TryParse(
-                    nr("moyenne_matiere").ToString().
-                    Replace(",", "."),
+                    nr("moyenne_matiere").ToString().Replace(",", "."),
                     System.Globalization.NumberStyles.Any,
                     System.Globalization.CultureInfo.InvariantCulture,
                     moy)
                 totalPts += moy * coef
                 totalCoefs += coef
             Next
+
             Dim moyGen As Double = 0
             If totalCoefs > 0 Then
                 moyGen = Math.Round(totalPts / totalCoefs, 2)
@@ -280,38 +264,27 @@ Public Class FormImpressions
 
             Dim rang = CalculerRang(matricule, classe)
             Dim estAdmis = moyGen >= 10
+            Dim isLast = (idx = dtEtudiants.Rows.Count - 1)
 
-            ' Construction HTML du bulletin 
             sb.AppendLine("<div class='bulletin" &
-                If(idx < nbBulletins - 1,
-                   " page-break", "") & "'>")
+                If(Not isLast, " page-break", "") & "'>")
 
-            ' En-tête institut
             sb.AppendLine("<div class='header'>")
-            sb.AppendLine("<h1>" & HtmlEncode(nomInstitut) &
-                          "</h1>")
+            sb.AppendLine("<h1>" & HtmlEncode(nomInstitut) & "</h1>")
             sb.AppendLine("<p>" & HtmlEncode(adresse) & "</p>")
             sb.AppendLine("</div>")
+            sb.AppendLine("<div class='doc-title'>BULLETIN DE NOTES</div>")
+            sb.AppendLine("<div class='doc-annee'>Année scolaire : " &
+                          annee & "</div>")
 
-            ' Titre document
-            sb.AppendLine("<div class='doc-title'>" &
-                          "BULLETIN DE NOTES</div>")
-            sb.AppendLine("<div class='doc-annee'>" &
-                          "Année scolaire : " & annee & "</div>")
-
-            ' Infos étudiant
             sb.AppendLine("<div class='info-grid'>")
-            sb.AppendLine("<div class='info-item'>" &
-                "<span>Matricule :</span>" &
+            sb.AppendLine("<div class='info-item'><span>Matricule :</span>" &
                 HtmlEncode(matricule) & "</div>")
-            sb.AppendLine("<div class='info-item'>" &
-                "<span>Classe :</span>" &
+            sb.AppendLine("<div class='info-item'><span>Classe :</span>" &
                 HtmlEncode(classe) & "</div>")
-            sb.AppendLine("<div class='info-item'>" &
-                "<span>Nom & Prénom :</span>" &
+            sb.AppendLine("<div class='info-item'><span>Nom &amp; Prénom :</span>" &
                 HtmlEncode(nom) & "</div>")
-            sb.AppendLine("<div class='info-item'>" &
-                "<span>Sexe :</span>" &
+            sb.AppendLine("<div class='info-item'><span>Sexe :</span>" &
                 HtmlEncode(sexe) & "</div>")
             sb.AppendLine("<div class='info-item'>" &
                 "<span>Date de naissance :</span>" &
@@ -321,18 +294,12 @@ Public Class FormImpressions
                 HtmlEncode(lieuNaiss) & "</div>")
             sb.AppendLine("</div>")
 
-            ' Tableau des notes
             sb.AppendLine("<div class='section'>")
-            sb.AppendLine("<table>")
-            sb.AppendLine("<thead><tr>" &
-                "<th>Matière</th>" &
-                "<th>Coef.</th>" &
-                "<th>Interrogation</th>" &
-                "<th>Devoir</th>" &
-                "<th>Moyenne</th>" &
-                "<th>Appréciation</th>" &
-                "</tr></thead>")
-            sb.AppendLine("<tbody>")
+            sb.AppendLine("<table><thead><tr>" &
+                "<th>Matière</th><th>Coef.</th>" &
+                "<th>Interrogation</th><th>Devoir</th>" &
+                "<th>Moyenne</th><th>Appréciation</th>" &
+                "</tr></thead><tbody>")
 
             For Each nr As DataRow In dtNotes.Rows
                 Dim matiere = nr("libelle_matiere").ToString()
@@ -341,48 +308,38 @@ Public Class FormImpressions
                 Dim devoir As Double = 0
                 Dim moy As Double = 0
                 Double.TryParse(
-                    nr("note_interro").ToString().
-                    Replace(",", "."),
+                    nr("note_interro").ToString().Replace(",", "."),
                     System.Globalization.NumberStyles.Any,
                     System.Globalization.CultureInfo.InvariantCulture,
                     interro)
                 Double.TryParse(
-                    nr("note_devoir").ToString().
-                    Replace(",", "."),
+                    nr("note_devoir").ToString().Replace(",", "."),
                     System.Globalization.NumberStyles.Any,
                     System.Globalization.CultureInfo.InvariantCulture,
                     devoir)
                 Double.TryParse(
-                    nr("moyenne_matiere").ToString().
-                    Replace(",", "."),
+                    nr("moyenne_matiere").ToString().Replace(",", "."),
                     System.Globalization.NumberStyles.Any,
                     System.Globalization.CultureInfo.InvariantCulture,
                     moy)
 
-                Dim cssClass = GetMoyCSS(moy)
-                Dim appr = GetAppreciation(moy)
-
                 sb.AppendLine("<tr>")
-                sb.AppendLine("<td>" & HtmlEncode(matiere) &
-                              "</td>")
+                sb.AppendLine("<td>" & HtmlEncode(matiere) & "</td>")
                 sb.AppendLine("<td style='text-align:center'>" &
-                              coef & "</td>")
+                    coef & "</td>")
                 sb.AppendLine("<td style='text-align:center'>" &
-                              interro.ToString("F2") & "</td>")
+                    interro.ToString("F2") & "</td>")
                 sb.AppendLine("<td style='text-align:center'>" &
-                              devoir.ToString("F2") & "</td>")
-                sb.AppendLine("<td><span class='moy-cell " &
-                              cssClass & "'>" &
-                              moy.ToString("F2") &
-                              "</span></td>")
-                sb.AppendLine("<td>" & appr & "</td>")
+                    devoir.ToString("F2") & "</td>")
+                sb.AppendLine("<td style='text-align:center'>" &
+                    "<span class='moy-cell " & GetMoyCSS(moy) & "'>" &
+                    moy.ToString("F2") & "</span></td>")
+                sb.AppendLine("<td>" & GetAppreciation(moy) & "</td>")
                 sb.AppendLine("</tr>")
             Next
 
-            sb.AppendLine("</tbody></table>")
-            sb.AppendLine("</div>")
+            sb.AppendLine("</tbody></table></div>")
 
-            ' Résumé
             sb.AppendLine("<div class='resume'>")
             sb.AppendLine("<div class='resume-item'>" &
                 "<div class='resume-label'>Moyenne générale</div>" &
@@ -390,34 +347,30 @@ Public Class FormImpressions
                 moyGen.ToString("F2") & "/20</div></div>")
             sb.AppendLine("<div class='resume-item'>" &
                 "<div class='resume-label'>Rang</div>" &
-                "<div class='resume-value'>" &
-                rang & "</div></div>")
+                "<div class='resume-value'>" & rang & "</div></div>")
             sb.AppendLine("<div class='resume-item'>")
             If estAdmis Then
                 sb.AppendLine("<span class='decision-admis'>" &
-                              "✓ ADMIS(E)</span>")
+                              "&#10003; ADMIS(E)</span>")
             Else
                 sb.AppendLine("<span class='decision-ajourn'>" &
-                              "✗ AJOURNÉ(E)</span>")
+                              "&#10007; AJOURNÉ(E)</span>")
             End If
             sb.AppendLine("</div></div>")
 
-            ' Pied de page
             sb.AppendLine("<div class='footer'>")
             sb.AppendLine("<span>Édité le : " &
                 DateTime.Now.ToString("dd/MM/yyyy") & "</span>")
-            sb.AppendLine("<div class='signature'>" &
+            sb.AppendLine("<div style='text-align:center'>" &
                 "<div class='sig-line'></div>" &
                 "<div>Le Directeur</div></div>")
-            sb.AppendLine("</div>")
-            sb.AppendLine("</div>") ' fin bulletin
+            sb.AppendLine("</div></div>")
         Next
 
         sb.AppendLine("</body></html>")
         Return sb.ToString()
     End Function
 
-    '  GÉNÉRATION HTML RELEVÉ COLLECTIF
     Private Function GenererHTMLReleve() As String
         Dim classe = cmbClasseImp.SelectedItem.ToString()
         Dim annee = txtAnneeScolaire.Text
@@ -425,16 +378,13 @@ Public Class FormImpressions
         Dim dtParam = ModuleBDD.GetDataTable(
             "SELECT nom_institut FROM Parametres")
         Dim nomInstitut = If(dtParam.Rows.Count > 0,
-            dtParam.Rows(0)("nom_institut").ToString(),
-            "INSTITUT")
+            dtParam.Rows(0)("nom_institut").ToString(), "INSTITUT")
 
-        ' Récupérer étudiants
         Dim dtEtudiants = ModuleBDD.GetDataTable(
             "SELECT num_matricule, nom_prenom " &
             "FROM Etudiant WHERE code_classe = ?",
             New OleDbParameter("@classe", classe))
 
-        ' Calculer moyennes générales
         Dim liste As New List(Of (String, String, Double))
         For Each row As DataRow In dtEtudiants.Rows
             Dim mat = row("num_matricule").ToString()
@@ -453,8 +403,7 @@ Public Class FormImpressions
                 Dim c = CInt(nr("coefficient"))
                 Dim m As Double = 0
                 Double.TryParse(
-                    nr("moyenne_matiere").ToString().
-                    Replace(",", "."),
+                    nr("moyenne_matiere").ToString().Replace(",", "."),
                     System.Globalization.NumberStyles.Any,
                     System.Globalization.CultureInfo.InvariantCulture,
                     m)
@@ -465,47 +414,40 @@ Public Class FormImpressions
             liste.Add((mat, nom, mg))
         Next
 
-        ' Trier par mérite
-        Dim trie = liste.OrderByDescending(Function(x) x.Item3).ToList()
+        Dim trie = liste.OrderByDescending(
+            Function(x) x.Item3).ToList()
 
-        ' Correction des erreurs .Count soulignées en rouge
-        Dim nbAdmis = trie.Where(Function(x) x.Item3 >= 10).Count()
-        Dim nbAj = trie.Where(Function(x) x.Item3 < 10).Count()
-
-        Dim moyC As Double = 0
-        If trie.Count > 0 Then
-            moyC = Math.Round(trie.Average(Function(x) x.Item3), 2)
-        End If
+        Dim nbAdmis = trie.Where(
+            Function(x) x.Item3 >= 10).Count()
+        Dim nbAj = trie.Where(
+            Function(x) x.Item3 < 10).Count()
+        Dim moyC As Double = If(trie.Count > 0,
+            Math.Round(trie.Average(Function(x) x.Item3), 2), 0)
 
         Dim sb As New System.Text.StringBuilder()
         sb.AppendLine("<!DOCTYPE html><html><head>")
         sb.AppendLine("<meta charset='utf-8'>")
         sb.AppendLine(GetCSS())
-        sb.AppendLine("</head><body>")
-        sb.AppendLine("<div class='bulletin'>")
+        sb.AppendLine("</head><body><div class='bulletin'>")
 
-        ' En-tête
         sb.AppendLine("<div class='header'>")
         sb.AppendLine("<h1>" & HtmlEncode(nomInstitut) & "</h1>")
         sb.AppendLine("</div>")
         sb.AppendLine("<div class='doc-title'>" &
-                      "RELEVÉ DE NOTES — PAR ORDRE DE MÉRITE</div>")
+            "RELEVÉ DE NOTES — PAR ORDRE DE MÉRITE</div>")
         sb.AppendLine("<div class='doc-annee'>Classe : " &
-                      classe & " &nbsp;|&nbsp; Année : " &
-                      annee & "</div>")
+            classe & " &nbsp;|&nbsp; Année : " & annee & "</div>")
 
-        ' Tableau
         sb.AppendLine("<div class='section'>")
         sb.AppendLine("<table><thead><tr>" &
             "<th>Rang</th><th>Matricule</th>" &
-            "<th>Nom & Prénom</th>" &
+            "<th>Nom &amp; Prénom</th>" &
             "<th>Moy. Générale</th>" &
             "<th>Décision</th>" &
             "</tr></thead><tbody>")
 
         Dim rang As Integer = 1
         For Each etud In trie
-            Dim cssM = GetMoyCSS(etud.Item3)
             Dim dec = If(etud.Item3 >= 10,
                 "<span class='decision-admis' " &
                 "style='padding:3px 10px;font-size:11px'>" &
@@ -517,12 +459,12 @@ Public Class FormImpressions
             sb.AppendLine("<td style='text-align:center;" &
                 "font-weight:700;color:#185FA5'>" &
                 rang & GetSuffixeRang(rang) & "</td>")
-            sb.AppendLine("<td>" & etud.Item1 & "</td>")
+            sb.AppendLine("<td>" & HtmlEncode(etud.Item1) & "</td>")
             sb.AppendLine("<td><b>" &
                 HtmlEncode(etud.Item2) & "</b></td>")
             sb.AppendLine("<td style='text-align:center'>" &
-                "<span class='moy-cell " & cssM & "'>" &
-                etud.Item3.ToString("F2") & "</span></td>")
+                "<span class='moy-cell " & GetMoyCSS(etud.Item3) &
+                "'>" & etud.Item3.ToString("F2") & "</span></td>")
             sb.AppendLine("<td>" & dec & "</td>")
             sb.AppendLine("</tr>")
             rang += 1
@@ -530,7 +472,6 @@ Public Class FormImpressions
 
         sb.AppendLine("</tbody></table></div>")
 
-        ' Stats globales
         sb.AppendLine("<div class='resume'>")
         sb.AppendLine("<div class='resume-item'>" &
             "<div class='resume-label'>Effectif</div>" &
@@ -538,13 +479,11 @@ Public Class FormImpressions
             trie.Count & "</div></div>")
         sb.AppendLine("<div class='resume-item'>" &
             "<div class='resume-label'>Admis</div>" &
-            "<div class='resume-value' " &
-            "style='color:#059669'>" &
+            "<div class='resume-value' style='color:#059669'>" &
             nbAdmis & "</div></div>")
         sb.AppendLine("<div class='resume-item'>" &
             "<div class='resume-label'>Ajournés</div>" &
-            "<div class='resume-value' " &
-            "style='color:#DC2626'>" &
+            "<div class='resume-value' style='color:#DC2626'>" &
             nbAj & "</div></div>")
         sb.AppendLine("<div class='resume-item'>" &
             "<div class='resume-label'>Moy. classe</div>" &
@@ -554,26 +493,22 @@ Public Class FormImpressions
             "<div class='resume-label'>Taux réussite</div>" &
             "<div class='resume-value'>" &
             If(trie.Count > 0,
-               Math.Round(nbAdmis * 100.0 /
-               trie.Count, 0) & "%", "—") &
-            "</div></div>")
+               Math.Round(nbAdmis * 100.0 / trie.Count, 0) & "%",
+               "—") & "</div></div>")
         sb.AppendLine("</div>")
 
-        ' Pied de page
         sb.AppendLine("<div class='footer'>")
         sb.AppendLine("<span>Édité le : " &
-            DateTime.Now.ToString("dd/MM/yyyy HH:mm") &
-            "</span>")
-        sb.AppendLine("<div class='signature'>" &
+            DateTime.Now.ToString("dd/MM/yyyy HH:mm") & "</span>")
+        sb.AppendLine("<div style='text-align:center'>" &
             "<div class='sig-line'></div>" &
             "<div>Le Directeur</div></div>")
-        sb.AppendLine("</div>")
-        sb.AppendLine("</div></body></html>")
+        sb.AppendLine("</div></div></body></html>")
 
         Return sb.ToString()
     End Function
 
-    '  FONCTIONS UTILITAIRES
+    ' Fonctions utilitaires 
     Private Function GetMoyCSS(moy As Double) As String
         If moy >= 16 Then Return "moy-tb"
         If moy >= 14 Then Return "moy-b"
@@ -596,29 +531,66 @@ Public Class FormImpressions
     End Function
 
     Private Function CalculerRang(matricule As String,
-        classe As String) As String
-        Dim dtTous = ModuleBDD.GetDataTable(
-            "SELECT e.num_matricule, " &
-            "SUM(n.moyenne_matiere * m.coefficient) / " &
-            "SUM(m.coefficient) AS moy_gen " &
-            "FROM (Etudiant e INNER JOIN [Note] n " &
-            "ON e.num_matricule = n.num_matricule) " &
-            "INNER JOIN Matiere m " &
-            "ON n.code_matiere = m.code_matiere " &
-            "WHERE e.code_classe = ? " &
-            "GROUP BY e.num_matricule " &
-            "ORDER BY moy_gen DESC",
+    classe As String) As String
+        Try
+            ' Étape 1 : récupérer tous les étudiants de la classe
+            Dim dtEtuds = ModuleBDD.GetDataTable(
+            "SELECT num_matricule FROM Etudiant " &
+            "WHERE code_classe = ?",
             New OleDbParameter("@classe", classe))
 
-        Dim rang As Integer = 1
-        For Each row As DataRow In dtTous.Rows
-            If row("num_matricule").ToString() = matricule Then
-                Return rang & GetSuffixeRang(rang) &
-                       " / " & dtTous.Rows.Count
-            End If
-            rang += 1
-        Next
-        Return "— / " & dtTous.Rows.Count
+            ' Étape 2 : calculer la moyenne de chaque étudiant
+            Dim moyennes As New List(Of (String, Double))
+
+            For Each row As DataRow In dtEtuds.Rows
+                Dim mat = row("num_matricule").ToString()
+                Dim dtN = ModuleBDD.GetDataTable(
+                "SELECT n.moyenne_matiere, m.coefficient " &
+                "FROM ([Note] n INNER JOIN Matiere m " &
+                "ON n.code_matiere = m.code_matiere) " &
+                "WHERE n.num_matricule = ? " &
+                "AND m.code_classe = ?",
+                New OleDbParameter("@mat", mat),
+                New OleDbParameter("@classe", classe))
+
+                Dim pts As Double = 0
+                Dim coefs As Integer = 0
+                For Each nr As DataRow In dtN.Rows
+                    Dim c = CInt(nr("coefficient"))
+                    Dim m As Double = 0
+                    Double.TryParse(
+                    nr("moyenne_matiere").ToString().
+                    Replace(",", "."),
+                    System.Globalization.NumberStyles.Any,
+                    System.Globalization.CultureInfo.InvariantCulture,
+                    m)
+                    pts += m * c : coefs += c
+                Next
+
+                Dim mg As Double = If(coefs > 0,
+                Math.Round(pts / coefs, 2), 0)
+                moyennes.Add((mat, mg))
+            Next
+
+            ' Étape 3 : trier et trouver le rang
+            Dim trie = moyennes.OrderByDescending(
+            Function(x) x.Item2).ToList()
+
+            Dim total = trie.Count
+            Dim rang As Integer = 1
+            For Each item In trie
+                If item.Item1 = matricule Then
+                    Return rang & GetSuffixeRang(rang) &
+                       " / " & total
+                End If
+                rang += 1
+            Next
+
+            Return "— / " & total
+
+        Catch ex As Exception
+            Return "—"
+        End Try
     End Function
 
     Private Function HtmlEncode(texte As String) As String
@@ -631,144 +603,272 @@ Public Class FormImpressions
 
     ' Impression 
     Private Sub btnImprimer_Click(sender As Object,
-        e As EventArgs) Handles btnImprimer.Click
-        If wbApercu.Document IsNot Nothing Then
-            wbApercu.ShowPrintDialog()
-        Else
+    e As EventArgs) Handles btnImprimer.Click
+
+        If wbApercu.Document Is Nothing OrElse
+       String.IsNullOrEmpty(wbApercu.DocumentText) OrElse
+       wbApercu.DocumentText.Length < 100 Then
             MsgBox("Générez d'abord un aperçu.",
-                   MsgBoxStyle.Exclamation, "Aperçu requis")
+               MsgBoxStyle.Exclamation, "Aperçu requis")
+            Exit Sub
         End If
+
+        Try
+            ' Générer HTML avec CSS couleurs pour impression
+            Dim html = If(cmbTypeDoc.SelectedIndex = 0,
+            GenererHTMLBulletin(), GenererHTMLReleve())
+
+            ' Ajouter CSS spécial impression (couleurs + pas d'en-tête)
+            Dim cssImpression =
+            "@media print {" &
+            "@page { margin: 1cm; size: A4; }" &
+            "body { background: white !important; }" &
+            ".bulletin { box-shadow: none !important;" &
+            "border: none !important; }" &
+            ".header { background: #0C447C !important;" &
+            "-webkit-print-color-adjust: exact !important;" &
+            "print-color-adjust: exact !important;" &
+            "color-adjust: exact !important; }" &
+            ".doc-title { background: #185FA5 !important;" &
+            "-webkit-print-color-adjust: exact !important;" &
+            "print-color-adjust: exact !important; }" &
+            ".doc-annee { background: #E6F1FB !important;" &
+            "-webkit-print-color-adjust: exact !important;" &
+            "print-color-adjust: exact !important; }" &
+            ".moy-tb, .moy-b, .moy-ab, .moy-p, .moy-i {" &
+            "-webkit-print-color-adjust: exact !important;" &
+            "print-color-adjust: exact !important; }" &
+            ".decision-admis, .decision-ajourn {" &
+            "-webkit-print-color-adjust: exact !important;" &
+            "print-color-adjust: exact !important; }" &
+            ".resume { background: #E6F1FB !important;" &
+            "-webkit-print-color-adjust: exact !important;" &
+            "print-color-adjust: exact !important; }" &
+            "thead tr { background: #185FA5 !important;" &
+            "-webkit-print-color-adjust: exact !important;" &
+            "print-color-adjust: exact !important; }" &
+            "}"
+
+            ' Injecter le CSS dans le HTML
+            Dim htmlAvecCSS = html.Replace(
+            "</style>",
+            cssImpression & "</style>")
+
+            ' Sauvegarder dans un fichier temp
+            Dim tempHtml = IO.Path.Combine(
+            IO.Path.GetTempPath(), "gn_print_temp.html")
+            IO.File.WriteAllText(tempHtml, htmlAvecCSS,
+            System.Text.Encoding.UTF8)
+
+            ' Trouver Edge ou Chrome pour imprimer
+            Dim browserPath = TrouverNavigateur()
+
+            If Not String.IsNullOrEmpty(browserPath) Then
+                ' Impression silencieuse avec couleurs via navigateur
+                Dim args = "--headless=new " &
+                       "--disable-gpu " &
+                       "--no-sandbox " &
+                       "--disable-extensions " &
+                       "--print-to-pdf-no-header " &
+                       $"""file:///{tempHtml.Replace("\", "/")}"""
+
+                ' Ouvrir dans le navigateur pour impression
+                Process.Start(New ProcessStartInfo(tempHtml) With {
+                .UseShellExecute = True})
+
+                MsgBox("Le document s'est ouvert dans votre navigateur." &
+                   vbCrLf & vbCrLf &
+                   "Pour imprimer avec les couleurs :" & vbCrLf &
+                   "1. Faites Ctrl+P" & vbCrLf &
+                   "2. Cliquez sur ""Plus de paramètres""" & vbCrLf &
+                   "3. Activez ""Graphiques d'arrière-plan""" &
+                   vbCrLf & "4. Cliquez Imprimer",
+                   MsgBoxStyle.Information,
+                   "Instructions d'impression")
+            Else
+                ' Fallback : impression via WebBrowser
+                wbApercu.DocumentText = htmlAvecCSS
+                System.Threading.Thread.Sleep(500)
+                wbApercu.ShowPrintDialog()
+            End If
+
+        Catch ex As Exception
+            MsgBox("Erreur impression : " & ex.Message,
+               MsgBoxStyle.Critical, "Erreur")
+        End Try
     End Sub
 
-    ' Export HTML 
+    ' Export PDF
     Private Sub btnExporterPDF_Click(sender As Object,
-    e As EventArgs) Handles btnExporterPDF.Click
+        e As EventArgs) Handles btnExporterPDF.Click
+
+        If cmbClasseImp.SelectedIndex < 0 Then
+            MsgBox("Veuillez sélectionner une classe.",
+                   MsgBoxStyle.Exclamation, "Classe requise")
+            Exit Sub
+        End If
 
         Dim sfd As New SaveFileDialog()
         sfd.Filter = "Fichier PDF (*.pdf)|*.pdf"
         sfd.FileName = If(cmbTypeDoc.SelectedIndex = 0,
-        "Bulletin_" & DateTime.Now.ToString("yyyyMMdd"),
-        "Releve_" & DateTime.Now.ToString("yyyyMMdd"))
+            "Bulletin_" & DateTime.Now.ToString("yyyyMMdd"),
+            "Releve_" & DateTime.Now.ToString("yyyyMMdd"))
 
         If sfd.ShowDialog() <> DialogResult.OK Then Exit Sub
 
         Try
-            ' 1. Générer et sauvegarder le HTML temp
+            ' Générer le HTML
             Dim html = If(cmbTypeDoc.SelectedIndex = 0,
-            GenererHTMLBulletin(), GenererHTMLReleve())
+                GenererHTMLBulletin(), GenererHTMLReleve())
 
+            ' Fichier HTML temporaire
             Dim tempHtml = IO.Path.Combine(
-            IO.Path.GetTempPath(), "bulletin_temp.html")
-
+                IO.Path.GetTempPath(), "gn_bulletin_temp.html")
             IO.File.WriteAllText(tempHtml, html,
-            System.Text.Encoding.UTF8)
-
-            ' 2. Chercher Edge dans plusieurs emplacements possibles
-            Dim edgePaths() As String = {
-            "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe",
-            "C:\Program Files\Microsoft\Edge\Application\msedge.exe",
-            IO.Path.Combine(Environment.GetFolderPath(
-                Environment.SpecialFolder.ProgramFilesX86),
-                "Microsoft\Edge\Application\msedge.exe"),
-            IO.Path.Combine(Environment.GetFolderPath(
-                Environment.SpecialFolder.ProgramFiles),
-                "Microsoft\Edge\Application\msedge.exe")
-        }
-
-            Dim edgePath As String = ""
-            For Each p In edgePaths
-                If IO.File.Exists(p) Then
-                    edgePath = p
-                    Exit For
-                End If
-            Next
-
-            ' 3. Si Edge introuvable, chercher Chrome
-            If edgePath = "" Then
-                Dim chromePaths() As String = {
-                "C:\Program Files\Google\Chrome\Application\chrome.exe",
-                "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
-            }
-                For Each p In chromePaths
-                    If IO.File.Exists(p) Then
-                        edgePath = p
-                        Exit For
-                    End If
-                Next
-            End If
-
-            If edgePath = "" Then
-                MsgBox("Edge et Chrome introuvables." & vbCrLf &
-                   "Le fichier HTML a été sauvegardé ici :" &
-                   vbCrLf & tempHtml & vbCrLf & vbCrLf &
-                   "Ouvrez-le manuellement dans un navigateur" &
-                   vbCrLf & "et faites Ctrl+P → Enregistrer en PDF.",
-                   MsgBoxStyle.Information, "Navigateur requis")
-                Exit Sub
-            End If
-
-            ' 4. Utiliser un profil temporaire pour éviter les conflits
-            Dim tempProfile = IO.Path.Combine(
-            IO.Path.GetTempPath(), "edge_pdf_profile")
+                System.Text.Encoding.UTF8)
 
             Dim pdfOutput = sfd.FileName
 
+            ' Chercher Edge
+            Dim browserPath As String = TrouverNavigateur()
+
+            If String.IsNullOrEmpty(browserPath) Then
+                ' Plan B : ouvrir dans le navigateur par défaut
+                MsgBox("Aucun navigateur compatible trouvé." &
+                       vbCrLf & vbCrLf &
+                       "Le document va s'ouvrir dans votre " &
+                       "navigateur par défaut." & vbCrLf &
+                       "Faites Ctrl+P → " &
+                       """Enregistrer en PDF"".",
+                       MsgBoxStyle.Information,
+                       "Export manuel")
+                Process.Start(New ProcessStartInfo(tempHtml) With {
+                    .UseShellExecute = True})
+                Exit Sub
+            End If
+
+            ' Profil temporaire pour éviter les conflits
+            Dim tempProfile = IO.Path.Combine(
+                IO.Path.GetTempPath(), "gn_browser_profile_" &
+                Guid.NewGuid().ToString("N").Substring(0, 8))
+
+            Dim urlHtml = "file:///" &
+                tempHtml.Replace("\", "/")
+
             Dim args = "--headless=new " &
-           "--disable-gpu " &
-           "--no-sandbox " &
-           "--disable-extensions " &
-           $"--user-data-dir=""{tempProfile}"" " &
-           $"--print-to-pdf=""{pdfOutput}"" " &
-           "--print-to-pdf-no-header " &
-           "--no-pdf-header-footer " &
-           "--run-all-compositor-stages-before-draw " &
-           $"""file:///{tempHtml.Replace("\", "/")}"""
+                "--disable-gpu " &
+                "--no-sandbox " &
+                "--disable-extensions " &
+                $"--user-data-dir=""{tempProfile}"" " &
+                $"--print-to-pdf=""{pdfOutput}"" " &
+                "--print-to-pdf-no-header " &        ' ← supprime date/heure
+                "--no-pdf-header-footer " &           ' ← supprime URL
+                "--run-all-compositor-stages-before-draw "
 
             Dim psi As New ProcessStartInfo() With {
-            .FileName = edgePath,
-            .Arguments = args,
-            .UseShellExecute = False,
-            .CreateNoWindow = True
-        }
+                .FileName = browserPath,
+                .Arguments = args,
+                .UseShellExecute = False,
+                .CreateNoWindow = True,
+                .RedirectStandardError = True
+            }
+
+            ' Afficher progression
+            Dim lblAttente As New Label() With {
+                .Text = "Génération du PDF en cours...",
+                .Dock = DockStyle.Bottom,
+                .Height = 24,
+                .TextAlign = ContentAlignment.MiddleCenter,
+                .BackColor = Color.FromArgb(230, 241, 251),
+                .ForeColor = Color.FromArgb(12, 68, 124)
+            }
+            Me.Controls.Add(lblAttente)
+            Me.Refresh()
 
             Dim proc = Process.Start(psi)
-            proc.WaitForExit(5000)
 
-            ' 5. Vérifier si le PDF a bien été créé
-            If IO.File.Exists(pdfOutput) AndAlso
-           New IO.FileInfo(pdfOutput).Length > 0 Then
+            ' Attendre max 15 secondes (augmenté)
+            Dim attended = proc.WaitForExit(15000)
 
-                ' Nettoyage
-                Try
-                    IO.File.Delete(tempHtml)
+            Me.Controls.Remove(lblAttente)
+
+            ' Nettoyer profil temporaire
+            Try
+                If IO.Directory.Exists(tempProfile) Then
                     IO.Directory.Delete(tempProfile, True)
-                Catch : End Try
+                End If
+            Catch : End Try
+            ' Petite pause pour laisser le fichier se finaliser
+            System.Threading.Thread.Sleep(1000)
 
-                MsgBox("✅ PDF exporté avec succès !" &
-                   vbCrLf & pdfOutput,
-                   MsgBoxStyle.Information, "Export réussi")
+            ' Vérifier le résultat — seuil abaissé à 100 bytes
+            If IO.File.Exists(pdfOutput) AndAlso
+                New IO.FileInfo(pdfOutput).Length > 100 Then
 
-                Process.Start(New ProcessStartInfo(pdfOutput) With {
-                .UseShellExecute = True
-            })
+                Try : IO.File.Delete(tempHtml) : Catch : End Try
+
+                Dim rep = MsgBox(
+                    "PDF exporté avec succès !" &
+                    vbCrLf & vbCrLf & pdfOutput &
+                    vbCrLf & vbCrLf &
+                    "Voulez-vous ouvrir le PDF ?",
+                    MsgBoxStyle.YesNo + MsgBoxStyle.Information,
+                    "Export réussi")
+
+                If rep = MsgBoxResult.Yes Then
+                    Process.Start(New ProcessStartInfo(pdfOutput) With {
+                    .UseShellExecute = True})
+                End If
             Else
-                ' Plan B : ouvrir dans le navigateur pour impression manuelle
                 MsgBox("La génération automatique a échoué." &
-                   vbCrLf & vbCrLf &
-                   "Le document va s'ouvrir dans votre navigateur." &
-                   vbCrLf & "Faites Ctrl+P → choisir" &
-                   " ""Enregistrer en PDF"".",
-                   MsgBoxStyle.Information, "Export manuel")
-
+                    vbCrLf & vbCrLf &
+                    "Le document va s'ouvrir dans votre navigateur." &
+                    vbCrLf & "Faites Ctrl+P → Enregistrer en PDF.",
+                    MsgBoxStyle.Information, "Export manuel")
                 Process.Start(New ProcessStartInfo(tempHtml) With {
-                .UseShellExecute = True
-            })
+                    .UseShellExecute = True})
             End If
 
         Catch ex As Exception
-            MsgBox("Erreur : " & ex.Message,
-               MsgBoxStyle.Critical, "Erreur")
+            MsgBox("Erreur lors de l'export :" &
+                   vbCrLf & ex.Message,
+                   MsgBoxStyle.Critical, "Erreur")
         End Try
     End Sub
+
+    ' Trouver Edge ou Chrome 
+    Private Function TrouverNavigateur() As String
+        Dim chemins() As String = {
+            IO.Path.Combine(
+                Environment.GetFolderPath(
+                Environment.SpecialFolder.ProgramFilesX86),
+                "Microsoft\Edge\Application\msedge.exe"),
+            IO.Path.Combine(
+                Environment.GetFolderPath(
+                Environment.SpecialFolder.ProgramFiles),
+                "Microsoft\Edge\Application\msedge.exe"),
+            "C:\Program Files (x86)\Microsoft\Edge\" &
+                "Application\msedge.exe",
+            "C:\Program Files\Microsoft\Edge\" &
+                "Application\msedge.exe",
+            IO.Path.Combine(
+                Environment.GetFolderPath(
+                Environment.SpecialFolder.ProgramFiles),
+                "Google\Chrome\Application\chrome.exe"),
+            IO.Path.Combine(
+                Environment.GetFolderPath(
+                Environment.SpecialFolder.ProgramFilesX86),
+                "Google\Chrome\Application\chrome.exe"),
+            "C:\Program Files\Google\Chrome\" &
+                "Application\chrome.exe",
+            "C:\Program Files (x86)\Google\Chrome\" &
+                "Application\chrome.exe"
+        }
+
+        For Each chemin In chemins
+            If IO.File.Exists(chemin) Then Return chemin
+        Next
+        Return ""
+    End Function
 
 End Class

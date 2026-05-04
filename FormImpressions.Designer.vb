@@ -111,10 +111,12 @@ Partial Class FormImpressions
         Me.pnlInfoNote.Name = "pnlInfoNote"
         Me.pnlInfoNote.Size = New System.Drawing.Size(200, 100)
         Me.pnlInfoNote.TabIndex = 13
+        Me.pnlInfoNote.Visible = False
         '
         'btnExporterPDF
         '
         Me.btnExporterPDF.BackColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(119, Byte), Integer), CType(CType(221, Byte), Integer))
+        Me.btnExporterPDF.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btnExporterPDF.FlatAppearance.BorderSize = 0
         Me.btnExporterPDF.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnExporterPDF.ForeColor = System.Drawing.Color.White
@@ -128,6 +130,7 @@ Partial Class FormImpressions
         'btnImprimer
         '
         Me.btnImprimer.BackColor = System.Drawing.Color.FromArgb(CType(CType(29, Byte), Integer), CType(CType(158, Byte), Integer), CType(CType(117, Byte), Integer))
+        Me.btnImprimer.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btnImprimer.FlatAppearance.BorderSize = 0
         Me.btnImprimer.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnImprimer.ForeColor = System.Drawing.Color.White
@@ -141,6 +144,7 @@ Partial Class FormImpressions
         'btnApercu
         '
         Me.btnApercu.BackColor = System.Drawing.Color.FromArgb(CType(CType(24, Byte), Integer), CType(CType(95, Byte), Integer), CType(CType(165, Byte), Integer))
+        Me.btnApercu.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btnApercu.FlatAppearance.BorderSize = 0
         Me.btnApercu.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnApercu.ForeColor = System.Drawing.Color.White
