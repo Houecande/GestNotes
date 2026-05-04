@@ -36,6 +36,7 @@ Partial Class FormConnexion
         Me.cmbProfil = New System.Windows.Forms.ComboBox()
         Me.pnlLogo = New System.Windows.Forms.Panel()
         Me.lblLogoText = New System.Windows.Forms.Label()
+        Me.chkAfficherMdp = New System.Windows.Forms.CheckBox()
         Me.pnlCarte.SuspendLayout()
         Me.pnlLogo.SuspendLayout()
         Me.SuspendLayout()
@@ -68,6 +69,7 @@ Partial Class FormConnexion
         '
         Me.pnlCarte.BackColor = System.Drawing.Color.FromArgb(CType(CType(235, Byte), Integer), CType(CType(242, Byte), Integer), CType(CType(250, Byte), Integer))
         Me.pnlCarte.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pnlCarte.Controls.Add(Me.chkAfficherMdp)
         Me.pnlCarte.Controls.Add(Me.btnQuitter)
         Me.pnlCarte.Controls.Add(Me.btnConnecter)
         Me.pnlCarte.Controls.Add(Me.txtMdp)
@@ -189,6 +191,15 @@ Partial Class FormConnexion
         Me.lblLogoText.TabIndex = 4
         Me.lblLogoText.Text = "GN"
         '
+        'chkAfficherMdp
+        '
+        Me.chkAfficherMdp.AutoSize = True
+        Me.chkAfficherMdp.Location = New System.Drawing.Point(304, 151)
+        Me.chkAfficherMdp.Name = "chkAfficherMdp"
+        Me.chkAfficherMdp.Size = New System.Drawing.Size(15, 14)
+        Me.chkAfficherMdp.TabIndex = 8
+        Me.chkAfficherMdp.UseVisualStyleBackColor = True
+        '
         'FormConnexion
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
@@ -230,4 +241,5 @@ Partial Class FormConnexion
     Friend WithEvents btnQuitter As Button
     Friend WithEvents pnlLogo As Panel
     Friend WithEvents lblLogoText As Label
+    Friend WithEvents chkAfficherMdp As CheckBox
 End Class

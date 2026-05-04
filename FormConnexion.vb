@@ -106,4 +106,13 @@ Public Class FormConnexion
         End If
     End Sub
 
+    Private Sub chkAfficherMdp_CheckedChanged(sender As Object, e As EventArgs) Handles chkAfficherMdp.CheckedChanged
+        ' Si la case est cochée, on désactive le masquage système
+        If chkAfficherMdp.Checked Then
+            txtMdp.UseSystemPasswordChar = False
+        Else
+            ' Sinon, on réactive les points noirs (●●●●)
+            txtMdp.UseSystemPasswordChar = True
+        End If
+    End Sub
 End Class
