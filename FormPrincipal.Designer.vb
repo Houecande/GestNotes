@@ -113,7 +113,7 @@ Partial Class FormPrincipal
         Me.btnDeconnexion.Name = "btnDeconnexion"
         Me.btnDeconnexion.Size = New System.Drawing.Size(210, 36)
         Me.btnDeconnexion.TabIndex = 16
-        Me.btnDeconnexion.Text = "Deconnexion"
+        Me.btnDeconnexion.Text = "↩  Deconnexion"
         Me.btnDeconnexion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.btnDeconnexion.UseVisualStyleBackColor = True
         '

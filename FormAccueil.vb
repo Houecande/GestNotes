@@ -134,15 +134,9 @@
                                      tmr.Stop()
                                      Dim fMain As New FormConnexion()
                                      fMain.Show()
-                                     Me.Close()
+                                     Me.Hide() ' ← On cache au lieu de Me.Close()
                                  End If
                              End Sub
         tmr.Start()
     End Sub
-
-    ' Empêcher fermeture au clic sur le fond 
-    Protected Overrides Sub OnClick(e As EventArgs)
-        ' Ne rien faire — bloque la fermeture accidentelle
-    End Sub
-
 End Class
