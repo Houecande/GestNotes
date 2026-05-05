@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class FormPrincipal
     Inherits System.Windows.Forms.Form
 
     'Form remplace la méthode Dispose pour nettoyer la liste des composants.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class FormPrincipal
     'REMARQUE : la procédure suivante est requise par le Concepteur Windows Form
     'Elle peut être modifiée à l'aide du Concepteur Windows Form.  
     'Ne la modifiez pas à l'aide de l'éditeur de code.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormPrincipal))
@@ -50,29 +50,29 @@ Partial Class FormPrincipal
         Me.lblPageTitle = New System.Windows.Forms.Label()
         Me.pnlContenu = New System.Windows.Forms.Panel()
         Me.dgvDerniersSaisies = New System.Windows.Forms.DataGridView()
-        Me.flpStats = New System.Windows.Forms.FlowLayoutPanel()
-        Me.pnlStatEtudiants = New System.Windows.Forms.Panel()
-        Me.lblLibEtudiants = New System.Windows.Forms.Label()
-        Me.lblValEtudiants = New System.Windows.Forms.Label()
-        Me.pnlStatMatieres = New System.Windows.Forms.Panel()
-        Me.lblLibMatieres = New System.Windows.Forms.Label()
-        Me.lblValMatieres = New System.Windows.Forms.Label()
-        Me.pnlStatNotes = New System.Windows.Forms.Panel()
-        Me.lblLibNotes = New System.Windows.Forms.Label()
-        Me.lblValNotes = New System.Windows.Forms.Label()
         Me.pnlStatBulletins = New System.Windows.Forms.Panel()
-        Me.lblLibBulletins = New System.Windows.Forms.Label()
         Me.lblValBulletins = New System.Windows.Forms.Label()
+        Me.lblLibBulletins = New System.Windows.Forms.Label()
+        Me.pnlStatNotes = New System.Windows.Forms.Panel()
+        Me.lblValNotes = New System.Windows.Forms.Label()
+        Me.lblLibNotes = New System.Windows.Forms.Label()
+        Me.pnlStatMatieres = New System.Windows.Forms.Panel()
+        Me.lblValMatieres = New System.Windows.Forms.Label()
+        Me.lblLibMatieres = New System.Windows.Forms.Label()
+        Me.pnlStatEtudiants = New System.Windows.Forms.Panel()
+        Me.lblValEtudiants = New System.Windows.Forms.Label()
+        Me.lblLibEtudiants = New System.Windows.Forms.Label()
+        Me.flpStats = New System.Windows.Forms.FlowLayoutPanel()
         Me.pnlSidebar.SuspendLayout()
         Me.pnlLogo.SuspendLayout()
         Me.pnlTopBar.SuspendLayout()
         Me.pnlContenu.SuspendLayout()
         CType(Me.dgvDerniersSaisies, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.flpStats.SuspendLayout()
-        Me.pnlStatEtudiants.SuspendLayout()
-        Me.pnlStatMatieres.SuspendLayout()
-        Me.pnlStatNotes.SuspendLayout()
         Me.pnlStatBulletins.SuspendLayout()
+        Me.pnlStatNotes.SuspendLayout()
+        Me.pnlStatMatieres.SuspendLayout()
+        Me.pnlStatEtudiants.SuspendLayout()
+        Me.flpStats.SuspendLayout()
         Me.SuspendLayout()
         '
         'pnlSidebar
@@ -367,8 +367,8 @@ Partial Class FormPrincipal
         'pnlContenu
         '
         Me.pnlContenu.BackColor = System.Drawing.Color.Transparent
-        Me.pnlContenu.Controls.Add(Me.dgvDerniersSaisies)
         Me.pnlContenu.Controls.Add(Me.flpStats)
+        Me.pnlContenu.Controls.Add(Me.dgvDerniersSaisies)
         Me.pnlContenu.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pnlContenu.Location = New System.Drawing.Point(198, 44)
         Me.pnlContenu.Name = "pnlContenu"
@@ -396,87 +396,39 @@ Partial Class FormPrincipal
         Me.dgvDerniersSaisies.Size = New System.Drawing.Size(710, 200)
         Me.dgvDerniersSaisies.TabIndex = 1
         '
-        'flpStats
+        'pnlStatBulletins
         '
-        Me.flpStats.Controls.Add(Me.pnlStatEtudiants)
-        Me.flpStats.Controls.Add(Me.pnlStatMatieres)
-        Me.flpStats.Controls.Add(Me.pnlStatNotes)
-        Me.flpStats.Controls.Add(Me.pnlStatBulletins)
-        Me.flpStats.Dock = System.Windows.Forms.DockStyle.Top
-        Me.flpStats.Location = New System.Drawing.Point(14, 14)
-        Me.flpStats.Name = "flpStats"
-        Me.flpStats.Padding = New System.Windows.Forms.Padding(10)
-        Me.flpStats.Size = New System.Drawing.Size(950, 90)
-        Me.flpStats.TabIndex = 0
-        Me.flpStats.WrapContents = False
+        Me.pnlStatBulletins.BackColor = System.Drawing.Color.White
+        Me.pnlStatBulletins.Controls.Add(Me.lblLibBulletins)
+        Me.pnlStatBulletins.Controls.Add(Me.lblValBulletins)
+        Me.pnlStatBulletins.Location = New System.Drawing.Point(550, 10)
+        Me.pnlStatBulletins.Margin = New System.Windows.Forms.Padding(0, 0, 10, 0)
+        Me.pnlStatBulletins.Name = "pnlStatBulletins"
+        Me.pnlStatBulletins.Padding = New System.Windows.Forms.Padding(10)
+        Me.pnlStatBulletins.Size = New System.Drawing.Size(170, 70)
+        Me.pnlStatBulletins.TabIndex = 3
         '
-        'pnlStatEtudiants
+        'lblValBulletins
         '
-        Me.pnlStatEtudiants.BackColor = System.Drawing.Color.White
-        Me.pnlStatEtudiants.Controls.Add(Me.lblLibEtudiants)
-        Me.pnlStatEtudiants.Controls.Add(Me.lblValEtudiants)
-        Me.pnlStatEtudiants.Location = New System.Drawing.Point(10, 10)
-        Me.pnlStatEtudiants.Margin = New System.Windows.Forms.Padding(0, 0, 10, 0)
-        Me.pnlStatEtudiants.Name = "pnlStatEtudiants"
-        Me.pnlStatEtudiants.Padding = New System.Windows.Forms.Padding(10)
-        Me.pnlStatEtudiants.Size = New System.Drawing.Size(170, 70)
-        Me.pnlStatEtudiants.TabIndex = 0
+        Me.lblValBulletins.AutoSize = True
+        Me.lblValBulletins.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblValBulletins.ForeColor = System.Drawing.Color.FromArgb(CType(CType(12, Byte), Integer), CType(CType(68, Byte), Integer), CType(CType(124, Byte), Integer))
+        Me.lblValBulletins.Location = New System.Drawing.Point(10, 10)
+        Me.lblValBulletins.Name = "lblValBulletins"
+        Me.lblValBulletins.Size = New System.Drawing.Size(28, 32)
+        Me.lblValBulletins.TabIndex = 1
+        Me.lblValBulletins.Text = "0"
         '
-        'lblLibEtudiants
+        'lblLibBulletins
         '
-        Me.lblLibEtudiants.AutoSize = True
-        Me.lblLibEtudiants.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblLibEtudiants.ForeColor = System.Drawing.Color.FromArgb(CType(CType(136, Byte), Integer), CType(CType(135, Byte), Integer), CType(CType(128, Byte), Integer))
-        Me.lblLibEtudiants.Location = New System.Drawing.Point(10, 42)
-        Me.lblLibEtudiants.Name = "lblLibEtudiants"
-        Me.lblLibEtudiants.Size = New System.Drawing.Size(56, 13)
-        Me.lblLibEtudiants.TabIndex = 2
-        Me.lblLibEtudiants.Text = "Étudiants"
-        '
-        'lblValEtudiants
-        '
-        Me.lblValEtudiants.AutoSize = True
-        Me.lblValEtudiants.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblValEtudiants.ForeColor = System.Drawing.Color.FromArgb(CType(CType(12, Byte), Integer), CType(CType(68, Byte), Integer), CType(CType(124, Byte), Integer))
-        Me.lblValEtudiants.Location = New System.Drawing.Point(10, 10)
-        Me.lblValEtudiants.Name = "lblValEtudiants"
-        Me.lblValEtudiants.Size = New System.Drawing.Size(28, 32)
-        Me.lblValEtudiants.TabIndex = 1
-        Me.lblValEtudiants.Text = "0"
-        '
-        'pnlStatMatieres
-        '
-        Me.pnlStatMatieres.BackColor = System.Drawing.Color.White
-        Me.pnlStatMatieres.Controls.Add(Me.lblLibMatieres)
-        Me.pnlStatMatieres.Controls.Add(Me.lblValMatieres)
-        Me.pnlStatMatieres.Location = New System.Drawing.Point(190, 10)
-        Me.pnlStatMatieres.Margin = New System.Windows.Forms.Padding(0, 0, 10, 0)
-        Me.pnlStatMatieres.Name = "pnlStatMatieres"
-        Me.pnlStatMatieres.Padding = New System.Windows.Forms.Padding(10)
-        Me.pnlStatMatieres.Size = New System.Drawing.Size(170, 70)
-        Me.pnlStatMatieres.TabIndex = 1
-        '
-        'lblLibMatieres
-        '
-        Me.lblLibMatieres.AutoSize = True
-        Me.lblLibMatieres.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblLibMatieres.ForeColor = System.Drawing.Color.FromArgb(CType(CType(136, Byte), Integer), CType(CType(135, Byte), Integer), CType(CType(128, Byte), Integer))
-        Me.lblLibMatieres.Location = New System.Drawing.Point(12, 42)
-        Me.lblLibMatieres.Name = "lblLibMatieres"
-        Me.lblLibMatieres.Size = New System.Drawing.Size(51, 13)
-        Me.lblLibMatieres.TabIndex = 2
-        Me.lblLibMatieres.Text = "Matières"
-        '
-        'lblValMatieres
-        '
-        Me.lblValMatieres.AutoSize = True
-        Me.lblValMatieres.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblValMatieres.ForeColor = System.Drawing.Color.FromArgb(CType(CType(12, Byte), Integer), CType(CType(68, Byte), Integer), CType(CType(124, Byte), Integer))
-        Me.lblValMatieres.Location = New System.Drawing.Point(10, 10)
-        Me.lblValMatieres.Name = "lblValMatieres"
-        Me.lblValMatieres.Size = New System.Drawing.Size(28, 32)
-        Me.lblValMatieres.TabIndex = 1
-        Me.lblValMatieres.Text = "0"
+        Me.lblLibBulletins.AutoSize = True
+        Me.lblLibBulletins.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblLibBulletins.ForeColor = System.Drawing.Color.FromArgb(CType(CType(136, Byte), Integer), CType(CType(135, Byte), Integer), CType(CType(128, Byte), Integer))
+        Me.lblLibBulletins.Location = New System.Drawing.Point(10, 42)
+        Me.lblLibBulletins.Name = "lblLibBulletins"
+        Me.lblLibBulletins.Size = New System.Drawing.Size(44, 13)
+        Me.lblLibBulletins.TabIndex = 2
+        Me.lblLibBulletins.Text = "Classes"
         '
         'pnlStatNotes
         '
@@ -490,6 +442,17 @@ Partial Class FormPrincipal
         Me.pnlStatNotes.Size = New System.Drawing.Size(170, 70)
         Me.pnlStatNotes.TabIndex = 2
         '
+        'lblValNotes
+        '
+        Me.lblValNotes.AutoSize = True
+        Me.lblValNotes.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblValNotes.ForeColor = System.Drawing.Color.FromArgb(CType(CType(12, Byte), Integer), CType(CType(68, Byte), Integer), CType(CType(124, Byte), Integer))
+        Me.lblValNotes.Location = New System.Drawing.Point(10, 10)
+        Me.lblValNotes.Name = "lblValNotes"
+        Me.lblValNotes.Size = New System.Drawing.Size(28, 32)
+        Me.lblValNotes.TabIndex = 1
+        Me.lblValNotes.Text = "0"
+        '
         'lblLibNotes
         '
         Me.lblLibNotes.AutoSize = True
@@ -501,50 +464,87 @@ Partial Class FormPrincipal
         Me.lblLibNotes.TabIndex = 2
         Me.lblLibNotes.Text = "Notes saisies"
         '
-        'lblValNotes
+        'pnlStatMatieres
         '
-        Me.lblValNotes.AutoSize = True
-        Me.lblValNotes.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblValNotes.ForeColor = System.Drawing.Color.FromArgb(CType(CType(12, Byte), Integer), CType(CType(68, Byte), Integer), CType(CType(124, Byte), Integer))
-        Me.lblValNotes.Location = New System.Drawing.Point(10, 10)
-        Me.lblValNotes.Name = "lblValNotes"
-        Me.lblValNotes.Size = New System.Drawing.Size(49, 32)
-        Me.lblValNotes.TabIndex = 1
-        Me.lblValNotes.Text = "0%"
+        Me.pnlStatMatieres.BackColor = System.Drawing.Color.White
+        Me.pnlStatMatieres.Controls.Add(Me.lblLibMatieres)
+        Me.pnlStatMatieres.Controls.Add(Me.lblValMatieres)
+        Me.pnlStatMatieres.Location = New System.Drawing.Point(190, 10)
+        Me.pnlStatMatieres.Margin = New System.Windows.Forms.Padding(0, 0, 10, 0)
+        Me.pnlStatMatieres.Name = "pnlStatMatieres"
+        Me.pnlStatMatieres.Padding = New System.Windows.Forms.Padding(10)
+        Me.pnlStatMatieres.Size = New System.Drawing.Size(170, 70)
+        Me.pnlStatMatieres.TabIndex = 1
         '
-        'pnlStatBulletins
+        'lblValMatieres
         '
-        Me.pnlStatBulletins.BackColor = System.Drawing.Color.White
-        Me.pnlStatBulletins.Controls.Add(Me.lblLibBulletins)
-        Me.pnlStatBulletins.Controls.Add(Me.lblValBulletins)
-        Me.pnlStatBulletins.Location = New System.Drawing.Point(550, 10)
-        Me.pnlStatBulletins.Margin = New System.Windows.Forms.Padding(0, 0, 10, 0)
-        Me.pnlStatBulletins.Name = "pnlStatBulletins"
-        Me.pnlStatBulletins.Padding = New System.Windows.Forms.Padding(10)
-        Me.pnlStatBulletins.Size = New System.Drawing.Size(170, 70)
-        Me.pnlStatBulletins.TabIndex = 3
+        Me.lblValMatieres.AutoSize = True
+        Me.lblValMatieres.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblValMatieres.ForeColor = System.Drawing.Color.FromArgb(CType(CType(12, Byte), Integer), CType(CType(68, Byte), Integer), CType(CType(124, Byte), Integer))
+        Me.lblValMatieres.Location = New System.Drawing.Point(10, 10)
+        Me.lblValMatieres.Name = "lblValMatieres"
+        Me.lblValMatieres.Size = New System.Drawing.Size(28, 32)
+        Me.lblValMatieres.TabIndex = 1
+        Me.lblValMatieres.Text = "0"
         '
-        'lblLibBulletins
+        'lblLibMatieres
         '
-        Me.lblLibBulletins.AutoSize = True
-        Me.lblLibBulletins.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblLibBulletins.ForeColor = System.Drawing.Color.FromArgb(CType(CType(136, Byte), Integer), CType(CType(135, Byte), Integer), CType(CType(128, Byte), Integer))
-        Me.lblLibBulletins.Location = New System.Drawing.Point(10, 42)
-        Me.lblLibBulletins.Name = "lblLibBulletins"
-        Me.lblLibBulletins.Size = New System.Drawing.Size(51, 13)
-        Me.lblLibBulletins.TabIndex = 2
-        Me.lblLibBulletins.Text = "Bulletins"
+        Me.lblLibMatieres.AutoSize = True
+        Me.lblLibMatieres.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblLibMatieres.ForeColor = System.Drawing.Color.FromArgb(CType(CType(136, Byte), Integer), CType(CType(135, Byte), Integer), CType(CType(128, Byte), Integer))
+        Me.lblLibMatieres.Location = New System.Drawing.Point(12, 42)
+        Me.lblLibMatieres.Name = "lblLibMatieres"
+        Me.lblLibMatieres.Size = New System.Drawing.Size(51, 13)
+        Me.lblLibMatieres.TabIndex = 2
+        Me.lblLibMatieres.Text = "Matières"
         '
-        'lblValBulletins
+        'pnlStatEtudiants
         '
-        Me.lblValBulletins.AutoSize = True
-        Me.lblValBulletins.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblValBulletins.ForeColor = System.Drawing.Color.FromArgb(CType(CType(12, Byte), Integer), CType(CType(68, Byte), Integer), CType(CType(124, Byte), Integer))
-        Me.lblValBulletins.Location = New System.Drawing.Point(10, 10)
-        Me.lblValBulletins.Name = "lblValBulletins"
-        Me.lblValBulletins.Size = New System.Drawing.Size(28, 32)
-        Me.lblValBulletins.TabIndex = 1
-        Me.lblValBulletins.Text = "0"
+        Me.pnlStatEtudiants.BackColor = System.Drawing.Color.White
+        Me.pnlStatEtudiants.Controls.Add(Me.lblLibEtudiants)
+        Me.pnlStatEtudiants.Controls.Add(Me.lblValEtudiants)
+        Me.pnlStatEtudiants.Location = New System.Drawing.Point(10, 10)
+        Me.pnlStatEtudiants.Margin = New System.Windows.Forms.Padding(0, 0, 10, 0)
+        Me.pnlStatEtudiants.Name = "pnlStatEtudiants"
+        Me.pnlStatEtudiants.Padding = New System.Windows.Forms.Padding(10)
+        Me.pnlStatEtudiants.Size = New System.Drawing.Size(170, 70)
+        Me.pnlStatEtudiants.TabIndex = 0
+        '
+        'lblValEtudiants
+        '
+        Me.lblValEtudiants.AutoSize = True
+        Me.lblValEtudiants.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblValEtudiants.ForeColor = System.Drawing.Color.FromArgb(CType(CType(12, Byte), Integer), CType(CType(68, Byte), Integer), CType(CType(124, Byte), Integer))
+        Me.lblValEtudiants.Location = New System.Drawing.Point(10, 10)
+        Me.lblValEtudiants.Name = "lblValEtudiants"
+        Me.lblValEtudiants.Size = New System.Drawing.Size(28, 32)
+        Me.lblValEtudiants.TabIndex = 1
+        Me.lblValEtudiants.Text = "0"
+        '
+        'lblLibEtudiants
+        '
+        Me.lblLibEtudiants.AutoSize = True
+        Me.lblLibEtudiants.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblLibEtudiants.ForeColor = System.Drawing.Color.FromArgb(CType(CType(136, Byte), Integer), CType(CType(135, Byte), Integer), CType(CType(128, Byte), Integer))
+        Me.lblLibEtudiants.Location = New System.Drawing.Point(10, 42)
+        Me.lblLibEtudiants.Name = "lblLibEtudiants"
+        Me.lblLibEtudiants.Size = New System.Drawing.Size(56, 13)
+        Me.lblLibEtudiants.TabIndex = 2
+        Me.lblLibEtudiants.Text = "Étudiants"
+        '
+        'flpStats
+        '
+        Me.flpStats.Controls.Add(Me.pnlStatEtudiants)
+        Me.flpStats.Controls.Add(Me.pnlStatMatieres)
+        Me.flpStats.Controls.Add(Me.pnlStatNotes)
+        Me.flpStats.Controls.Add(Me.pnlStatBulletins)
+        Me.flpStats.Dock = System.Windows.Forms.DockStyle.Top
+        Me.flpStats.Location = New System.Drawing.Point(14, 14)
+        Me.flpStats.Name = "flpStats"
+        Me.flpStats.Padding = New System.Windows.Forms.Padding(10)
+        Me.flpStats.Size = New System.Drawing.Size(950, 90)
+        Me.flpStats.TabIndex = 4
+        Me.flpStats.WrapContents = False
         '
         'FormPrincipal
         '
@@ -572,15 +572,15 @@ Partial Class FormPrincipal
         Me.pnlTopBar.PerformLayout()
         Me.pnlContenu.ResumeLayout(False)
         CType(Me.dgvDerniersSaisies, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.flpStats.ResumeLayout(False)
-        Me.pnlStatEtudiants.ResumeLayout(False)
-        Me.pnlStatEtudiants.PerformLayout()
-        Me.pnlStatMatieres.ResumeLayout(False)
-        Me.pnlStatMatieres.PerformLayout()
-        Me.pnlStatNotes.ResumeLayout(False)
-        Me.pnlStatNotes.PerformLayout()
         Me.pnlStatBulletins.ResumeLayout(False)
         Me.pnlStatBulletins.PerformLayout()
+        Me.pnlStatNotes.ResumeLayout(False)
+        Me.pnlStatNotes.PerformLayout()
+        Me.pnlStatMatieres.ResumeLayout(False)
+        Me.pnlStatMatieres.PerformLayout()
+        Me.pnlStatEtudiants.ResumeLayout(False)
+        Me.pnlStatEtudiants.PerformLayout()
+        Me.flpStats.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -610,10 +610,11 @@ Partial Class FormPrincipal
     Friend WithEvents lblPageTitle As Label
     Friend WithEvents lblInfoConnexion As Label
     Friend WithEvents pnlContenu As Panel
+    Friend WithEvents dgvDerniersSaisies As DataGridView
     Friend WithEvents flpStats As FlowLayoutPanel
     Friend WithEvents pnlStatEtudiants As Panel
-    Friend WithEvents lblValEtudiants As Label
     Friend WithEvents lblLibEtudiants As Label
+    Friend WithEvents lblValEtudiants As Label
     Friend WithEvents pnlStatMatieres As Panel
     Friend WithEvents lblLibMatieres As Label
     Friend WithEvents lblValMatieres As Label
@@ -623,5 +624,4 @@ Partial Class FormPrincipal
     Friend WithEvents pnlStatBulletins As Panel
     Friend WithEvents lblLibBulletins As Label
     Friend WithEvents lblValBulletins As Label
-    Friend WithEvents dgvDerniersSaisies As DataGridView
 End Class
