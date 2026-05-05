@@ -35,7 +35,7 @@ Partial Class FormParametres
         Me.pnlDroit = New System.Windows.Forms.Panel()
         Me.pnlInstitut = New System.Windows.Forms.Panel()
         Me.btnSauverInstitut = New System.Windows.Forms.Button()
-        Me.txtAnneeScolaire = New System.Windows.Forms.TextBox()
+        Me.txtAnneeScolaireParam = New System.Windows.Forms.TextBox()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.txtAdresseInstitut = New System.Windows.Forms.TextBox()
         Me.Label10 = New System.Windows.Forms.Label()
@@ -49,7 +49,7 @@ Partial Class FormParametres
         Me.btnSupprimerUser = New System.Windows.Forms.Button()
         Me.txtMdpUser = New System.Windows.Forms.TextBox()
         Me.Label6 = New System.Windows.Forms.Label()
-        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
+        Me.cmbRoleUser = New System.Windows.Forms.ComboBox()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.txtLoginUser = New System.Windows.Forms.TextBox()
         Me.Label4 = New System.Windows.Forms.Label()
@@ -175,7 +175,7 @@ Partial Class FormParametres
         Me.pnlInstitut.BackColor = System.Drawing.Color.White
         Me.pnlInstitut.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.pnlInstitut.Controls.Add(Me.btnSauverInstitut)
-        Me.pnlInstitut.Controls.Add(Me.txtAnneeScolaire)
+        Me.pnlInstitut.Controls.Add(Me.txtAnneeScolaireParam)
         Me.pnlInstitut.Controls.Add(Me.Label11)
         Me.pnlInstitut.Controls.Add(Me.txtAdresseInstitut)
         Me.pnlInstitut.Controls.Add(Me.Label10)
@@ -201,12 +201,12 @@ Partial Class FormParametres
         Me.btnSauverInstitut.Text = "Enregistrer"
         Me.btnSauverInstitut.UseVisualStyleBackColor = False
         '
-        'txtAnneeScolaire
+        'txtAnneeScolaireParam
         '
-        Me.txtAnneeScolaire.Location = New System.Drawing.Point(16, 146)
-        Me.txtAnneeScolaire.Name = "txtAnneeScolaire"
-        Me.txtAnneeScolaire.Size = New System.Drawing.Size(360, 23)
-        Me.txtAnneeScolaire.TabIndex = 6
+        Me.txtAnneeScolaireParam.Location = New System.Drawing.Point(16, 146)
+        Me.txtAnneeScolaireParam.Name = "txtAnneeScolaireParam"
+        Me.txtAnneeScolaireParam.Size = New System.Drawing.Size(360, 23)
+        Me.txtAnneeScolaireParam.TabIndex = 6
         '
         'Label11
         '
@@ -270,7 +270,7 @@ Partial Class FormParametres
         Me.pnlFicheUser.Controls.Add(Me.btnSupprimerUser)
         Me.pnlFicheUser.Controls.Add(Me.txtMdpUser)
         Me.pnlFicheUser.Controls.Add(Me.Label6)
-        Me.pnlFicheUser.Controls.Add(Me.ComboBox1)
+        Me.pnlFicheUser.Controls.Add(Me.cmbRoleUser)
         Me.pnlFicheUser.Controls.Add(Me.Label5)
         Me.pnlFicheUser.Controls.Add(Me.txtLoginUser)
         Me.pnlFicheUser.Controls.Add(Me.Label4)
@@ -341,15 +341,15 @@ Partial Class FormParametres
         Me.Label6.TabIndex = 5
         Me.Label6.Text = "Nouveau mot de passe"
         '
-        'ComboBox1
+        'cmbRoleUser
         '
-        Me.ComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.ComboBox1.FormattingEnabled = True
-        Me.ComboBox1.Items.AddRange(New Object() {"Administrateur", "Secrétaire"})
-        Me.ComboBox1.Location = New System.Drawing.Point(13, 97)
-        Me.ComboBox1.Name = "ComboBox1"
-        Me.ComboBox1.Size = New System.Drawing.Size(360, 23)
-        Me.ComboBox1.TabIndex = 4
+        Me.cmbRoleUser.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbRoleUser.FormattingEnabled = True
+        Me.cmbRoleUser.Items.AddRange(New Object() {"Administrateur", "Secrétaire"})
+        Me.cmbRoleUser.Location = New System.Drawing.Point(13, 97)
+        Me.cmbRoleUser.Name = "cmbRoleUser"
+        Me.cmbRoleUser.Size = New System.Drawing.Size(360, 23)
+        Me.cmbRoleUser.TabIndex = 4
         '
         'Label5
         '
@@ -434,7 +434,7 @@ Partial Class FormParametres
     Friend WithEvents txtLoginUser As TextBox
     Friend WithEvents Label4 As Label
     Friend WithEvents Label6 As Label
-    Friend WithEvents ComboBox1 As ComboBox
+    Friend WithEvents cmbRoleUser As ComboBox
     Friend WithEvents txtMdpConfirm As TextBox
     Friend WithEvents Label7 As Label
     Friend WithEvents txtMdpUser As TextBox
@@ -448,5 +448,5 @@ Partial Class FormParametres
     Friend WithEvents Label9 As Label
     Friend WithEvents Label11 As Label
     Friend WithEvents btnSauverInstitut As Button
-    Friend WithEvents txtAnneeScolaire As TextBox
+    Friend WithEvents txtAnneeScolaireParam As TextBox
 End Class

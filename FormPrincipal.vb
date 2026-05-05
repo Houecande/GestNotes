@@ -162,4 +162,7 @@
         End If
     End Sub
 
+    Private Sub lblInfoConnexion_Click(sender As Object, e As EventArgs) Handles lblInfoConnexion.Click
+
+    End Sub
 End Class

@@ -100,7 +100,7 @@ Partial Class FormPrincipal
         Me.pnlSidebar.Dock = System.Windows.Forms.DockStyle.Left
         Me.pnlSidebar.Location = New System.Drawing.Point(0, 0)
         Me.pnlSidebar.Name = "pnlSidebar"
-        Me.pnlSidebar.Size = New System.Drawing.Size(210, 705)
+        Me.pnlSidebar.Size = New System.Drawing.Size(198, 705)
         Me.pnlSidebar.TabIndex = 0
         '
         'btnDeconnexion
@@ -111,7 +111,7 @@ Partial Class FormPrincipal
         Me.btnDeconnexion.ForeColor = System.Drawing.Color.FromArgb(CType(CType(133, Byte), Integer), CType(CType(183, Byte), Integer), CType(CType(235, Byte), Integer))
         Me.btnDeconnexion.Location = New System.Drawing.Point(0, 669)
         Me.btnDeconnexion.Name = "btnDeconnexion"
-        Me.btnDeconnexion.Size = New System.Drawing.Size(210, 36)
+        Me.btnDeconnexion.Size = New System.Drawing.Size(198, 36)
         Me.btnDeconnexion.TabIndex = 16
         Me.btnDeconnexion.Text = "↩  Deconnexion"
         Me.btnDeconnexion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -334,9 +334,9 @@ Partial Class FormPrincipal
         Me.pnlTopBar.Controls.Add(Me.lblInfoConnexion)
         Me.pnlTopBar.Controls.Add(Me.lblPageTitle)
         Me.pnlTopBar.Dock = System.Windows.Forms.DockStyle.Top
-        Me.pnlTopBar.Location = New System.Drawing.Point(210, 0)
+        Me.pnlTopBar.Location = New System.Drawing.Point(198, 0)
         Me.pnlTopBar.Name = "pnlTopBar"
-        Me.pnlTopBar.Size = New System.Drawing.Size(966, 44)
+        Me.pnlTopBar.Size = New System.Drawing.Size(978, 44)
         Me.pnlTopBar.TabIndex = 1
         '
         'lblInfoConnexion
@@ -345,7 +345,7 @@ Partial Class FormPrincipal
         Me.lblInfoConnexion.Dock = System.Windows.Forms.DockStyle.Right
         Me.lblInfoConnexion.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblInfoConnexion.ForeColor = System.Drawing.Color.FromArgb(CType(CType(136, Byte), Integer), CType(CType(135, Byte), Integer), CType(CType(128, Byte), Integer))
-        Me.lblInfoConnexion.Location = New System.Drawing.Point(813, 0)
+        Me.lblInfoConnexion.Location = New System.Drawing.Point(825, 0)
         Me.lblInfoConnexion.Name = "lblInfoConnexion"
         Me.lblInfoConnexion.Padding = New System.Windows.Forms.Padding(0, 0, 12, 0)
         Me.lblInfoConnexion.Size = New System.Drawing.Size(153, 13)
@@ -370,10 +370,10 @@ Partial Class FormPrincipal
         Me.pnlContenu.Controls.Add(Me.dgvDerniersSaisies)
         Me.pnlContenu.Controls.Add(Me.flpStats)
         Me.pnlContenu.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.pnlContenu.Location = New System.Drawing.Point(210, 44)
+        Me.pnlContenu.Location = New System.Drawing.Point(198, 44)
         Me.pnlContenu.Name = "pnlContenu"
         Me.pnlContenu.Padding = New System.Windows.Forms.Padding(14)
-        Me.pnlContenu.Size = New System.Drawing.Size(966, 661)
+        Me.pnlContenu.Size = New System.Drawing.Size(978, 661)
         Me.pnlContenu.TabIndex = 2
         '
         'dgvDerniersSaisies
@@ -406,7 +406,7 @@ Partial Class FormPrincipal
         Me.flpStats.Location = New System.Drawing.Point(14, 14)
         Me.flpStats.Name = "flpStats"
         Me.flpStats.Padding = New System.Windows.Forms.Padding(10)
-        Me.flpStats.Size = New System.Drawing.Size(938, 90)
+        Me.flpStats.Size = New System.Drawing.Size(950, 90)
         Me.flpStats.TabIndex = 0
         Me.flpStats.WrapContents = False
         '
