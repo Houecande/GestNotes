@@ -70,7 +70,7 @@ Partial Class FormParametres
         Me.pnlToolbar.Dock = System.Windows.Forms.DockStyle.Top
         Me.pnlToolbar.Location = New System.Drawing.Point(0, 0)
         Me.pnlToolbar.Name = "pnlToolbar"
-        Me.pnlToolbar.Size = New System.Drawing.Size(670, 44)
+        Me.pnlToolbar.Size = New System.Drawing.Size(677, 44)
         Me.pnlToolbar.TabIndex = 0
         '
         'btnNouvelUser
@@ -80,7 +80,7 @@ Partial Class FormParametres
         Me.btnNouvelUser.FlatAppearance.BorderSize = 0
         Me.btnNouvelUser.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnNouvelUser.ForeColor = System.Drawing.Color.White
-        Me.btnNouvelUser.Location = New System.Drawing.Point(509, 8)
+        Me.btnNouvelUser.Location = New System.Drawing.Point(516, 8)
         Me.btnNouvelUser.Name = "btnNouvelUser"
         Me.btnNouvelUser.Size = New System.Drawing.Size(150, 28)
         Me.btnNouvelUser.TabIndex = 1
@@ -167,7 +167,7 @@ Partial Class FormParametres
         Me.pnlDroit.Location = New System.Drawing.Point(260, 44)
         Me.pnlDroit.Name = "pnlDroit"
         Me.pnlDroit.Padding = New System.Windows.Forms.Padding(10)
-        Me.pnlDroit.Size = New System.Drawing.Size(410, 502)
+        Me.pnlDroit.Size = New System.Drawing.Size(417, 502)
         Me.pnlDroit.TabIndex = 2
         '
         'pnlInstitut
@@ -185,7 +185,7 @@ Partial Class FormParametres
         Me.pnlInstitut.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pnlInstitut.Location = New System.Drawing.Point(10, 273)
         Me.pnlInstitut.Name = "pnlInstitut"
-        Me.pnlInstitut.Size = New System.Drawing.Size(390, 219)
+        Me.pnlInstitut.Size = New System.Drawing.Size(397, 219)
         Me.pnlInstitut.TabIndex = 3
         '
         'btnSauverInstitut
@@ -278,7 +278,7 @@ Partial Class FormParametres
         Me.pnlFicheUser.Dock = System.Windows.Forms.DockStyle.Top
         Me.pnlFicheUser.Location = New System.Drawing.Point(10, 10)
         Me.pnlFicheUser.Name = "pnlFicheUser"
-        Me.pnlFicheUser.Size = New System.Drawing.Size(390, 263)
+        Me.pnlFicheUser.Size = New System.Drawing.Size(397, 263)
         Me.pnlFicheUser.TabIndex = 0
         '
         'txtMdpConfirm
@@ -393,7 +393,7 @@ Partial Class FormParametres
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(240, Byte), Integer), CType(CType(244, Byte), Integer), CType(CType(248, Byte), Integer))
-        Me.ClientSize = New System.Drawing.Size(670, 546)
+        Me.ClientSize = New System.Drawing.Size(677, 546)
         Me.Controls.Add(Me.pnlDroit)
         Me.Controls.Add(Me.pnlGauche)
         Me.Controls.Add(Me.pnlToolbar)
