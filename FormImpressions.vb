@@ -19,8 +19,7 @@ Public Class FormImpressions
         cmbPeriode.Items.Add("Semestre 2")
         cmbPeriode.Items.Add("Semestre 3")
         cmbPeriode.Items.Add("Semestre 4")
-        cmbPeriode.Items.Add("Annuel")
-        cmbPeriode.SelectedIndex = 0 ' Par défaut Semestre 1
+        cmbPeriode.SelectedIndex = 0
 
         ChargerComboClasses()
 
@@ -66,7 +65,7 @@ Public Class FormImpressions
 
         Dim estBulletin = (cmbTypeDoc.SelectedIndex = 0)
         cmbEtudiantImp.Visible = estBulletin
-        cmbPeriode.Visible = estBulletin ' La période est principalement requise pour les bulletins
+        cmbPeriode.Visible = estBulletin
 
         wbApercu.DocumentText = PageAccueil()
         btnApercu.Enabled = (cmbClasseImp.SelectedIndex >= 0)
@@ -88,7 +87,7 @@ Public Class FormImpressions
             "SELECT num_matricule, nom_prenom " &
             "FROM Etudiant WHERE code_classe = ? " &
             "ORDER BY nom_prenom",
-            New OleDbParameter("@classe", cmbClasseImp.SelectedItem.ToString()))
+            New OleDbParameter("@classe", OleDbType.VarChar) With {.Value = cmbClasseImp.SelectedItem.ToString()})
 
         For Each row As DataRow In dt.Rows
             cmbEtudiantImp.Items.Add(row("num_matricule").ToString() & " — " & row("nom_prenom").ToString())
@@ -119,7 +118,7 @@ Public Class FormImpressions
         btnExporterPDF.Enabled = True
     End Sub
 
-    ' ── impression Directe (Sans passer par le navigateur externe) ──
+    ' Impression Directe
     Private Sub btnImprimer_Click(sender As Object, e As EventArgs) _
         Handles btnImprimer.Click
 
@@ -128,14 +127,11 @@ Public Class FormImpressions
             Exit Sub
         End If
 
-        ' Sauvegarde des informations en BDD avant impression
         EnregistrerEdition()
-
-        ' Déclenchement de l'impression directe via le composant WebBrowser de l'application
         wbApercu.ShowPrintDialog()
     End Sub
 
-    ' ── Export PDF Amélioré et Fluide ────────────────────────────
+    ' Export PDF 
     Private Sub btnExporterPDF_Click(sender As Object, e As EventArgs) _
         Handles btnExporterPDF.Click
 
@@ -176,13 +172,13 @@ Public Class FormImpressions
             Dim browserPath As String = TrouverNavigateur()
 
             If String.IsNullOrEmpty(browserPath) Then
-                Throw New Exception("Aucun navigateur compatible (Chrome/Edge) n'a été détecté pour l'export automatique.")
+                Throw New Exception("Aucun navigateur compatible (Chrome/Edge) n'a été détecté.")
             End If
 
             Dim tempProfile = Path.Combine(Path.GetTempPath(), "gn_pdf_profile_" & Guid.NewGuid().ToString("N").Substring(0, 6))
             Dim urlHtml = "file:///" & tempHtml.Replace("\", "/")
 
-            ' Arguments optimisés et robustes pour une génération 100% invisible et rapide
+            ' L'argument '--print-to-pdf-no-header' supprime les en-têtes/pieds de page système du navigateur
             Dim args = "--headless=new " &
                        "--disable-gpu " &
                        "--no-sandbox " &
@@ -200,10 +196,16 @@ Public Class FormImpressions
             }
 
             Using proc = Process.Start(psi)
-                proc.WaitForExit(10000) ' Attente max 10 secondes
+                proc.WaitForExit(10000)
             End Using
 
-            ' Nettoyage des dossiers temporaires du profil headless
+            ' Attente de libération du fichier
+            Dim compteurAttente As Integer = 0
+            While compteurAttente < 30 AndAlso (Not File.Exists(pdfOutput) OrElse New FileInfo(pdfOutput).Length < 100)
+                Threading.Thread.Sleep(100)
+                compteurAttente += 1
+            End While
+
             Try
                 If Directory.Exists(tempProfile) Then Directory.Delete(tempProfile, True)
                 If File.Exists(tempHtml) Then File.Delete(tempHtml)
@@ -211,7 +213,6 @@ Public Class FormImpressions
 
             Me.Controls.Remove(lblAttente)
 
-            ' Vérification du succès de l'opération
             If File.Exists(pdfOutput) AndAlso New FileInfo(pdfOutput).Length > 100 Then
                 Dim rep = MsgBox("PDF exporté avec succès !" & vbCrLf & vbCrLf & "Voulez-vous ouvrir le fichier ?",
                                  MsgBoxStyle.YesNo + MsgBoxStyle.Information, "Export Réussi")
@@ -219,48 +220,45 @@ Public Class FormImpressions
                     Process.Start(New ProcessStartInfo(pdfOutput) With {.UseShellExecute = True})
                 End If
             Else
-                MsgBox("Échec de la génération automatique du PDF.", MsgBoxStyle.Critical, "Erreur")
+                MsgBox("Échec de la génération du PDF. Le fichier est vide ou inaccessible.", MsgBoxStyle.Critical, "Erreur")
             End If
 
         Catch ex As Exception
-            Me.Controls.Remove(lblAttente)
+            If Me.Controls.Contains(lblAttente) Then Me.Controls.Remove(lblAttente)
             MsgBox("Erreur lors de l'export PDF : " & vbCrLf & ex.Message, MsgBoxStyle.Critical, "Erreur")
         End Try
     End Sub
 
-    ' ── Enregistrer dans la BDD (Correction complète des types Access) ──
+    ' Enregistrement
     Private Sub EnregistrerEdition()
         Try
             Dim classe = cmbClasseImp.SelectedItem.ToString()
             Dim annee = txtAnneeScolaire.Text
-            Dim dateCourante As String = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss")
 
             If cmbTypeDoc.SelectedIndex = 0 Then
-                ' CAS BULLETIN
                 Dim periodeSelectionnee = cmbPeriode.SelectedItem.ToString()
                 Dim dtEtudiants As DataTable
 
                 If cmbEtudiantImp.SelectedIndex = 0 Then
                     dtEtudiants = ModuleBDD.GetDataTable(
                         "SELECT num_matricule FROM Etudiant WHERE code_classe = ?",
-                        New OleDbParameter("@classe", classe))
+                        New OleDbParameter("@classe", OleDbType.VarChar) With {.Value = classe})
                 Else
                     Dim mat = cmbEtudiantImp.SelectedItem.ToString().Split("—"c)(0).Trim()
                     dtEtudiants = ModuleBDD.GetDataTable(
                         "SELECT num_matricule FROM Etudiant WHERE num_matricule = ?",
-                        New OleDbParameter("@mat", mat))
+                        New OleDbParameter("@mat", OleDbType.VarChar) With {.Value = mat})
                 End If
 
                 For Each row As DataRow In dtEtudiants.Rows
                     Dim matricule = row("num_matricule").ToString()
 
-                    ' Calcul de la moyenne de l'étudiant
                     Dim dtN = ModuleBDD.GetDataTable(
                         "SELECT n.moyenne_matiere, m.coefficient " &
                         "FROM ([Note] n INNER JOIN Matiere m ON n.code_matiere = m.code_matiere) " &
                         "WHERE n.num_matricule = ? AND m.code_classe = ?",
-                        New OleDbParameter("@mat", matricule),
-                        New OleDbParameter("@classe", classe))
+                        New OleDbParameter("@mat", OleDbType.VarChar) With {.Value = matricule},
+                        New OleDbParameter("@classe", OleDbType.VarChar) With {.Value = classe})
 
                     Dim pts As Double = 0
                     Dim coefs As Integer = 0
@@ -275,59 +273,53 @@ Public Class FormImpressions
                     Next
                     Dim moyGen As Double = If(coefs > 0, Math.Round(pts / coefs, 2), 0)
 
-                    ' Vérification de l'existence avec les bons types de données et contraintes de critères
                     Dim existe = CInt(ModuleBDD.GetValeur(
                         "SELECT COUNT(*) FROM Bulletin WHERE num_matricule = ? AND annee_scolaire = ? AND periode = ?",
-                        New OleDbParameter("@mat", matricule),
-                        New OleDbParameter("@annee", annee),
-                        New OleDbParameter("@periode", periodeSelectionnee)))
+                        New OleDbParameter("@mat", OleDbType.VarChar) With {.Value = matricule},
+                        New OleDbParameter("@annee", OleDbType.VarChar) With {.Value = annee},
+                        New OleDbParameter("@periode", OleDbType.VarChar) With {.Value = periodeSelectionnee}))
 
                     If existe > 0 Then
-                        ' Résolution de l'erreur d'écriture de critère en convertissant explicitement les types
                         ModuleBDD.ExecuterRequete(
-                            "UPDATE Bulletin SET moyenne = ? " &
-                            "WHERE num_matricule = ? AND annee_scolaire = ? AND periode = ?",
-                            New OleDbParameter("@moy", moyGen),
-                            New OleDbParameter("@mat", matricule),
-                            New OleDbParameter("@annee", annee),
-                            New OleDbParameter("@periode", periodeSelectionnee))
+                            "UPDATE Bulletin SET moyenne = ? WHERE num_matricule = ? AND annee_scolaire = ? AND periode = ?",
+                            New OleDbParameter("@moy", OleDbType.Double) With {.Value = moyGen},
+                            New OleDbParameter("@mat", OleDbType.VarChar) With {.Value = matricule},
+                            New OleDbParameter("@annee", OleDbType.VarChar) With {.Value = annee},
+                            New OleDbParameter("@periode", OleDbType.VarChar) With {.Value = periodeSelectionnee})
                     Else
                         ModuleBDD.ExecuterRequete(
                             "INSERT INTO Bulletin (num_matricule, periode, annee_scolaire, moyenne) VALUES (?, ?, ?, ?)",
-                            New OleDbParameter("@mat", matricule),
-                            New OleDbParameter("@periode", periodeSelectionnee),
-                            New OleDbParameter("@annee", annee),
-                            New OleDbParameter("@moy", moyGen))
+                            New OleDbParameter("@mat", OleDbType.VarChar) With {.Value = matricule},
+                            New OleDbParameter("@periode", OleDbType.VarChar) With {.Value = periodeSelectionnee},
+                            New OleDbParameter("@annee", OleDbType.VarChar) With {.Value = annee},
+                            New OleDbParameter("@moy", OleDbType.Double) With {.Value = moyGen})
                     End If
                 Next
             Else
-                ' CAS RELEVÉ DE NOTES
                 Dim existe = CInt(ModuleBDD.GetValeur(
                     "SELECT COUNT(*) FROM Releve WHERE code_classe = ? AND annee_scolaire = ?",
-                    New OleDbParameter("@classe", classe),
-                    New OleDbParameter("@annee", annee)))
+                    New OleDbParameter("@classe", OleDbType.VarChar) With {.Value = classe},
+                    New OleDbParameter("@annee", OleDbType.VarChar) With {.Value = annee}))
 
                 If existe > 0 Then
-                    ' Utilisation de CDate() ou passage en objet DateTime pour respecter le type Date/Heure d'Access
                     ModuleBDD.ExecuterRequete(
                         "UPDATE Releve SET date_edition = ? WHERE code_classe = ? AND annee_scolaire = ?",
-                        New OleDbParameter("@date", DateTime.Now),
-                        New OleDbParameter("@classe", classe),
-                        New OleDbParameter("@annee", annee))
+                        New OleDbParameter("@date", OleDbType.Date) With {.Value = DateTime.Now},
+                        New OleDbParameter("@classe", OleDbType.VarChar) With {.Value = classe},
+                        New OleDbParameter("@annee", OleDbType.VarChar) With {.Value = annee})
                 Else
                     ModuleBDD.ExecuterRequete(
                         "INSERT INTO Releve (code_classe, annee_scolaire, date_edition) VALUES (?, ?, ?)",
-                        New OleDbParameter("@classe", classe),
-                        New OleDbParameter("@annee", annee),
-                        New OleDbParameter("@date", DateTime.Now))
+                        New OleDbParameter("@classe", OleDbType.VarChar) With {.Value = classe},
+                        New OleDbParameter("@annee", OleDbType.VarChar) With {.Value = annee},
+                        New OleDbParameter("@date", OleDbType.Date) With {.Value = DateTime.Now})
                 End If
             End If
         Catch ex As Exception
-            ' Décommenter pour débugger au besoin : MsgBox(ex.Message)
         End Try
     End Sub
 
-    ' ── Restant des fonctions de mise en page HTML & CSS (Inchangées mais requises) ──
+    ' Injection du CSS Web 
     Private Function GetCSS() As String
         Return "<style>" &
             "* { box-sizing: border-box; margin: 0; padding: 0; }" &
@@ -363,16 +355,16 @@ Public Class FormImpressions
             ".sig-line { border-top: 1px solid #333; width: 160px; margin: 30px auto 4px; }" &
             ".page-break { page-break-after: always; }" &
             "@media print {" &
-            "@page { margin: 1cm; size: A4; }" &
-            "body { background: white !important; padding: 0; }" &
-            ".bulletin { box-shadow: none !important; }" &
-            ".header { background: #0C447C !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }" &
-            ".doc-title { background: #185FA5 !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }" &
-            ".doc-annee { background: #E6F1FB !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }" &
-            ".moy-tb,.moy-b,.moy-ab,.moy-p,.moy-i { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }" &
-            ".decision-admis,.decision-ajourn { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }" &
-            ".resume { background: #E6F1FB !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }" &
-            "thead tr { background: #185FA5 !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }" &
+            "  @page { size: A4; margin: 0mm; }" &
+            "  body { background: white !important; padding: 10mm 15mm !important; }" &
+            "  .bulletin { box-shadow: none !important; margin: 0 auto !important; width: 100% !important; max-width: 100% !important; }" &
+            "  .header { background: #0C447C !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }" &
+            "  .doc-title { background: #185FA5 !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }" &
+            "  .doc-annee { background: #E6F1FB !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }" &
+            "  .moy-tb,.moy-b,.moy-ab,.moy-p,.moy-i { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }" &
+            "  .decision-admis,.decision-ajourn { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }" &
+            "  .resume { background: #E6F1FB !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }" &
+            "  thead tr { background: #185FA5 !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }" &
             "}" &
             "</style>"
     End Function
@@ -390,12 +382,12 @@ Public Class FormImpressions
         If cmbEtudiantImp.SelectedIndex = 0 Then
             dtEtudiants = ModuleBDD.GetDataTable(
                 "SELECT * FROM Etudiant WHERE code_classe = ? ORDER BY nom_prenom",
-                New OleDbParameter("@classe", classe))
+                New OleDbParameter("@classe", OleDbType.VarChar) With {.Value = classe})
         Else
             Dim mat = cmbEtudiantImp.SelectedItem.ToString().Split("—"c)(0).Trim()
             dtEtudiants = ModuleBDD.GetDataTable(
                 "SELECT * FROM Etudiant WHERE num_matricule = ?",
-                New OleDbParameter("@mat", mat))
+                New OleDbParameter("@mat", OleDbType.VarChar) With {.Value = mat})
         End If
 
         Dim sb As New System.Text.StringBuilder()
@@ -418,7 +410,7 @@ Public Class FormImpressions
                 "SELECT m.libelle_matiere, m.coefficient, n.note_interro, n.note_devoir, n.moyenne_matiere " &
                 "FROM ([Note] n INNER JOIN Matiere m ON n.code_matiere = m.code_matiere) " &
                 "WHERE n.num_matricule = ? ORDER BY m.libelle_matiere",
-                New OleDbParameter("@mat", matricule))
+                New OleDbParameter("@mat", OleDbType.VarChar) With {.Value = matricule})
 
             Dim totalPts As Double = 0
             Dim totalCoefs As Integer = 0
@@ -494,15 +486,19 @@ Public Class FormImpressions
         Dim dtParam = ModuleBDD.GetDataTable("SELECT nom_institut FROM Parametres")
         Dim nomInstitut = If(dtParam.Rows.Count > 0, dtParam.Rows(0)("nom_institut").ToString(), "INSTITUT")
 
-        Dim dtEtudiants = ModuleBDD.GetDataTable("SELECT num_matricule, nom_prenom FROM Etudiant WHERE code_classe = ?", New OleDbParameter("@classe", classe))
+        Dim dtEtudiants = ModuleBDD.GetDataTable(
+            "SELECT num_matricule, nom_prenom FROM Etudiant WHERE code_classe = ?",
+            New OleDbParameter("@classe", OleDbType.VarChar) With {.Value = classe})
 
         Dim liste As New List(Of (String, String, Double))
         For Each row As DataRow In dtEtudiants.Rows
             Dim mat = row("num_matricule").ToString()
             Dim nom = row("nom_prenom").ToString()
+
             Dim dtN = ModuleBDD.GetDataTable(
                 "SELECT n.moyenne_matiere, m.coefficient FROM ([Note] n INNER JOIN Matiere m ON n.code_matiere = m.code_matiere) WHERE n.num_matricule = ? AND m.code_classe = ?",
-                New OleDbParameter("@mat", mat), New OleDbParameter("@classe", classe))
+                New OleDbParameter("@mat", OleDbType.VarChar) With {.Value = mat},
+                New OleDbParameter("@classe", OleDbType.VarChar) With {.Value = classe})
 
             Dim pts As Double = 0 : Dim coefs As Integer = 0
             For Each nr As DataRow In dtN.Rows
@@ -576,13 +572,18 @@ Public Class FormImpressions
 
     Private Function CalculerRang(matricule As String, classe As String) As String
         Try
-            Dim dtEtuds = ModuleBDD.GetDataTable("SELECT num_matricule FROM Etudiant WHERE code_classe = ?", New OleDbParameter("@classe", classe))
+            Dim dtEtuds = ModuleBDD.GetDataTable(
+                "SELECT num_matricule FROM Etudiant WHERE code_classe = ?",
+                New OleDbParameter("@classe", OleDbType.VarChar) With {.Value = classe})
+
             Dim moyennes As New List(Of (String, Double))
             For Each row As DataRow In dtEtuds.Rows
                 Dim mat = row("num_matricule").ToString()
+
                 Dim dtN = ModuleBDD.GetDataTable(
                     "SELECT n.moyenne_matiere, m.coefficient FROM ([Note] n INNER JOIN Matiere m ON n.code_matiere = m.code_matiere) WHERE n.num_matricule = ? AND m.code_classe = ?",
-                    New OleDbParameter("@mat", mat), New OleDbParameter("@classe", classe))
+                    New OleDbParameter("@mat", OleDbType.VarChar) With {.Value = mat},
+                    New OleDbParameter("@classe", OleDbType.VarChar) With {.Value = classe})
 
                 Dim pts As Double = 0 : Dim coefs As Integer = 0
                 For Each nr As DataRow In dtN.Rows
