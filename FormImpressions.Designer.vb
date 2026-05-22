@@ -27,7 +27,6 @@ Partial Class FormImpressions
         Me.cmbTypeDoc = New System.Windows.Forms.ComboBox()
         Me.lblTitre = New System.Windows.Forms.Label()
         Me.pnlFiltres = New System.Windows.Forms.Panel()
-        Me.pnlInfoNote = New System.Windows.Forms.Panel()
         Me.btnExporterPDF = New System.Windows.Forms.Button()
         Me.btnImprimer = New System.Windows.Forms.Button()
         Me.btnApercu = New System.Windows.Forms.Button()
@@ -43,6 +42,8 @@ Partial Class FormImpressions
         Me.lblSectFiltres = New System.Windows.Forms.Label()
         Me.pnlApercu = New System.Windows.Forms.Panel()
         Me.wbApercu = New System.Windows.Forms.WebBrowser()
+        Me.cmbPeriode = New System.Windows.Forms.ComboBox()
+        Me.lblperiode = New System.Windows.Forms.Label()
         Me.pnlToolbar.SuspendLayout()
         Me.pnlFiltres.SuspendLayout()
         Me.pnlApercu.SuspendLayout()
@@ -83,7 +84,8 @@ Partial Class FormImpressions
         'pnlFiltres
         '
         Me.pnlFiltres.BackColor = System.Drawing.Color.White
-        Me.pnlFiltres.Controls.Add(Me.pnlInfoNote)
+        Me.pnlFiltres.Controls.Add(Me.cmbPeriode)
+        Me.pnlFiltres.Controls.Add(Me.lblperiode)
         Me.pnlFiltres.Controls.Add(Me.btnExporterPDF)
         Me.pnlFiltres.Controls.Add(Me.btnImprimer)
         Me.pnlFiltres.Controls.Add(Me.btnApercu)
@@ -104,15 +106,6 @@ Partial Class FormImpressions
         Me.pnlFiltres.Size = New System.Drawing.Size(235, 475)
         Me.pnlFiltres.TabIndex = 1
         '
-        'pnlInfoNote
-        '
-        Me.pnlInfoNote.BackColor = System.Drawing.Color.FromArgb(CType(CType(230, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(251, Byte), Integer))
-        Me.pnlInfoNote.Location = New System.Drawing.Point(12, 370)
-        Me.pnlInfoNote.Name = "pnlInfoNote"
-        Me.pnlInfoNote.Size = New System.Drawing.Size(200, 100)
-        Me.pnlInfoNote.TabIndex = 13
-        Me.pnlInfoNote.Visible = False
-        '
         'btnExporterPDF
         '
         Me.btnExporterPDF.BackColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(119, Byte), Integer), CType(CType(221, Byte), Integer))
@@ -120,7 +113,7 @@ Partial Class FormImpressions
         Me.btnExporterPDF.FlatAppearance.BorderSize = 0
         Me.btnExporterPDF.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnExporterPDF.ForeColor = System.Drawing.Color.White
-        Me.btnExporterPDF.Location = New System.Drawing.Point(12, 308)
+        Me.btnExporterPDF.Location = New System.Drawing.Point(12, 370)
         Me.btnExporterPDF.Name = "btnExporterPDF"
         Me.btnExporterPDF.Size = New System.Drawing.Size(196, 34)
         Me.btnExporterPDF.TabIndex = 12
@@ -134,7 +127,7 @@ Partial Class FormImpressions
         Me.btnImprimer.FlatAppearance.BorderSize = 0
         Me.btnImprimer.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnImprimer.ForeColor = System.Drawing.Color.White
-        Me.btnImprimer.Location = New System.Drawing.Point(12, 268)
+        Me.btnImprimer.Location = New System.Drawing.Point(12, 330)
         Me.btnImprimer.Name = "btnImprimer"
         Me.btnImprimer.Size = New System.Drawing.Size(196, 34)
         Me.btnImprimer.TabIndex = 11
@@ -148,7 +141,7 @@ Partial Class FormImpressions
         Me.btnApercu.FlatAppearance.BorderSize = 0
         Me.btnApercu.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnApercu.ForeColor = System.Drawing.Color.White
-        Me.btnApercu.Location = New System.Drawing.Point(12, 228)
+        Me.btnApercu.Location = New System.Drawing.Point(12, 290)
         Me.btnApercu.Name = "btnApercu"
         Me.btnApercu.Size = New System.Drawing.Size(196, 34)
         Me.btnApercu.TabIndex = 10
@@ -160,7 +153,7 @@ Partial Class FormImpressions
         Me.lblSectActions.AutoSize = True
         Me.lblSectActions.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblSectActions.ForeColor = System.Drawing.Color.FromArgb(CType(CType(12, Byte), Integer), CType(CType(68, Byte), Integer), CType(CType(124, Byte), Integer))
-        Me.lblSectActions.Location = New System.Drawing.Point(12, 200)
+        Me.lblSectActions.Location = New System.Drawing.Point(12, 262)
         Me.lblSectActions.Name = "lblSectActions"
         Me.lblSectActions.Size = New System.Drawing.Size(48, 15)
         Me.lblSectActions.TabIndex = 9
@@ -169,7 +162,7 @@ Partial Class FormImpressions
         'Panel2
         '
         Me.Panel2.BackColor = System.Drawing.Color.FromArgb(CType(CType(230, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(251, Byte), Integer))
-        Me.Panel2.Location = New System.Drawing.Point(12, 218)
+        Me.Panel2.Location = New System.Drawing.Point(12, 280)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(196, 1)
         Me.Panel2.TabIndex = 8
@@ -265,6 +258,24 @@ Partial Class FormImpressions
         Me.wbApercu.Size = New System.Drawing.Size(666, 443)
         Me.wbApercu.TabIndex = 0
         '
+        'cmbPeriode
+        '
+        Me.cmbPeriode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbPeriode.FormattingEnabled = True
+        Me.cmbPeriode.Location = New System.Drawing.Point(13, 225)
+        Me.cmbPeriode.Name = "cmbPeriode"
+        Me.cmbPeriode.Size = New System.Drawing.Size(196, 23)
+        Me.cmbPeriode.TabIndex = 14
+        '
+        'lblperiode
+        '
+        Me.lblperiode.AutoSize = True
+        Me.lblperiode.Location = New System.Drawing.Point(13, 199)
+        Me.lblperiode.Name = "lblperiode"
+        Me.lblperiode.Size = New System.Drawing.Size(47, 15)
+        Me.lblperiode.TabIndex = 13
+        Me.lblperiode.Text = "Periode"
+        '
         'FormImpressions
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
@@ -304,9 +315,10 @@ Partial Class FormImpressions
     Friend WithEvents Label3 As Label
     Friend WithEvents btnApercu As Button
     Friend WithEvents lblSectActions As Label
-    Friend WithEvents pnlInfoNote As Panel
     Friend WithEvents btnExporterPDF As Button
     Friend WithEvents btnImprimer As Button
     Friend WithEvents pnlApercu As Panel
     Friend WithEvents wbApercu As WebBrowser
+    Friend WithEvents cmbPeriode As ComboBox
+    Friend WithEvents lblperiode As Label
 End Class

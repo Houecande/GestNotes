@@ -105,6 +105,7 @@ Partial Class FormPrincipal
         '
         'btnDeconnexion
         '
+        Me.btnDeconnexion.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btnDeconnexion.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.btnDeconnexion.FlatAppearance.BorderSize = 0
         Me.btnDeconnexion.FlatStyle = System.Windows.Forms.FlatStyle.Flat
