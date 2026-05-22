@@ -92,6 +92,7 @@ Partial Class FormClasses
         '
         Me.btnNouvelleMatiere.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnNouvelleMatiere.BackColor = System.Drawing.Color.FromArgb(CType(CType(29, Byte), Integer), CType(CType(158, Byte), Integer), CType(CType(117, Byte), Integer))
+        Me.btnNouvelleMatiere.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btnNouvelleMatiere.FlatAppearance.BorderSize = 0
         Me.btnNouvelleMatiere.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnNouvelleMatiere.ForeColor = System.Drawing.Color.White
@@ -106,6 +107,7 @@ Partial Class FormClasses
         '
         Me.btnNouvelleClasse.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnNouvelleClasse.BackColor = System.Drawing.Color.FromArgb(CType(CType(24, Byte), Integer), CType(CType(95, Byte), Integer), CType(CType(165, Byte), Integer))
+        Me.btnNouvelleClasse.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btnNouvelleClasse.FlatAppearance.BorderSize = 0
         Me.btnNouvelleClasse.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnNouvelleClasse.ForeColor = System.Drawing.Color.White
@@ -164,6 +166,7 @@ Partial Class FormClasses
         'btnEnregistrerClasse
         '
         Me.btnEnregistrerClasse.BackColor = System.Drawing.Color.FromArgb(CType(CType(24, Byte), Integer), CType(CType(95, Byte), Integer), CType(CType(165, Byte), Integer))
+        Me.btnEnregistrerClasse.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btnEnregistrerClasse.FlatAppearance.BorderSize = 0
         Me.btnEnregistrerClasse.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnEnregistrerClasse.ForeColor = System.Drawing.Color.White
@@ -177,6 +180,7 @@ Partial Class FormClasses
         'btnSupprimerClasse
         '
         Me.btnSupprimerClasse.BackColor = System.Drawing.Color.FromArgb(CType(CType(252, Byte), Integer), CType(CType(235, Byte), Integer), CType(CType(235, Byte), Integer))
+        Me.btnSupprimerClasse.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btnSupprimerClasse.FlatAppearance.BorderSize = 0
         Me.btnSupprimerClasse.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnSupprimerClasse.ForeColor = System.Drawing.Color.FromArgb(CType(CType(163, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer))
@@ -337,6 +341,7 @@ Partial Class FormClasses
         'btnEnregistrerMatiere
         '
         Me.btnEnregistrerMatiere.BackColor = System.Drawing.Color.FromArgb(CType(CType(24, Byte), Integer), CType(CType(95, Byte), Integer), CType(CType(165, Byte), Integer))
+        Me.btnEnregistrerMatiere.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btnEnregistrerMatiere.FlatAppearance.BorderSize = 0
         Me.btnEnregistrerMatiere.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnEnregistrerMatiere.ForeColor = System.Drawing.Color.White
@@ -350,6 +355,7 @@ Partial Class FormClasses
         'btnSupprimerMatiere
         '
         Me.btnSupprimerMatiere.BackColor = System.Drawing.Color.FromArgb(CType(CType(252, Byte), Integer), CType(CType(235, Byte), Integer), CType(CType(235, Byte), Integer))
+        Me.btnSupprimerMatiere.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btnSupprimerMatiere.FlatAppearance.BorderSize = 0
         Me.btnSupprimerMatiere.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnSupprimerMatiere.ForeColor = System.Drawing.Color.FromArgb(CType(CType(163, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer))

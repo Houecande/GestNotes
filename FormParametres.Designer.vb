@@ -77,6 +77,7 @@ Partial Class FormParametres
         '
         Me.btnNouvelUser.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnNouvelUser.BackColor = System.Drawing.Color.FromArgb(CType(CType(216, Byte), Integer), CType(CType(90, Byte), Integer), CType(CType(48, Byte), Integer))
+        Me.btnNouvelUser.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btnNouvelUser.FlatAppearance.BorderSize = 0
         Me.btnNouvelUser.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnNouvelUser.ForeColor = System.Drawing.Color.White
@@ -191,6 +192,7 @@ Partial Class FormParametres
         'btnSauverInstitut
         '
         Me.btnSauverInstitut.BackColor = System.Drawing.Color.FromArgb(CType(CType(24, Byte), Integer), CType(CType(95, Byte), Integer), CType(CType(165, Byte), Integer))
+        Me.btnSauverInstitut.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btnSauverInstitut.FlatAppearance.BorderSize = 0
         Me.btnSauverInstitut.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnSauverInstitut.ForeColor = System.Drawing.Color.White
@@ -301,6 +303,7 @@ Partial Class FormParametres
         'btnSauverUser
         '
         Me.btnSauverUser.BackColor = System.Drawing.Color.FromArgb(CType(CType(24, Byte), Integer), CType(CType(95, Byte), Integer), CType(CType(165, Byte), Integer))
+        Me.btnSauverUser.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btnSauverUser.FlatAppearance.BorderSize = 0
         Me.btnSauverUser.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnSauverUser.ForeColor = System.Drawing.Color.White
@@ -314,6 +317,7 @@ Partial Class FormParametres
         'btnSupprimerUser
         '
         Me.btnSupprimerUser.BackColor = System.Drawing.Color.FromArgb(CType(CType(252, Byte), Integer), CType(CType(235, Byte), Integer), CType(CType(235, Byte), Integer))
+        Me.btnSupprimerUser.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btnSupprimerUser.FlatAppearance.BorderSize = 0
         Me.btnSupprimerUser.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnSupprimerUser.ForeColor = System.Drawing.Color.FromArgb(CType(CType(163, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer))
